@@ -1,11 +1,13 @@
-import videoBack from '../assets/background.mp4'
 
-const Backgrounds = () => {
+import PropTypes from 'prop-types';
+const Backgrounds = ({
+  src,className
+}) => {
   return (
-    <div className='w-full h-screen'>
+    <div className={`${className}`}>
           <video 
             className=' w-full h-full object-cover'
-            src={videoBack} 
+            src={src} 
             autoPlay 
             loop 
             muted 
@@ -14,6 +16,13 @@ const Backgrounds = () => {
   )
 }
 
+
+
+Backgrounds.propTypes = {
+  src:PropTypes.any,
+  className:PropTypes.string
+};
+
 export {
-    Backgrounds
+  Backgrounds
 }
