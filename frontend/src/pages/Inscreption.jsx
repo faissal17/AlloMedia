@@ -1,5 +1,5 @@
-import { Login } from "../components/Form/Login.jsx"
-import { Register } from "../components/Form/Register.jsx"
+import { Login } from "../components/Form/Login/Login.jsx"
+import { Register } from "../components/Form/Register/Register.jsx"
 import {  useEffect, useState } from 'react'
 import { ButtonDefault } from "../components/common/Buttons"
 import { Shadow } from "../components/shadow"

@@ -1,8 +1,8 @@
-import {validateConfirmPassword} from '../../helpers/validations'
+import {validateConfirmPassword} from '../../../helpers/validations.js'
 import { useState } from 'react'
-import { validateCredentials } from '../../helpers/validations/register.credentials'
-import {RegisterAPI} from '../../service/query/auth.js'
-import useMutateHook from '../../hooks/useMutations'
+import { validateCredentials } from '../../../helpers/validations/register.credentials.js'
+import {RegisterAPI} from '../../../service/query/auth.js'
+import useMutateHook from '../../../hooks/useMutations.jsx'
 export const RegisterService = () => { 
   const [submet, setSubmet] = useState(false);
   const [register, setRegister] = useState({username: '',email: '',password: '',password_confirmation: ''});

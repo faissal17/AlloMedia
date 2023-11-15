@@ -1,10 +1,10 @@
 import "./login.css";
-import CustomInput from "../common/Input";
+import CustomInput from "../../common/Input";
 import { Link } from "react-router-dom";
-import { FormButton } from "../common/Buttons";
+import { FormButton } from "../../common/Buttons";
 import { Toaster } from "react-hot-toast";
 import { LoginService } from "./login";
-import loginInputs from "../../constants/login";
+import loginInputs from "../../../constants/login";
 //import { validateEmail, validatePassword } from '../../helpers/validations'
 export const Login = () => {
   //react query

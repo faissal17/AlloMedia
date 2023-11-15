@@ -1,10 +1,10 @@
 //import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { validateCredentials  as validationLogin} from '../../helpers/validations/login.credentials'
+import { validateCredentials  as validationLogin} from '../../../helpers/validations/login.credentials.js'
 // import Cookies from 'js-cookie'
 // import toast from 'react-hot-toast'
-import {LoginAPI} from '../../service/query/auth.js'
-import useMutateHook from '../../hooks/useMutations'
+import {LoginAPI} from '../../../service/query/auth.js'
+import useMutateHook from '../../../hooks/useMutations.jsx'
 export const LoginService = () => {
     // const navigate=useNavigate()
     // const queryClient = useQueryClient()

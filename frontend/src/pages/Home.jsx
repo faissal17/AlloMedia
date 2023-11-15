@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { logout } from "../service/api/auth/auth";
-import Navbar from "../layout/Navbar";
-import Section from "../layout/Section";
 import "../../public/css/Home.css";
 
 const Home = () => {
@@ -15,8 +13,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <div className="home-container">
-        <Navbar />
-        <Section />
+        Home Page
       </div>
     </React.Fragment>
   );
