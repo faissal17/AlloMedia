@@ -3,16 +3,16 @@ const validator = require("validator");
 
 const brandSchema = new mongoose.Schema({
   // Other tag-related fields
-  name: {
-    type: String,
-    required: [true, "brand  of product name is required"],
-    unique: [true, "brand  of product name must be unique"],
-    index: true,
-    lowercase: true,
-    trim: true,
-    validator: (value) => {
-         return validator.isAlpha(value.replace(/\s/g, ""));
-    },
+    name: {
+        type: String,
+        required: [true, "brand  of product name is required"],
+        unique: [true, "brand  of product name must be unique"],
+        index: true,
+        lowercase: true,
+        trim: true,
+        validator: (value) => {
+            return validator.isAlpha(value.replace(/\s/g, ""));
+        },
     },
     slug: {
         type: String,
@@ -56,11 +56,17 @@ const brandSchema = new mongoose.Schema({
             return validator.isIn(value, [0,1]);
         }
     },
+    restaurants:[
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Restaurant' 
+        }
+    ],
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
         default:null,
-   },
+    },
     user_updated: {
             type: mongoose.Schema.ObjectId,
             ref: "User",
