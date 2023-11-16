@@ -3,4 +3,5 @@ module.exports = {
   products: [],
   orders: [],
   cuisines: [],
+  categories: [],
 };
