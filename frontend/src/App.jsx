@@ -9,11 +9,15 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
 import { PrivateRoute } from "./routes/privateRoute";
+
 const Home = lazy(() => import("./pages/Home"));
 const Inscreption = lazy(() => import("./pages/Inscreption"));
 import Redirect from "./components/Redirect";
 import Container from "./components/Maps/mapFilter/MapContainer";
 import MapManager from "./components/Maps/mapManager.jsx";
+
+
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -54,8 +58,12 @@ function App() {
             <Route path="/verifyEmail/:token?" element={<VerifyEmail />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="*" element={<NotFound />} />
+
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
+
+            <Route path="/ProductDetails" element={<ProductDetails />} />
+
           </Routes>
         </Suspense>
       </Router>
