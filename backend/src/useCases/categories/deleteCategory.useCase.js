@@ -1,0 +1,14 @@
+const {
+  categoriesRepository,
+} = require("../../frameworks/repositories/inMemory");
+
+module.exports = (dependencies) => {
+  //   const { cuisineRepository } = dependencies;
+  if (!categoriesRepository) {
+    throw new Error("The users repository should be exist in dependancies");
+  }
+  const execute = ({ category }) => {
+    return categoriesRepository.delete(category);
+  };
+  return { execute };
+};

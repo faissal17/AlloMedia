@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const categorySchema = new mongoose.Schema(
+// dsfsdf
+const cuisineSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -36,6 +36,6 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-const Category = mongoose.model("Category", CategorySchema);
+const Cuisine = mongoose.model("Cuisine", cuisineSchema);
 
-module.exports = Category;
+module.exports = Cuisine;
