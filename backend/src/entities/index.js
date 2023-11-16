@@ -2,6 +2,7 @@ const { User, userConstants } = require("./User");
 const { Product } = require("./Product");
 const { Order } = require("./Order");
 const { Cuisine } = require("./Cuisine");
+const { Category } = require("./Category");
 
 module.exports = {
   User,
@@ -11,4 +12,5 @@ module.exports = {
   Product,
   Order,
   Cuisine,
+  Category,
 };

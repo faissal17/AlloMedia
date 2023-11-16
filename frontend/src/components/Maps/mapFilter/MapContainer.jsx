@@ -8,11 +8,29 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Leaflet from "./leafletForm";
-// import LeafletRoutingMachine from "./leafletRoutingMachine";
+import L from "leaflet";
 
 const Container = () => {
   const position = [31.7917, -7.0926];
-  const [directions, setDirections] = useState([]);
+  const [_position, setPosition] = useState(null);
+
+  const handleMapClick = (e) => {
+    console.log(e);
+    setPosition([e.latlng.lat, e.latlng.lng]);
+  };
+
+  useEffect(() => {
+    // Utiliser la fonction de géolocalisation du navigateur
+    navigator.geolocation.getCurrentPosition(
+      (geoLocation) => {
+        const { latitude, longitude } = geoLocation.coords;
+        setPosition([latitude, longitude]);
+      },
+      (error) => {
+        console.error(error.message);
+      }
+    );
+  }, []);
   const restaurants = [
     {
       name: "Restaurant 1",
@@ -80,6 +98,7 @@ const Container = () => {
         zoom={6}
         scrollWheelZoom={false}
         style={{ height: "50vh" }}
+        onClick={handleMapClick}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {restaurants.map((restaurant, index) => (
@@ -89,8 +108,19 @@ const Container = () => {
         ))}
 
         <Leaflet />
-
-        {/* <LeafletRoutingMachine /> */}
+        {_position && (
+          <Marker
+            position={_position}
+            icon={L.icon({
+              iconUrl: "src/assets/logoLocalisation.png",
+              iconSize: [35, 41],
+              iconAnchor: [12.5, 41],
+              popupAnchor: [0, -41],
+            })}
+          >
+            <Popup>Tu es ici !</Popup>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );
