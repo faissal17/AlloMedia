@@ -1,15 +1,8 @@
 const { Response} =require('../../frameworks/common')
-
-module.exports=dependencies =>{
-    const {
-        useCases:{
-            product:{
-                deleteProductUseCase
-            }
-        }
-    }=dependencies
-
-    return async (req,res,next)=>{
+const { deleteProductUseCase } = require('../../useCases/products')
+{deleteProductUseCase}
+module.exports=async (req,res) =>{
+    
         try{
             const {body={}}=req 
             const {
@@ -20,8 +13,8 @@ module.exports=dependencies =>{
                 color,
                 meta
             }=body 
-            const deleteProduct=deleteProductUseCase(dependencies)
-            const response=await deleteProduct.execute({
+            const useCaseInstance=deleteProductUseCase()
+            const response=await useCaseInstance.execute({
                 product:{
                     name,
                     description,
@@ -35,9 +28,9 @@ module.exports=dependencies =>{
                 status:true,
                 content:response
             }))
-            next()
+           // next()
         }catch(err){
-            next(err)
+            //next(err)
         }
-    }
+    
 }

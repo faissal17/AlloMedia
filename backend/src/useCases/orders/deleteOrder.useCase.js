@@ -1,10 +1,6 @@
 const {Order} =require('../../entities')
-
-module.exports=dependencies=>{
-    const {
-        ordersRepository
-    }=dependencies
-
+const {ordersRepository} =require('../../frameworks/repositories/inMemory')
+module.exports=()=>{
     if(!ordersRepository){
         throw new Error('productsRepository should be in dependencies')
     }

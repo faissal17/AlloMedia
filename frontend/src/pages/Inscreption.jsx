@@ -7,7 +7,7 @@ import {Backgrounds} from '../components/Backgrounds.jsx'
 import axios from "axios"
 import { useMutation, useQueryClient } from "react-query"
 import { useNavigate } from "react-router-dom"
-
+import videoBack from '../assets/background.mp4'
 const Inscreption = () => {
   const navigate=useNavigate()
     const [login, setLogin] = useState(true)
@@ -50,7 +50,7 @@ const Inscreption = () => {
     
   return (
     <>
-    <Backgrounds />
+    <Backgrounds src={videoBack} className={'w-full h-screen'} />
     <div className="modal-inscreption">
         <h3 className=" w-full text-white text-center inline-block text-5xl">AlloMedia</h3>
         <div className="flex gap-[3%] my-3 p-1 w-[65%] mx-auto bg-gray-900 rounded-md">
