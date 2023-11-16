@@ -45,21 +45,40 @@ const brandSchema = new mongoose.Schema({
             return validator.isIn(value, [0,1]);
         }
     },
+    status_deleted: {
+        type: Number,
+        required: [true, "brand  of product status is required"],
+        default: 0,
+        Comment: "1 for activen deleted and 0 for inactive",
+        enum: [0, 1],
+        validator: function(value) {
+            // Require at least one uppercase le tter, one lowercase letter, one special character and one number
+            return validator.isIn(value, [0,1]);
+        }
+    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
         default:null,
    },
-   user_updated: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        default:null 
-   },
-   user_deleted: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        default:null
-   },
+    user_updated: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            default:null 
+    },
+    user_deleted: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            default:null
+    },
+    updated_at: {
+        type: Date,
+        default: null,
+    },
+    deleted_at: {
+        type: Date,
+        default: null,
+    },
    
     },{timestamps:true});
 
