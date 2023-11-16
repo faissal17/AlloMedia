@@ -16,7 +16,7 @@ app.use('/api/v1', apiRoutes);
 module.exports={
     start:()=>{
         app.listen(PORT,()=>{
-            console.log(`Succeess FUcking running under port ${PORT}`)
+            console.log(`Succeess app is running under port ${PORT}`)
         })
     }
 }
