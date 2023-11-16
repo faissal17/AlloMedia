@@ -3,16 +3,16 @@ const validator = require("validator");
 
 const brandSchema = new mongoose.Schema({
   // Other tag-related fields
-  name: {
-    type: String,
-    required: [true, "brand  of product name is required"],
-    unique: [true, "brand  of product name must be unique"],
-    index: true,
-    lowercase: true,
-    trim: true,
-    validator: (value) => {
-         return validator.isAlpha(value.replace(/\s/g, ""));
-    },
+    name: {
+        type: String,
+        required: [true, "brand  of product name is required"],
+        unique: [true, "brand  of product name must be unique"],
+        index: true,
+        lowercase: true,
+        trim: true,
+        validator: (value) => {
+            return validator.isAlpha(value.replace(/\s/g, ""));
+        },
     },
     slug: {
         type: String,
@@ -45,21 +45,46 @@ const brandSchema = new mongoose.Schema({
             return validator.isIn(value, [0,1]);
         }
     },
+    status_deleted: {
+        type: Number,
+        required: [true, "brand  of product status is required"],
+        default: 0,
+        Comment: "1 for activen deleted and 0 for inactive",
+        enum: [0, 1],
+        validator: function(value) {
+            // Require at least one uppercase le tter, one lowercase letter, one special character and one number
+            return validator.isIn(value, [0,1]);
+        }
+    },
+    restaurants:[
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Restaurant' 
+        }
+    ],
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
         default:null,
-   },
-   user_updated: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        default:null 
-   },
-   user_deleted: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        default:null
-   },
+    },
+    user_updated: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            default:null 
+    },
+    user_deleted: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            default:null
+    },
+    updated_at: {
+        type: Date,
+        default: null,
+    },
+    deleted_at: {
+        type: Date,
+        default: null,
+    },
    
     },{timestamps:true});
 
