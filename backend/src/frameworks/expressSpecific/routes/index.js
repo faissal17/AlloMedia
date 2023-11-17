@@ -3,6 +3,7 @@ const usersRouter = require("./users");
 const productsRouter = require("./products");
 const cuisineRouter = require("./cuisine");
 const restaurantRoute = require("./restaurent")
+const categoryRouter=require('./category')
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -10,16 +11,12 @@ module.exports = (dependencies) => {
   const products = productsRouter(dependencies);
   const cuisine = cuisineRouter(dependencies);
   const category = categoryRouter(dependencies);
-  routes.use("/users", users);
-  routes.use("/products", products);
-  routes.use("/cuisines", cuisine);
-  routes.use("/category", category);
+  
+  
+  
+  
   const restaurant = restaurantRoute(dependencies);
-  routes.use("/users", users);
-  routes.use("/products", products);
-  routes.use("/cuisines", cuisine);
   routes.use("/restaurant", restaurant);
-  const category = categoryRouter(dependencies);
   routes.use("/users", users);
   routes.use("/products", products);
   routes.use("/cuisines", cuisine);
