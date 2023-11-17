@@ -1,6 +1,5 @@
 const { Response} =require('../../frameworks/common')
 const { updateOrderUseCase } = require('../../useCases/orders')
-{updateProducUseCase}
 module.exports=async (req,res)=>{
         try{
             const {body={}}=req 

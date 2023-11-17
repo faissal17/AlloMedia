@@ -20,7 +20,7 @@ module.exports = (dependencies) => {
   const restaurant = restaurantRoute(dependencies);
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
-  routes.use("/products", products);
+  routes.use("/products", products); 
   routes.use("/cuisines", cuisine);
   routes.use("/category", category);
   routes.use('/order',order)
