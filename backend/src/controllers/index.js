@@ -3,6 +3,7 @@ const productControllers = require("./products");
 const cuisineControllers = require("./cuisines");
 const restaurantController = require("./restaurant");
 const categoryController = require("./categories");
+const orderController=require('./orders')
 
 module.exports = {
   userControllers,
@@ -10,4 +11,5 @@ module.exports = {
   cuisineControllers,
   restaurantController,
   categoryController,
+  orderController
 };
