@@ -3,7 +3,6 @@ import { Backgrounds } from "../Backgrounds"
 import { Shadow } from "../shadow"
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CustomInput from "../common/Input";
-import { ButtonDefault } from '../common/Buttons';
 const Overview = () => {
   return (
     <div className=" w-full h-[85vh] relative bg-red-600">

@@ -1,4 +1,4 @@
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import logoImg from '../assets/logo-removebg-preview.png'
 const Logo = ({className}) => {
   return (
@@ -13,7 +13,7 @@ const Logo = ({className}) => {
 }
 
 Logo.propTypes={
-    className:string
+    className:PropTypes.string
 }
 
 export {Logo}
