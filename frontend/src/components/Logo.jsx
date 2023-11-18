@@ -1,13 +1,19 @@
+import PropTypes, { string } from 'prop-types';
 import logoImg from '../assets/logo-removebg-preview.png'
-const Logo = () => {
+const Logo = ({className}) => {
   return (
-    <div>
+    <div className={`  ${className}`}>
         <img 
+            className=' w-14'
             src={logoImg} 
             alt='logo food' 
         />
     </div>
   )
+}
+
+Logo.propTypes={
+    className:string
 }
 
 export {Logo}
