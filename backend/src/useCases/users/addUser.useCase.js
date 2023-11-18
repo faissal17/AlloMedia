@@ -1,19 +1,37 @@
 const {User} =require('../../entities')
-
-module.exports=dependencies =>{
-    const {
-        usersRepository
-    }=dependencies
+const {
+    usersRepository,
+  } = require("../../frameworks/repositories/inMemory");
+module.exports=() =>{
     if(!usersRepository){
         throw new Error('The users repository should be exist in dependancies')
     }
     const execute=({
-        name,
+        firstName,
         lastName,
+        email,
+        password,
+        role,
+        image,
+        phone,
+        address,
         gender,
-        meta
+        meta,
     })=>{
-        const user = new User({name,lastName,gender,meta})
+        console.log('services')
+        console.log(firstName,lastName,email,password,role,image,phone,address,gender,meta)
+        console.log('----------------------------------------------------------')
+        const user = new User({
+            firstName,
+            lastName,
+            email,
+            password,
+            role,
+            image,
+            phone,
+            address,
+            gender,
+            meta})
         return usersRepository.add(user)
     }
     return { execute }

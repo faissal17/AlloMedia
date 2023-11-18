@@ -1,13 +1,6 @@
 const { Response } = require("../../frameworks/common");
-
-module.exports = (dependencies) => {
-  const {
-    useCases: {
-      user: { updateUserUseCase },
-    },
-  } = dependencies;
-
-  return async (req, res, next) => {
+const { updateUserUseCase } = require('../../useCases/users')
+module.exports = async (req,res) => {
     try {
       const { body = {} } = req;
       const {
@@ -23,8 +16,8 @@ module.exports = (dependencies) => {
         gender,
         meta,
       } = body;
-      const updateUser = updateUserUseCase(dependencies);
-      const response = await updateUser.execute({
+      const useCaseInstance=updateUserUseCase()
+      const response = await useCaseInstance.execute({
         user: {
           id,
           firstName,
@@ -52,4 +45,3 @@ module.exports = (dependencies) => {
       next(err);
     }
   };
-};

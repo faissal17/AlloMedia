@@ -10,6 +10,8 @@ module.exports=async (req,res)=>{
                 color,
                 meta
             }=req.body 
+            console.log('prodycs')
+            console.log(req.body)
             const useCaseInstance = addProductUseCase();
             //const addProduct=addProductUseCase(dependencies)
             const addProduct= await  useCaseInstance.execute({ 

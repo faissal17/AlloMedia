@@ -1,13 +1,6 @@
 const { Response } = require("../../frameworks/common");
-
-module.exports = (dependencies) => {
-  const {
-    useCases: {
-      user: { deleteUserUseCase },
-    },
-  } = dependencies;
-
-  return async (req, res, next) => {
+const { deleteUserUseCase } = require('../../useCases/users')
+module.exports = async (req,res) => {
     try {
       const { body = {} } = req;
       const {
@@ -23,8 +16,8 @@ module.exports = (dependencies) => {
         gender,
         meta,
       } = body;
-      const deleteUser = deleteUserUseCase(dependencies);
-      const response = await deleteUser.execute({
+      const useCaseInstance=deleteUserUseCase()
+      const response = await useCaseInstance.execute({
         user: {
           id,
           firstName,
@@ -52,4 +45,4 @@ module.exports = (dependencies) => {
       next(err);
     }
   };
-};
+

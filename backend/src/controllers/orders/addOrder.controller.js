@@ -1,6 +1,7 @@
 const { Response} =require('../../frameworks/common')
 const {addOrderUseCase} =require('../../useCases/orders')
-module.exports=async (req,res)=>{
+module.exports=async (req,res,next)=>{
+        console.log('error')
         try{
             const {
                 userId,
@@ -9,6 +10,7 @@ module.exports=async (req,res)=>{
                 isPayed,
                 meta
             }=req.body 
+            throw {status:404,msg:'just a test',reason:'because we want'}
             const useCaseInstance = addOrderUseCase();
             //const addProduct=addProductUseCase(dependencies)
             const addOrder= await  useCaseInstance.execute({ 
@@ -24,7 +26,7 @@ module.exports=async (req,res)=>{
                 content:addOrder
             }))
         }catch(err){
-           // next(err)
+            console.error('Error in addOrder middleware:');
         }
     
 }

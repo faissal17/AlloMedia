@@ -1,17 +1,13 @@
 const express=require('express')
-
-
-const {
-    userControllers
-}=require('../../../controllers')
+const { userControllers } = require("../../../controllers");
 
 module.exports=dependencies =>{
     const router=express.Router()
     const {
         addUserController,
-        getUserByIdController,
+        deleteUserController,
         updateUserController,
-        deleteUserController
+        getUserByIdController
     }=userControllers(dependencies)
 
     router.route('/')

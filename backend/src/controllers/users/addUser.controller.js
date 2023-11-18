@@ -1,17 +1,9 @@
 const { Response } = require("../../frameworks/common");
-
-module.exports = (dependencies) => {
-  const {
-    useCases: {
-      user: { addUserUseCase },
-    },
-  } = dependencies;
-
-  const addUser = async (req, res, next) => {
+const {addUserUseCase} =require('../../useCases/users')
+module.exports = async (req,res) => {
+  
     try {
-      const { body = {} } = req;
       const {
-        id,
         firstName,
         lastName,
         email,
@@ -22,11 +14,12 @@ module.exports = (dependencies) => {
         address,
         gender,
         meta,
-      } = body;
-
-      const addUser = addUserUseCase(dependencies);
-      const response = await addUser.execute({
-        id,
+    } = req.body;
+      console.log('Controller')
+      console.log(req.body)
+      console.log('-------------------------------------------------------------------')
+      const useCaseInstance = addUserUseCase();
+      const addUser = await useCaseInstance.execute({
         firstName,
         lastName,
         email,
@@ -39,18 +32,14 @@ module.exports = (dependencies) => {
         meta,
         gender,
         meta,
-      });
+      })
       res.json(
         new Response({
           status: true,
-          content: response,
+          content: addUser,
         })
       );
-      next();
     } catch (err) {
-      next(err);
+      console.log(err)
     }
   };
-
-  return addUser;
-};

@@ -1,8 +1,5 @@
-const dependanciess=require('../../config/dependencies')
-module.exports=dependencies =>{
-    const {
-        usersRepository
-    }=dependanciess
+const {usersRepository} =require('../../frameworks/repositories/inMemory')
+module.exports=()=>{
     if(!usersRepository){
         throw new Error('The users repository should be exist in dependancies')
     }
