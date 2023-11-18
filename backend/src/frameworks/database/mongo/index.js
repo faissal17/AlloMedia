@@ -1,5 +1,6 @@
 //connect to database
 const {default : mongoose}=require('mongoose');
+const schemas=require('./schemas')
 require('dotenv').config()
 module.exports={
     connect:()=>{
@@ -16,7 +17,5 @@ module.exports={
                 process.exit(1)
             })
     },
-    schemas:{
-
-    }
+    schemas
 }

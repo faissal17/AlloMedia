@@ -4,34 +4,24 @@ module.exports = async (req,res) => {
   
     try {
       const {
-        firstName,
-        lastName,
+        first_name,
+        last_name,
+        username,
         email,
-        password,
-        role,
-        image,
-        phone,
-        address,
-        gender,
-        meta,
+        password, 
+        mobile,
     } = req.body;
       console.log('Controller')
       console.log(req.body)
       console.log('-------------------------------------------------------------------')
       const useCaseInstance = addUserUseCase();
       const addUser = await useCaseInstance.execute({
-        firstName,
-        lastName,
+        first_name,
+        last_name,
+        username,
         email,
         password,
-        role,
-        image,
-        phone,
-        address,
-        gender,
-        meta,
-        gender,
-        meta,
+        mobile,
       })
       res.json(
         new Response({
