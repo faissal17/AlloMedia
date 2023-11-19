@@ -7,6 +7,7 @@ const categoryRouter=require('./category')
 const orderRouter=require('./orders')
 const brandRouter=require('./brands')
 const tagRouter=require('./tags')
+const cityRouter=require('./cities')
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -17,11 +18,12 @@ module.exports = (dependencies) => {
   const order=orderRouter(dependencies)
   const brand=brandRouter(dependencies)
   const tag=tagRouter(dependencies)
-  
-  
-  
-  
+  const city=cityRouter(dependencies)
   const restaurant = restaurantRoute(dependencies);
+  
+  
+  
+  
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
   routes.use("/products", products); 
@@ -30,5 +32,6 @@ module.exports = (dependencies) => {
   routes.use('/order',order)
   routes.use('/brands',brand)
   routes.use('/tags',tag)
+  routes.use('/cities',city)
   return routes;
 };
