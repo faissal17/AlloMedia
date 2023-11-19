@@ -5,4 +5,5 @@ const deleteRestaurantUseCases = require("./deleteRestaurant.useCases");
 module.exports = {
   addRestaurantUseCases,
   deleteRestaurantUseCases,
+  getRestaurantByIdUseCases,
 };

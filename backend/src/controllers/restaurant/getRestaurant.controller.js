@@ -1,6 +1,26 @@
-const express = require("express");
-const Restaurant = require("../../frameworks/database/mongo/schemas/restaurants.schema");
+const { Response } = require("../../frameworks/common");
+const { getRestaurantByIdUseCases } = require("../../useCases/restaurent");
 
-const getRestaurantByIdController = async (req, res) => {};
+module.exports = async (req, res) => {
+  console.log("godamn");
 
-module.exports = getRestaurantByIdController;
+  try {
+    const { id } = req.params;
+    const useCaseInstance = getRestaurantByIdUseCases();
+
+    console.log("before");
+    // Call the execute method on the use case instance
+    const getRestaurantById = await useCaseInstance.execute({ id });
+    console.log("after");
+
+    res.json(
+      new Response({
+        status: true,
+        content: getRestaurantById,
+      })
+    );
+    //next()
+  } catch (err) {
+    console.log(err);
+  }
+};
