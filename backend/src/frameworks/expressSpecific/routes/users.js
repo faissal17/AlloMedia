@@ -13,7 +13,7 @@ module.exports=dependencies =>{
     router.route('/')
         .post(addUserController)
         .delete(deleteUserController)
-        .put(updateUserController)
+        .patch(updateUserController)
 
     router.route('/:id').get(getUserByIdController)
 

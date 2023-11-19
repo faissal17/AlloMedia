@@ -109,6 +109,10 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    deletedAt:{
+        type:Date,
+        default:null
+    }
 },{timestamps:true});
 
 userSchema.methods.incrementLoginCount = function() {
