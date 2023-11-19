@@ -6,4 +6,5 @@ module.exports = {
   addRestaurantUseCases,
   deleteRestaurantUseCases,
   getRestaurantByIdUseCases,
+  updateRestaurantUseCases,
 };

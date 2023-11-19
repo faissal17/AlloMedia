@@ -5,8 +5,8 @@ module.exports = () => {
   if (!restaurantRepository) {
     throw new Error("The users repository should be exist in dependancies");
   }
-  const execute = ({ product }) => {
-    return restaurantRepository.delete(product);
+  const execute = ({ restaurant }) => {
+    return restaurantRepository.delete(restaurant);
   };
   return { execute };
 };
