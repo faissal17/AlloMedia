@@ -44,7 +44,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/inscription"
-              element={isAuthenticated ? <Redirect /> : <Inscreption />}
+              element={false ? <Redirect /> : <Inscreption />}
             />
             <Route
               path="/profile"
