@@ -1,25 +1,27 @@
-const express=require('express')
+const express = require("express");
+
+const { userControllers } = require("../../../controllers");
+
+module.exports = (dependencies) => {
+  const router = express.Router();
+  const {
+    addUserController,
+    getUserByIdController,
+    updateUserController,
+    deleteUserController,
+    getUserByEmailController,
+  } = userControllers(dependencies);
 
 
-const {
-    userControllers
-}=require('../../../controllers')
+  router
+    .route("/")
+    .post(addUserController)
+    .delete(deleteUserController)
+    .put(updateUserController);
+    
+  router.route("/login").post(getUserByEmailController);
 
-module.exports=dependencies =>{
-    const router=express.Router()
-    const {
-        addUserController,
-        getUserByIdController,
-        updateUserController,
-        deleteUserController
-    }=userControllers(dependencies)
+  router.route("/:id").get(getUserByIdController);
 
-    router.route('/')
-        .post(addUserController)
-        .delete(deleteUserController)
-        .put(updateUserController)
-
-    router.route('/:id').get(getUserByIdController)
-
-    return router
-}
+  return router;
+};

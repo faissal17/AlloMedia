@@ -23,8 +23,8 @@ export const LoginService = () => {
             email: { error: isValid[0].email.error, message: isValid[0].email.message },
             password: { error: isValid[0].password.error, message: isValid[0].password.message },
         });
-        console.log('fucking loginStatus')
-        console.log(loginStatus)
+        // console.log('fucking loginStatus')
+        // console.log(loginStatus)
     };
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -36,7 +36,7 @@ export const LoginService = () => {
             password: { error: isValid[0].password.error, message: isValid[0].password.message },
         });
         if (!isValid[0].email.error || !isValid[0].password.error ) {
-            console.log('fucking success')
+            // console.log('fucking success')
             loginUserMutation.mutate(login);
            }
     }
