@@ -5,33 +5,13 @@ module.exports = async (req,res) => {
       const { body = {} } = req;
       const {
         id,
-        firstName,
-        lastName,
-        email,
-        password,
-        role,
-        image,
-        phone,
-        address,
-        gender,
-        meta,
-      } = body;
+        ...updates
+      } = req.body;
       const useCaseInstance=updateUserUseCase()
       const response = await useCaseInstance.execute({
         user: {
           id,
-          firstName,
-          lastName,
-          email,
-          password,
-          role,
-          image,
-          phone,
-          address,
-          gender,
-          meta,
-          gender,
-          meta,
+          updates
         },
       });
       res.json(

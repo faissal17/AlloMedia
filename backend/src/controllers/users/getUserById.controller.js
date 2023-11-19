@@ -14,8 +14,9 @@ module.exports=async (req,res) =>{
             status:true,
             content:response
         }))
-        next()
+        //next()
     }catch(err){
-        next(err)
+        //next(err)
+        res.status(400).json({msg:err.message})
     }
 }
