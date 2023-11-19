@@ -5,6 +5,7 @@ const cuisineRouter = require("./cuisine");
 const restaurantRoute = require("./restaurent")
 const categoryRouter=require('./category')
 const orderRouter=require('./orders')
+const brandRouter=require('./brands')
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -13,6 +14,7 @@ module.exports = (dependencies) => {
   const cuisine = cuisineRouter(dependencies);
   const category = categoryRouter(dependencies);
   const order=orderRouter(dependencies)
+  const brand=brandRouter(dependencies)
   
   
   
@@ -24,5 +26,6 @@ module.exports = (dependencies) => {
   routes.use("/cuisines", cuisine);
   routes.use("/category", category);
   routes.use('/order',order)
+  routes.use('/brands',brand)
   return routes;
 };
