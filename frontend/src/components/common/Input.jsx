@@ -47,7 +47,7 @@ const CustomInput = ({icon,type,placeholder,value,onChange,name,className,disabl
                 name={name}
                 className={`
                     input-form
-                    w-full p-3 px-10 rounded-md 
+                    w-full p-3 px-10 
                         transition duration-200 ease-in-out 
                         outline-none 
                     ${className}

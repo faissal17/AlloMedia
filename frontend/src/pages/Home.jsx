@@ -13,7 +13,7 @@ const Home = () => {
     }
   }, [active]);
   return (
-      <div className="">
+      <div className=" min-h-[200vh]">
         <Navbar/>
         <Overview/>
       </div>

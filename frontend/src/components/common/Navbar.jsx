@@ -7,8 +7,8 @@ import { CiHeart } from "react-icons/ci";
 function Navbar() {
   return (
     <nav className=" p-2 sm:p-3 md:p-2 lg:p-1 px-4 md:px-4 lg:px-14 xl:px-20 flex shadow-lg items-center bg-gray-100">
-      <LogoFood className=' w-[8%] sm:w-[20%] lg:w-[5%]' />
-      <div className="md:w-[50%] lg:w-[30]">
+      <LogoFood className=' w-[30%] flex justify-center sm:w-[20%] lg:w-[5%]' />
+      <div className=" w-[70%] md:w-[50%] lg:w-[30]">
         <CustomInput 
           icon={<IoIosSearch className=" w-6" />}
           type='text'
