@@ -14,35 +14,36 @@ export const Login = () => {
   const loginservice = LoginService();
   const {
     submet,
-    // handleSubmit,
+    handleSubmit,
     handleLoginChange,
     loginUserMutation,
     loginStatus,
   } = loginservice;
 
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: isLoginSuccess,
-      isError: isLoginError,
-      error: loginError,
-    },
-  ] = useLoginMutation();
+  // const [
+  //   loginUser,
+  //   {
+  //     data: loginData,
+  //     isSuccess: isLoginSuccess,
+  //     isError: isLoginError,
+  //     error: loginError,
+  //   },
+  // ] = useLoginMutation();
 
-  useEffect(() => {
-    if (isLoginSuccess) {
-      console.log(loginData);
-    }
-  }, [isLoginSuccess]);
+  // useEffect(() => {
+  //   if (isLoginSuccess) {
+  //     console.log(loginData);
+  //   }
+  // }, [isLoginSuccess]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await loginUser({
-      email: e.target.email.value,
-      password: e.target.password.value,
-    });
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.email.value, e.target.password.value);
+  //   await loginUser({
+  //     email: e.target.email.value,
+  //     password: e.target.password.value,
+  //   });
+  // };
   return (
     <form onSubmit={handleSubmit} className=" my-4 flex flex-col gap-4">
       {loginInputs.map((item, index) => {
