@@ -1,19 +1,35 @@
 const {User} =require('../../entities')
-
-module.exports=dependencies =>{
-    const {
-        usersRepository
-    }=dependencies
+const {
+    usersRepository,
+  } = require("../../frameworks/repositories/mongo");
+module.exports=() =>{
     if(!usersRepository){
         throw new Error('The users repository should be exist in dependancies')
     }
     const execute=({
-        name,
-        lastName,
-        gender,
-        meta
+        first_name,
+        last_name,
+        username,
+        email,
+        password, 
+        mobile,
     })=>{
-        const user = new User({name,lastName,gender,meta})
+        console.log('services')
+        console.log(first_name,
+            last_name,
+            username,
+            email,
+            password, 
+            mobile,)
+        console.log('----------------------------------------------------------')
+        const user = new User({
+            first_name,
+            last_name,
+            username,
+            email,
+            password, 
+            mobile,})
+        console.log('vefore repository',user)
         return usersRepository.add(user)
     }
     return { execute }

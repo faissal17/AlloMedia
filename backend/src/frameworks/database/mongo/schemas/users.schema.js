@@ -48,10 +48,6 @@ const userSchema = new mongoose.Schema({
         unique:true,
         validate: [validator.isEmail, 'Please provide a valid email address']
     },
-    address: {
-        type: String,
-        default:null,
-    },
     mobile:{
         type:String,
         required:true,
@@ -99,7 +95,12 @@ const userSchema = new mongoose.Schema({
             default:null
         },
     ],
-    address:[{type:mongoose.Schema.Types.ObjectId,ref:'Address'}],
+    address:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Address',
+            default:null
+    }],
     wishlist:[{type:mongoose.Schema.Types.ObjectId,ref:'Product'}],
     refreshToken: {
         type: String,
@@ -108,6 +109,10 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    deletedAt:{
+        type:Date,
+        default:null
+    }
 },{timestamps:true});
 
 userSchema.methods.incrementLoginCount = function() {
@@ -116,19 +121,18 @@ userSchema.methods.incrementLoginCount = function() {
 };
 
 // Generate a JWT token
-userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id },env.SECRET_KEY_TOKEN, { expiresIn: '1d' });
-    return token;
-};
-userSchema.statics.findByToken = function (token) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      return this.findOne({ _id: decoded._id });
-    } catch (err) {
-      throw new Error(`Error verifying token: ${err.message}`);
-    }
-};
+// userSchema.methods.generateAuthToken = function () {
+//     const token = jwt.sign({ _id: this._id },env.SECRET_KEY_TOKEN, { expiresIn: '1d' });
+//     return token;
+// };
+// userSchema.statics.findByToken = function (token) {
+//     try {
+//       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//       return this.findOne({ _id: decoded._id });
+//     } catch (err) {
+//       throw new Error(`Error verifying token: ${err.message}`);
+//     }
+// };
 
-const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = userSchema;

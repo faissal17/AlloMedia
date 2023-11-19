@@ -1,6 +1,5 @@
 const { Response} =require('../../frameworks/common')
 const { deleteProductUseCase } = require('../../useCases/products')
-{deleteProductUseCase}
 module.exports=async (req,res) =>{
     
         try{
