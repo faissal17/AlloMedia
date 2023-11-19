@@ -5,17 +5,44 @@ import { FormButton } from "../../common/Buttons";
 import { Toaster } from "react-hot-toast";
 import { LoginService } from "./login";
 import loginInputs from "../../../constants/login";
+import { useLoginMutation } from "../../../redux/service/auth/authApi";
+import { useEffect } from "react";
+
 //import { validateEmail, validatePassword } from '../../helpers/validations'
 export const Login = () => {
   //react query
   const loginservice = LoginService();
   const {
     submet,
-    handleSubmit,
+    // handleSubmit,
     handleLoginChange,
     loginUserMutation,
     loginStatus,
   } = loginservice;
+
+  const [
+    loginUser,
+    {
+      data: loginData,
+      isSuccess: isLoginSuccess,
+      isError: isLoginError,
+      error: loginError,
+    },
+  ] = useLoginMutation();
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      console.log(loginData);
+    }
+  }, [isLoginSuccess]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await loginUser({
+      email: e.target.email.value,
+      password: e.target.password.value,
+    });
+  };
   return (
     <form onSubmit={handleSubmit} className=" my-4 flex flex-col gap-4">
       {loginInputs.map((item, index) => {

@@ -1,5 +1,8 @@
-const express=require('express')
+
+const express = require("express");
+
 const { userControllers } = require("../../../controllers");
+
 
 module.exports=dependencies =>{
     const router=express.Router()
@@ -7,7 +10,8 @@ module.exports=dependencies =>{
         addUserController,
         deleteUserController,
         updateUserController,
-        getUserByIdController
+        getUserByIdController,
+      getUserByEmailController,
     }=userControllers(dependencies)
 
     router.route('/')
@@ -15,7 +19,8 @@ module.exports=dependencies =>{
         .delete(deleteUserController)
         .patch(updateUserController)
 
-    router.route('/:id').get(getUserByIdController)
+  router.route("/:id").get(getUserByIdController);
+  router.route("/login").post(getUserByEmailController);
 
-    return router
-}
+  return router;
+};
