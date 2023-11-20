@@ -1,17 +1,19 @@
 const { Cuisine } = require("../../entities");
-const { cuisineRepository } = require("../../frameworks/repositories/inMemory");
+const { cuisinesRepository } = require("../../frameworks/repositories/mongo");
+const slugify = require("slugify");
 
 module.exports = () => {
-  if (!cuisineRepository) {
-    throw new Error("cuisineRepository should be in dependencies");
+  if (!cuisinesRepository) {
+    throw new Error("cuisinesRepository should be in dependencies");
   }
 
   const execute = ({ name }) => {
     const cuisine = new Cuisine({
       name,
+      slug: slugify(name),
     });
 
-    return cuisineRepository.add(cuisine);
+    return cuisinesRepository.add(cuisine);
   };
 
   return {

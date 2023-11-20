@@ -8,13 +8,15 @@ module.exports = (dependencies) => {
     deleteCategoryController,
     getCategoryController,
     updateCategoryController,
+    getAllCategoryController,
   } = categoryController(dependencies);
 
   router
     .route("/")
+    .get(getAllCategoryController)
     .post(addCategoryController)
     .delete(deleteCategoryController)
-    .put(updateCategoryController);
+    .patch(updateCategoryController);
 
   router.route("/:id").get(getCategoryController);
 

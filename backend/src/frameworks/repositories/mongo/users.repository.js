@@ -55,6 +55,18 @@ const repository = () => {
       }
       return user;
     },
+    getByEmail: async (user) => {
+      const { email } = user;
+      const _User = await User.findOne({
+        email: email,
+      });
+      //   console.log(_User);
+      if (!_User) {
+        // throw new Error(`User with email ${email} does not exist.`);
+        return "User with email ${email} does not exist.";
+      }
+      return _User;
+    },
   };
 };
 

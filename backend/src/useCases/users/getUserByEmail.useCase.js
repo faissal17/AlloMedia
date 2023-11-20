@@ -1,5 +1,5 @@
 const { User } = require("../../entities");
-const { usersRepository } = require("../../frameworks/repositories/inMemory");
+const { usersRepository } = require("../../frameworks/repositories/mongo");
 
 module.exports = () => {
   if (!usersRepository) {
@@ -12,7 +12,9 @@ module.exports = () => {
       password,
     });
 
-    return usersRepository.getByEmail(user);
+    const getUser = usersRepository.getByEmail(user);
+
+    return getUser;
   };
 
   return {
