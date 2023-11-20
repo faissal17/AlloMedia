@@ -1,36 +1,58 @@
-const {
-    inMemory: inMemoryDb
-}=require('../../database')
+const mongoose=require('mongoose')
+const entityName="Items"
+
 
 const {
-    v4:uuidv4,
-} = require('uuid')
+    schemas:{
+        item:itemSchema
+    }
+}=require('../../database/mongo')
 
-module.exports={
-    add:async product=>{  
-        if(!product.id){
-            product.id=uuidv4()
+const repository=()=>{
+    //schema
+    const Item=mongoose.model(entityName,itemSchema)
+    return {
+        add:async item=>{
+            console.log('fucking realy items shittt')
+            console.log(item)
+            const mongoObject=new Item(item)
+            return mongoObject.save()
+        },
+        update:async item=>{
+            const { id , updates }=item
+            console.log('repository')
+            console.log(item)
+            delete item.id 
+            return Item.findByIdAndUpdate(id,{
+                ...updates,
+                updatedAt:new Date()
+            },{
+                new:true 
+            })
+        },
+        delete:async item=>{
+            const { id }=item
+            console.log('repository :',id)
+            delete item.id 
+            return Item.findByIdAndUpdate(id,{
+                deletedAt:new Date()
+            },{
+                new:true 
+            })
+        },
+        getById:async id=>{
+            const item=await Item.findOne({
+                _id:id,
+                deletedAt:{
+                    $exists:false
+                }
+            })
+            if (!item) {
+                throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
+            }
+            return item;
         }
-        inMemoryDb.products.push(product)
-        return product
-    },
-    update:async product=>{
-        const index=inMemoryDb.products.findIndex((index)=>index.id===product.id)
-        if(index>=0){
-            inMemoryDb.products[index]=product;
-            return inMemoryDb.products[index]
-        }
-        return null
-    },
-    delete:async product=>{
-        const index=inMemoryDb.products.findIndex((index)=>index.id===product.id)
-        if(index>=0){
-            inMemoryDb.products.splice(index,1)
-            return product;
-        }
-        return null 
-    },
-    getById:async id=>{
-        return inMemoryDb.products.find((item)=>item.id===id)
     }
 }
+
+module.exports=repository()

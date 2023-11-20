@@ -7,23 +7,11 @@ const tagSchema = new mongoose.Schema({
         type: String,
         required: [true, "tags  of product name is required"],
         unique: [true, "tags  of product name must be unique"],
-        index: true,
         lowercase: true,
         trim: true,
-        validator: (value) => {
-            return validator.isAlpha(value.replace(/\s/g, ""));
-        },
-    },
-    slug: {
-        type: String,
-        required: [true, "tags  of product slug is required"],
-        unique: true,
-        index: true,
-        lowercase: true,
-        trim: true,
-        validator: (value) => {
-            return validator.isAlpha(value.replace(/\s/g, ""));
-        }
+        // validator: (value) => {
+        //     return validator.isAlpha(value.replace(/\s/g, ""));
+        // },
     },
     status: {
         type: Number,
@@ -57,9 +45,13 @@ const tagSchema = new mongoose.Schema({
             ref: "Item",
             default:null,
         }
-    ]
+    ],
+    deletedAt:{
+        type:Date,
+        default:null
+    }
 },{timestamps:true});
 
-const Tag = mongoose.model('Tag', tagSchema);
 
-module.exports = Tag;
+
+module.exports = tagSchema;

@@ -36,11 +36,6 @@ const citySchema = new mongoose.Schema({
             return validator.isIn(value, [0,1]);
         }
     },
-    country: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Country",
-        required: [true, "country is required"],
-    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
@@ -56,8 +51,11 @@ const citySchema = new mongoose.Schema({
         ref: "User",
         default:null
     },
+    deletedAt: {
+        type: Date,
+        default: null,
+    },
 },{timestamps:true});
 
-const City = mongoose.model('City', citySchema);
 
-module.exports = City;
+module.exports = citySchema;

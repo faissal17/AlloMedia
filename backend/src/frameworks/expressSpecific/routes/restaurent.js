@@ -6,19 +6,19 @@ const { restaurantController } = require("../../../controllers");
 module.exports = (dependencies) => {
   const router = express.Router();
   const {
-    addRestaurentController,
-    deletRestaurentController,
-    updateRestaurentController,
-    getRestaurentController,
+    addRestaurantController,
+    deleteRestaurantController,
+    updateRestaurantController,
+    getRestaurantByIdController,
   } = restaurantController(dependencies);
 
-  router
-    .route("/")
-    .post(addRestaurentController)
-    .delete(deletRestaurentController)
-    .put(updateRestaurentController);
+  router.route("/").post(addRestaurantController);
 
-  router.route("/:id").get(getRestaurentController);
+  router
+    .route("/:id")
+    .get(getRestaurantByIdController)
+    .delete(deleteRestaurantController)
+    .put(updateRestaurantController);
 
   return router;
 };

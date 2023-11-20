@@ -1,13 +1,13 @@
-const addRestaurentController = require("./addRestaurant");
-const deletRestaurentController = require("./deleteRestaurant");
-const getRestaurentController = require("./getRestaurant");
-const updateRestaurentController = require("./updateRestaurant");
+const addRestaurantController = require("./addRestaurant.controller");
+const deleteRestaurantController = require("./deleteRestaurant.controller");
+const updateRestaurantController = require("./updateRestaurant.controller");
+const getRestaurantByIdController = require("./getRestaurant.controller");
 
 module.exports = (dependencies) => {
   return {
-    addRestaurentController,
-    deletRestaurentController,
-    getRestaurentController,
-    updateRestaurentController,
+    addRestaurantController,
+    deleteRestaurantController,
+    updateRestaurantController,
+    getRestaurantByIdController,
   };
 };
