@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
   try {
     const { body = {} } = req;
     const { name, slug, picture, status, tags, brands, categories } = body;
+    const { id } = req.params;
     const useCaseInstance = updateRestaurantUseCases();
     const response = await useCaseInstance.execute({
       restaurant: {
@@ -18,6 +19,7 @@ module.exports = async (req, res) => {
         brands,
         categories,
       },
+      id: id,
     });
     res.json(
       new Response({

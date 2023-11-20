@@ -1,4 +1,5 @@
 const { inMemory: inMemoryDb } = require("../../database");
+const Restaurant = require("../../database/mongo/schemas/restaurants.schema");
 
 const { v4: uuidv4 } = require("uuid");
 
@@ -8,16 +9,21 @@ module.exports = {
       restaurant.id = uuidv4();
     }
     inMemoryDb.restaurants.push(restaurant);
+    try {
+      await Restaurant.create(restaurant);
+    } catch (error) {
+      console.log(error.message);
+    }
     return restaurant;
   },
-  update: async (restaurant) => {
-    const index = inMemoryDb.restaurants.findIndex(
-      (index) => index.id === restaurant.id
-    );
-    if (index >= 0) {
-      inMemoryDb.restaurants[index] = restaurant;
-      return inMemoryDb.restaurants[index];
+  update: async (restaurant, id) => {
+    try {
+      const newResturant = await Restaurant.findByIdAndUpdate(id, restaurant);
+      return newResturant;
+    } catch (error) {
+      console.log(error.message);
     }
+
     return null;
   },
   delete: async (restaurant) => {
