@@ -77,17 +77,17 @@ const brandSchema = new mongoose.Schema({
             ref: "User",
             default:null
     },
-    updated_at: {
+    updatedAt: {
         type: Date,
         default: null,
     },
-    deleted_at: {
+    deletedAt: {
         type: Date,
         default: null,
     },
    
     },{timestamps:true});
 
-const Brand = mongoose.model('Brand', brandSchema);
 
-module.exports = Brand;
+
+module.exports = brandSchema;

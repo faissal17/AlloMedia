@@ -1,64 +1,61 @@
-import React from "react";
+import { Logo  as LogoFood} from "../Logo";
+import CustomInput from "./Input";
 import { Link } from "react-router-dom";
-
+import { IoIosSearch } from "react-icons/io";
+import { IoCartOutline } from "react-icons/io5";
+import { CiHeart } from "react-icons/ci";
 function Navbar() {
   return (
-    <React.Fragment>
-      <nav className=" dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <Link
-              to="/inscription"
-              type="button"
-              className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2"
-            >
-              Join us
-            </Link>
-          </div>
-          <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-sticky"
-          >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <Link
-                  to="/"
-                  onClick={() => setActive(true)}
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                  aria-current="page"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+    <nav className=" p-2 sm:p-3 md:p-2 lg:p-1 px-4 md:px-4 lg:px-14 xl:px-20 flex shadow-lg items-center bg-gray-100">
+      <LogoFood className=' w-[30%] flex justify-center sm:w-[20%] lg:w-[5%]' />
+      <div className=" w-[70%] md:w-[50%] lg:w-[30]">
+        <CustomInput 
+          icon={<IoIosSearch className=" w-6" />}
+          type='text'
+          name='search'
+          id='search'
+          placeholder='Search...'
+          onChange={()=>{}}
+          className='
+                rounded-3xl
+               w-[350px] py-[10px] lg:py-[10px] lg:w-[400px] xl:w-[450px] border border-gray-300 
+              focus:border-primary focus:border-[1.5px] text-gray-600'
+          submit={false}
+        />
+      </div>
+      <ul className=" hidden  lg:flex   items-center gap-4  xl:gap-8 lg:w-[30%]">
+        <Link>
+          <li className=" text-sm font-semibold transition hover:text-primary">Categories</li>
+        </Link>
+        <Link>
+          <li className=" text-sm font-semibold transition hover:text-primary">Restaurants</li>
+        </Link>
+        <Link>
+          <li className=" text-sm font-semibold transition hover:text-primary">Contact us</li>
+        </Link>
+      </ul>
+      <div className=" lg:w-[10%] xl:w-[15%] hidden  lg:flex items-center gap-2  ">
+        <span className=" flex items-center justify-center p-3 border border-gray-300  relative rounded-full">
+          <IoCartOutline className=" text-gray-300 text-xl"/>
+          <span className="
+              absolute top-[-2px] right-[-2px] bg-primary text-white 
+              flex items-center justify-center text-[10px] rounded-full min-w-[14px] min-h-[14px]">
+                2
+          </span>
+        </span>
+        <span className=" flex items-center justify-center p-3 border border-gray-300  relative rounded-full">
+          <CiHeart className=" text-gray-300 text-xl"/>
+          <span className="
+              absolute top-[-2px] right-[-2px] bg-primary text-white 
+              flex items-center justify-center text-[10px] rounded-full min-w-[14px] min-h-[14px]">
+                2
+          </span>
+        </span>
+        <div>
+          dkfdfkjdfkjdf
         </div>
-      </nav>
-    </React.Fragment>
+      </div>
+    </nav>
   );
 }
 export default Navbar;

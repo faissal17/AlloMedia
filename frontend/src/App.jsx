@@ -16,8 +16,8 @@ import Redirect from "./components/Redirect";
 import Container from "./components/Maps/mapFilter/MapContainer";
 import MapManager from "./components/Maps/mapManager.jsx";
 
-
 import ProductDetails from "./pages/ProductDetails";
+import PageRes from "./components/Maps/page/index.jsx";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -44,7 +44,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/inscription"
-              element={isAuthenticated ? <Redirect /> : <Inscreption />}
+              element={false ? <Redirect /> : <Inscreption />}
             />
             <Route
               path="/profile"
@@ -64,6 +64,7 @@ function App() {
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
 
+            <Route path="/restaurant/search/:name?" element={<PageRes />}></Route>
           </Routes>
         </Suspense>
       </Router>

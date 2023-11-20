@@ -1,12 +1,10 @@
-module.exports=dependencies =>{
-    const {
-        usersRepository
-    }=dependencies
+const {usersRepository} =require('../../frameworks/repositories/mongo')
+module.exports=() =>{
     if(!usersRepository){
         throw new Error('The users repository should be exist in dependancies')
     }
     const execute=({
-        user={}
+        user
     })=>{
         return usersRepository.update(user)
     }

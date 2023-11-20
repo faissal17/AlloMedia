@@ -32,6 +32,9 @@ const ButtonDefault=({
 })=>{
     return (
         <button
+        style={{
+            background: 'linear-gradient(90deg,rgba(255,169,169,1)  0%, rgba(252,71,71,1) 100%)' 
+        }}
         onClick={onClick}
         className={`w-[48.5%] scale-100 transition active:scale-[.97]  py-3 
         rounded-lg text-md text-white button__gradient  ${className}`}

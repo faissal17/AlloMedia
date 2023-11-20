@@ -1,45 +1,13 @@
 const { Response } = require("../../frameworks/common");
-
-module.exports = (dependencies) => {
-  const {
-    useCases: {
-      user: { deleteUserUseCase },
-    },
-  } = dependencies;
-
-  return async (req, res, next) => {
+const { deleteUserUseCase } = require('../../useCases/users')
+module.exports = async (req,res) => {
     try {
       const { body = {} } = req;
-      const {
-        id,
-        firstName,
-        lastName,
-        email,
-        password,
-        role,
-        image,
-        phone,
-        address,
-        gender,
-        meta,
-      } = body;
-      const deleteUser = deleteUserUseCase(dependencies);
-      const response = await deleteUser.execute({
-        user: {
-          id,
-          firstName,
-          lastName,
-          email,
-          password,
-          role,
-          image,
-          phone,
-          address,
-          gender,
-          meta,
-          gender,
-          meta,
-        },
+      const {id} = req.body;
+      console.log('id:',id)
+      const useCaseInstance=deleteUserUseCase()
+      const response = await useCaseInstance.execute({
+        user: {id},
       });
       res.json(
         new Response({
@@ -47,9 +15,10 @@ module.exports = (dependencies) => {
           content: response,
         })
       );
-      next();
+      //next();
     } catch (err) {
-      next(err);
+      //next(err);
+      console.log(err)
     }
   };
-};
+

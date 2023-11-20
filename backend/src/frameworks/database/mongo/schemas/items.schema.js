@@ -8,9 +8,7 @@ const itemSchema = new mongoose.Schema({
         required:[true,'product name is required'],
         trim:true,
         unique:true,
-        validator: (value) => {
-            return validator.isAlphanumeric(value.replace(/\s/g, ''));
-        }
+        
         },
     slug:{
         type:String,
@@ -70,22 +68,14 @@ const itemSchema = new mongoose.Schema({
     brand:{
         type:mongoose.Schema.ObjectId,
         ref:'Brand',
-        required:[true,'product brand is required'],
+        //required:[true,'product brand is required'],
         default:null,
-        validator: function(value) {  
-             //must be character and number 
-             return validator.isAlphanumeric(value.replace(/\s/g, ''));
-        }
     },
     category:{
         type:mongoose.Schema.ObjectId,
         ref:'Category',
-        required:[true,'product brand is required'],
+        //required:[true,'product brand is required'],
         default:null,
-        validator: function(value) {  
-             //must be character and number 
-             return validator.isAlphanumeric(value.replace(/\s/g, ''));
-        }
     },
     tags:[
         {
@@ -103,11 +93,7 @@ const itemSchema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'User',
         default:null,
-        required:true,
-        validator: function(value) {
-             //must be character and number 
-             return validator.isAlphanumeric(value.replace(/\s/g, ''));
-        }
+        //required:true,
     },
     ratings:[
         {
@@ -177,8 +163,12 @@ const itemSchema = new mongoose.Schema({
             }
         }
     ],
+    deletedAt:{
+        type:Date,
+        default:null
+    }
 },{timestamps:true});
 
-const Item = mongoose.model('Item', itemSchema);
 
-module.exports = Item;
+
+module.exports = itemSchema;

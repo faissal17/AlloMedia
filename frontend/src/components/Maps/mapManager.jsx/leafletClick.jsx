@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-
 import L from "leaflet";
-
 import { useMap } from "react-leaflet";
-
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+import { setMap } from "../../../redux/features/map/mapSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const LeafletClick = () => {
   const map = useMap();
-  const [latlng, setLatlng] = useState({});
+  const dispatch = useDispatch();
+  const mapState = useSelector((state) => state.map);
 
   useEffect(() => {
     let marker;
@@ -17,8 +17,8 @@ const LeafletClick = () => {
       if (marker) {
         map.removeLayer(marker);
       }
-
-      await setLatlng(e.latlng);
+      const latLngObject = { lat: e.latlng.lat, lng: e.latlng.lng };
+      dispatch(setMap(latLngObject));
 
       marker = L.marker(e.latlng)
         .addTo(map)
