@@ -7,6 +7,7 @@ const orderController=require('./orders')
 const brandController=require('./brands')
 const tagController=require('./tags')
 const cityController=require('./cities')
+const itemController=require('./items')
 
 module.exports = {
   userControllers,
@@ -17,5 +18,6 @@ module.exports = {
   orderController,
   brandController,
   tagController,
-  cityController
+  cityController,
+  itemController
 };
