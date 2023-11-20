@@ -3,6 +3,7 @@ const { Product } = require("./Product");
 const { Order } = require("./Order");
 const { Cuisine } = require("./Cuisine");
 const { Category } = require("./Category");
+const { Restaurant } = require("./restaurant");
 
 module.exports = {
   User,
@@ -13,4 +14,5 @@ module.exports = {
   Order,
   Cuisine,
   Category,
+  Restaurant,
 };

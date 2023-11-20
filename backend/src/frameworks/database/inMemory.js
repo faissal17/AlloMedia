@@ -10,4 +10,5 @@ module.exports = {
   orders: [],
   cuisines: [],
   categories: [],
+  restaurants: [],
 };

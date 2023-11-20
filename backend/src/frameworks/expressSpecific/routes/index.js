@@ -1,3 +1,4 @@
+
 const express = require("express");
 const usersRouter = require("./users");
 const productsRouter = require("./products");
@@ -16,13 +17,13 @@ module.exports = (dependencies) => {
   const products = productsRouter(dependencies);
   const cuisine = cuisineRouter(dependencies);
   const category = categoryRouter(dependencies);
+  const restaurant = restaurantRoute(dependencies);
   const order=orderRouter(dependencies)
   const brand=brandRouter(dependencies)
   const tag=tagRouter(dependencies)
   const city=cityRouter(dependencies)
   const restaurant = restaurantRoute(dependencies);
   const item=itemRouter(dependencies)
-  
   
   
   
