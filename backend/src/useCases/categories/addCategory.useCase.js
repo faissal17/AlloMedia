@@ -1,7 +1,6 @@
 const { Category } = require("../../entities");
-const {
-  categoriesRepository,
-} = require("../../frameworks/repositories/inMemory");
+const { categoriesRepository } = require("../../frameworks/repositories/mongo");
+const slugify = require("slugify");
 
 module.exports = () => {
   if (!categoriesRepository) {
@@ -11,6 +10,7 @@ module.exports = () => {
   const execute = ({ name }) => {
     const category = new Category({
       name,
+      slug: slugify(name),
     });
 
     return categoriesRepository.add(category);

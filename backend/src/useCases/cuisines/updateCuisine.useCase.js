@@ -1,12 +1,16 @@
-const { cuisineRepository } = require("../../frameworks/repositories/inMemory");
+const { cuisinesRepository } = require("../../frameworks/repositories/mongo");
 
+const slugify = require("slugify");
 module.exports = () => {
-  //   const { cuisineRepository } = dependencies;
-  if (!cuisineRepository) {
+  //   const { cuisinesRepository } = dependencies;
+  if (!cuisinesRepository) {
     throw new Error("The cuisine repository should be exist in dependancies");
   }
-  const execute = ({ cuisine }) => {
-    return cuisineRepository.update(cuisine);
+  const execute = (cuisine) => {
+    if (cuisine.updates.name) {
+      cuisine.updates.slug = slugify(cuisine.updates.name);
+    }
+    return cuisinesRepository.update(cuisine);
   };
   return { execute };
 };

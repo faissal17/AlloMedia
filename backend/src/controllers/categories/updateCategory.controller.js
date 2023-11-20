@@ -2,13 +2,11 @@ const { Response } = require("../../frameworks/common");
 const { updateCategoryUseCase } = require("../../useCases/categories");
 module.exports = async (req, res) => {
   try {
-    const { id, name } = req.body;
+    const { id, ...updates } = req.body;
     const updateCategory = updateCategoryUseCase();
     const response = await updateCategory.execute({
-      cuisine: {
-        id,
-        name,
-      },
+      id,
+      updates,
     });
     res.json(
       new Response({

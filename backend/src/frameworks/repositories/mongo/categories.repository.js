@@ -1,34 +1,59 @@
 const { inMemory: inMemoryDb } = require("../../database");
-const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
+const slugify = require("slugify");
+const entityName = "Category";
+const {
+  schemas: { category: categorySchema },
+} = require("../../database/mongo");
+
+const Category = mongoose.model(entityName, categorySchema);
+
 module.exports = {
   add: async (category) => {
-    if (!category.id) {
-      category.id = uuidv4();
-    }
-    inMemoryDb.categories.push(category);
-    return category;
+    const mongoObject = new Category(category);
+    return mongoObject.save();
   },
   update: async (category) => {
-    const index = inMemoryDb.categories.findIndex(
-      (index) => index.id === category.id
+    const { id, updates } = category;
+    return Category.findByIdAndUpdate(
+      id,
+      {
+        ...updates,
+        updatedAt: new Date(),
+      },
+      {
+        new: true,
+      }
     );
-    if (index >= 0) {
-      inMemoryDb.categories[index] = category;
-      return inMemoryDb.categories[index];
-    }
-    return null;
   },
   delete: async (category) => {
-    const index = inMemoryDb.categories.findIndex(
-      (index) => index.id === category.id
+    const { id } = category;
+    return Category.findByIdAndDelete(
+      id,
+      {
+        deletedAt: new Date(),
+      },
+      {
+        new: true,
+      }
     );
-    if (index >= 0) {
-      inMemoryDb.categories.splice(index, 1);
-      return category;
-    }
-    return null;
   },
   getById: async (id) => {
-    return inMemoryDb.categories.find((item) => item.id === id);
+    const category = await Category.findOne({
+      _id: id,
+    });
+    if (!category) {
+      throw new Error(
+        `category with ID ${id} does not exist or has been deleted.`
+      );
+    }
+    return category;
+  },
+  getAll: async () => {
+    const categories = await Category.find();
+    if (!categories) {
+      throw new Error(`categories does not exist or has been deleted.`);
+    }
+    return categories;
   },
 };

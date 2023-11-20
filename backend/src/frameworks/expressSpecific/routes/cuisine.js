@@ -8,13 +8,15 @@ module.exports = (dependencies) => {
     deleteCuisineController,
     getCuisineController,
     updateCuisineController,
+    getAllCuisineController,
   } = cuisineControllers(dependencies);
 
   router
     .route("/")
     .post(addCuisineController)
     .delete(deleteCuisineController)
-    .put(updateCuisineController);
+    .patch(updateCuisineController)
+    .get(getAllCuisineController);
 
   router.route("/:id").get(getCuisineController);
 

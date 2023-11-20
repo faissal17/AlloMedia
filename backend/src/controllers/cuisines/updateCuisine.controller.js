@@ -2,13 +2,11 @@ const { Response } = require("../../frameworks/common");
 const { updateCuisineUseCase } = require("../../useCases/cuisines");
 module.exports = async (req, res) => {
   try {
-    const { id, name } = req.body;
+    const { id, ...updates } = req.body;
     const updateCuisine = updateCuisineUseCase();
     const response = await updateCuisine.execute({
-      cuisine: {
-        id,
-        name,
-      },
+      id,
+      updates,
     });
     res.json(
       new Response({
