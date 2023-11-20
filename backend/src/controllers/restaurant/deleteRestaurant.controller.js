@@ -7,7 +7,8 @@ module.exports = async (req, res) => {
   try {
     const { body = {} } = req;
     const { name, slug, picture, status, tags, brands, categories } = body;
-    useCaseInstance = deleteRestaurantUseCases();
+    const { id } = req.params;
+    const useCaseInstance = deleteRestaurantUseCases();
     const response = await useCaseInstance.execute({
       restaurant: {
         name,
@@ -18,6 +19,7 @@ module.exports = async (req, res) => {
         brands,
         categories,
       },
+      id: id,
     });
     res.json(
       new Response({

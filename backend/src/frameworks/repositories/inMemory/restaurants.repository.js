@@ -23,20 +23,25 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
     }
-
     return null;
   },
-  delete: async (restaurant) => {
-    const index = inMemoryDb.restaurants.findIndex(
-      (index) => index.id === restaurant.id
-    );
-    if (index >= 0) {
-      inMemoryDb.restaurants.splice(index, 1);
-      return restaurant;
+  delete: async (restaurant, id) => {
+    try {
+      const deleteResturant = await Restaurant.findByIdAndDelete(
+        id,
+        restaurant
+      );
+      return deleteResturant;
+    } catch (error) {
+      console.log(error.message);
     }
     return null;
   },
   getById: async (id) => {
-    return inMemoryDb.restaurants.find((item) => item.id === id);
+    try {
+      const getRestaurantById = await Restaurant.findById(id);
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 };
