@@ -1,22 +1,22 @@
-const {Order} =require('../../entities')
+const { Order } = require('../../entities')
 
-module.exports=dependencies=>{
+module.exports = dependencies => {
     const {
         ordersRepository
-    }=dependencies
+    } = dependencies
 
-    if(!ordersRepository){
+    if (!ordersRepository) {
         throw new Error('productsRepository should be in dependencies')
     }
 
-    const execute=({
+    const execute = ({
         userId,
         productsIds,
         date,
         isPayed,
         meta
-    })=>{
-        const order=new Order({
+    }) => {
+        const order = new Order({
             userId,
             productsIds,
             date,

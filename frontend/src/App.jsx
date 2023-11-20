@@ -8,7 +8,10 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import useAuth from './hooks/useAuth';
-import { PrivateRoute } from './routes/privateRoute';
+// import { PrivateRoute } from './routes/privateRoute';
+import { PrivateRoute } from './routes/PrivateRoute';
+
+import Dashboard from './pages/Dashboard';
 const Home = lazy(() => import('./pages/Home'))
 const Inscreption = lazy(() => import('./pages/Inscreption'))
 import Redirect from './components/Redirect';
@@ -53,6 +56,7 @@ function App() {
           <Route path='/verifyEmail/:token?' element={<VerifyEmail />} />
           <Route path='/forgotPassword' element={<ForgotPassword/>} />
           <Route path="*" element={<NotFound />} />
+          <Route path='/dashboard' element={<Dashboard/>} />
         </Routes>
       </Suspense>
       </Router>
