@@ -4,6 +4,7 @@ const order=require('./orders.schema')
 const brand=require('./brands.schema')
 const tag=require('./tags.schema')
 const city=require('./cities.schema')
+const image=require('./images.schema')
 
 
 
@@ -13,5 +14,6 @@ module.exports={
     order,
     brand,
     tag,
-    city
+    city,
+    image
 }

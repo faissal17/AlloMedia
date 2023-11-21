@@ -8,6 +8,7 @@ const brandController=require('./brands')
 const tagController=require('./tags')
 const cityController=require('./cities')
 const itemController=require('./items')
+const imageController=require('./images')
 
 module.exports = {
   userControllers,
@@ -19,5 +20,6 @@ module.exports = {
   brandController,
   tagController,
   cityController,
-  itemController
+  itemController,
+  imageController
 };
