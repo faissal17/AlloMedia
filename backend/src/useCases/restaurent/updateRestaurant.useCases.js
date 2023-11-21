@@ -1,6 +1,4 @@
-const {
-  restaurantRepository,
-} = require("../../frameworks/repositories/inMemory");
+const { restaurantRepository } = require("../../frameworks/repositories/mongo");
 
 module.exports = () => {
   if (!restaurantRepository) {
