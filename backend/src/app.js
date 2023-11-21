@@ -5,9 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 3000;
 const routes = require("./frameworks/expressSpecific/routes");
-const ErrorHandler = require("./frameworks/expressSpecific/middlewares");
-const { connect: connectMongo } = require("./frameworks/database/mongo");
-const cors = require("cors");
+const mongoose = require("./frameworks/database/mongo/index");
 
 
 
@@ -23,8 +21,13 @@ const cors = require("cors");
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+//this is for form data  urlencoded is meaning of form data extended is false means only string and array
+app.use(bodyParser.urlencoded({ extended: false }));
+const apiRoutes = routes();
+const { connect: connectMongo } = require("./frameworks/database/mongo");
+const cors = require("cors");
+app.use("/api/v1", apiRoutes);
 const allowedOrigins = ["http://localhost:5173"];
-
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -35,8 +38,6 @@ const corsOptions = {
   },
   credentials: true,
 };
-
-const apiRoutes = routes();
 
 module.exports = {
   start: () => {

@@ -17,10 +17,6 @@ module.exports = (dependencies) => {
   const products = productsRouter(dependencies);
   const cuisine = cuisineRouter(dependencies);
   const category = categoryRouter(dependencies);
-  const order=orderRouter(dependencies)
-  const brand=brandRouter(dependencies)
-  const tag=tagRouter(dependencies)
-  const city=cityRouter(dependencies)
   const restaurant = restaurantRoute(dependencies);
   const item=itemRouter(dependencies)
   const img=imgRouter(dependencies)
@@ -30,7 +26,7 @@ module.exports = (dependencies) => {
   
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
-  routes.use("/products", products); 
+  routes.use("/products", products);
   routes.use("/cuisines", cuisine);
   routes.use("/category", category);
   routes.use('/order',order)

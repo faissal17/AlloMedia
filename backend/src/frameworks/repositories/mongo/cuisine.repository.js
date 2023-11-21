@@ -1,34 +1,58 @@
 const { inMemory: inMemoryDb } = require("../../database");
-const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
+
+const entityName = "Cuisine";
+const {
+  schemas: { cuisine: cuisineSchema },
+} = require("../../database/mongo");
+
+const Cuisine = mongoose.model(entityName, cuisineSchema);
 module.exports = {
   add: async (cuisine) => {
-    if (!cuisine.id) {
-      cuisine.id = uuidv4();
-    }
-    inMemoryDb.cuisines.push(cuisine);
-    return cuisine;
+    const mongoObject = new Cuisine(cuisine);
+    return mongoObject.save();
   },
   update: async (cuisine) => {
-    const index = inMemoryDb.cuisines.findIndex(
-      (index) => index.id === cuisine.id
+    const { id, updates } = cuisine;
+    return Cuisine.findByIdAndUpdate(
+      id,
+      {
+        ...updates,
+        updatedAt: new Date(),
+      },
+      {
+        new: true,
+      }
     );
-    if (index >= 0) {
-      inMemoryDb.cuisines[index] = cuisine;
-      return inMemoryDb.cuisines[index];
-    }
-    return null;
   },
   delete: async (cuisine) => {
-    const index = inMemoryDb.cuisines.findIndex(
-      (index) => index.id === cuisine.id
+    const { id } = cuisine;
+    return Cuisine.findByIdAndDelete(
+      id,
+      {
+        deletedAt: new Date(),
+      },
+      {
+        new: true,
+      }
     );
-    if (index >= 0) {
-      inMemoryDb.cuisines.splice(index, 1);
-      return cuisine;
-    }
-    return null;
   },
   getById: async (id) => {
-    return inMemoryDb.cuisines.find((item) => item.id === id);
+    const cuisine = await Cuisine.findOne({
+      _id: id,
+    });
+    if (!cuisine) {
+      throw new Error(
+        `cuisine with ID ${id} does not exist or has been deleted.`
+      );
+    }
+    return cuisine;
+  },
+  getAll: async () => {
+    const cuisines = await Cuisine.find();
+    if (!cuisines) {
+      throw new Error(`cuisines does not exist or has been deleted.`);
+    }
+    return cuisines;
   },
 };

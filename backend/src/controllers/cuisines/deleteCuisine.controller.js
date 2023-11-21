@@ -3,14 +3,9 @@ const { deleteCuisineUseCase } = require("../../useCases/cuisines");
 
 module.exports = async (req, res) => {
   try {
-    const { id, name } = req.body;
+    const { id } = req.body;
     const deleteCuisine = deleteCuisineUseCase();
-    const response = await deleteCuisine.execute({
-      cuisine: {
-        id,
-        name,
-      },
-    });
+    const response = await deleteCuisine.execute({ id });
     res.json(
       new Response({
         status: true,

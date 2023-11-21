@@ -1,12 +1,12 @@
-const { cuisineRepository } = require("../../frameworks/repositories/inMemory");
+const { cuisinesRepository } = require("../../frameworks/repositories/mongo");
 
 module.exports = (dependencies) => {
-  //   const { cuisineRepository } = dependencies;
-  if (!cuisineRepository) {
+  //   const { cuisinesRepository } = dependencies;
+  if (!cuisinesRepository) {
     throw new Error("The users repository should be exist in dependancies");
   }
-  const execute = ({ cuisine }) => {
-    return cuisineRepository.delete(cuisine);
+  const execute = (cuisine) => {
+    return cuisinesRepository.delete(cuisine);
   };
   return { execute };
 };
