@@ -1,5 +1,5 @@
 const usersRepository = require("./users.repository");
-
+const restaurantRepository = require("./restaurants.repository");
 const brandsRepository=require('./brands.repository')
 const tagsRepository=require('./tags.repository')
 const citiesRepository=require('./cities.repository')
@@ -12,6 +12,7 @@ module.exports = {
   tagsRepository,
   citiesRepository,
   itemsRepository,
+  restaurantRepository,
   categoriesRepository,
   cuisinesRepository,
 };

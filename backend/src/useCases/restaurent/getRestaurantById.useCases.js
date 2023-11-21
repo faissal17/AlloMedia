@@ -1,6 +1,6 @@
 const {
   restaurantRepository,
-} = require("../../frameworks/repositories/inMemory");
+} = require("../../frameworks/repositories/mongo");
 
 module.exports = () => {
   if (!restaurantRepository) {
