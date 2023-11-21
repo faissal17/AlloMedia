@@ -1,26 +1,11 @@
 const { Response } = require("../../frameworks/common");
 const { deleteRestaurantUseCases } = require("../../useCases/restaurent");
-{
-  deleteRestaurantUseCases;
-}
 module.exports = async (req, res) => {
   try {
-    const { body = {} } = req;
-    const { name, slug, picture, status, tags, brands, categories } = body;
-    const { id } = req.params;
+    const {id}=req.body
     const useCaseInstance = deleteRestaurantUseCases();
-    const response = await useCaseInstance.execute({
-      restaurant: {
-        name,
-        slug,
-        picture,
-        status,
-        tags,
-        brands,
-        categories,
-      },
-      id: id,
-    });
+    console.log('controller id:',id)
+    const response = await useCaseInstance.execute(id);
     res.json(
       new Response({
         status: true,

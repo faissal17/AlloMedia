@@ -6,21 +6,12 @@ const { updateRestaurantUseCases } = require("../../useCases/restaurent");
 module.exports = async (req, res) => {
   try {
     const { body = {} } = req;
-    const { name, slug, picture, status, tags, brands, categories } = body;
-    const { id } = req.params;
+    const { id,...updates } = req.body;
     const useCaseInstance = updateRestaurantUseCases();
-    const response = await useCaseInstance.execute({
-      restaurant: {
-        name,
-        slug,
-        picture,
-        status,
-        tags,
-        brands,
-        categories,
-      },
-      id: id,
-    });
+    const response = await useCaseInstance.execute(
+      id,
+      updates,
+    );
     res.json(
       new Response({
         status: true,

@@ -13,8 +13,7 @@ module.exports = {
   tagsRepository,
   citiesRepository,
   itemsRepository,
-  imagesRrpository
-  itemsRepository,
+  imagesRrpository,
   restaurantRepository,
   categoriesRepository,
   cuisinesRepository,

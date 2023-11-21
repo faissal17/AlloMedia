@@ -20,7 +20,10 @@ module.exports = (dependencies) => {
   const restaurant = restaurantRoute(dependencies);
   const item=itemRouter(dependencies)
   const img=imgRouter(dependencies)
-  
+  const order=orderRouter(dependencies)
+  const brand=brandRouter(dependencies)
+  const tag=tagRouter(dependencies)
+  const city=cityRouter(dependencies)
   
   
   
