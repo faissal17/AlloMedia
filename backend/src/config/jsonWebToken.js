@@ -1,16 +1,18 @@
 const jwt = require("jsonwebtoken");
 class jsonWebToken {
-  static async sign(payload, secret, options) {
+  static async sign(payload) {
     try {
-      const token = await jwt.sign(payload, secret, options);
+      const token = await jwt.sign(payload, process.env.SECRET_KEY_TOKEN, {
+        expiresIn: "1d",
+      });
       return token;
     } catch (err) {
       console.log(err);
     }
   }
-  static async verify(token, secret, options) {
+  static async verify(token) {
     try {
-      const decoded = await jwt.verify(token, secret, options);
+      const decoded = await jwt.verify(token, process.env.SECRET_KEY_TOKEN);
       return decoded;
     } catch (err) {
       console.log(err);

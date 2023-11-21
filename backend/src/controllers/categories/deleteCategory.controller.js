@@ -3,14 +3,9 @@ const { deleteCategoryUseCase } = require("../../useCases/categories");
 
 module.exports = async (req, res) => {
   try {
-    const { id, name } = req.body;
+    const { id } = req.body;
     const daleteCategory = deleteCategoryUseCase();
-    const response = await daleteCategory.execute({
-      cuisine: {
-        id,
-        name,
-      },
-    });
+    const response = await daleteCategory.execute({ id });
     res.json(
       new Response({
         status: true,
