@@ -7,6 +7,7 @@ const itemsRepository=require('./products.repository')
 const imagesRrpository=require('./images.repository')
 const categoriesRepository = require("./categories.repository");
 const cuisinesRepository = require("./cuisine.repository");
+const deliveryPersonRepository=require('./delivery.person.repository')
 module.exports = {
   usersRepository,
   brandsRepository,
@@ -17,4 +18,5 @@ module.exports = {
   restaurantRepository,
   categoriesRepository,
   cuisinesRepository,
+  deliveryPersonRepository
 };

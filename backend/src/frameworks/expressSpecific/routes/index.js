@@ -10,6 +10,7 @@ const tagRouter=require('./tags')
 const cityRouter=require('./cities')
 const itemRouter=require('./items')
 const imgRouter=require('./testImg')
+const deliveryPersonRoute=require('./deliverypersone')
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -24,6 +25,7 @@ module.exports = (dependencies) => {
   const brand=brandRouter(dependencies)
   const tag=tagRouter(dependencies)
   const city=cityRouter(dependencies)
+  const deliveryperson=deliveryPersonRoute(dependencies)
   
   
   
@@ -38,5 +40,6 @@ module.exports = (dependencies) => {
   routes.use('/cities',city)
   routes.use('/items',item)
   routes.use('/testimg',img)
+  routes.use('/deliveryperson',deliveryperson)
   return routes;
 };

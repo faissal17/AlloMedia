@@ -2,8 +2,11 @@ const express=require('express')
 const { imageController } = require("../../../controllers");
 
 const {S3Client,GetObjectCommand,PutObjectCommand, PutObjectAclCommand}=require('@aws-sdk/client-s3')
-const {getSignedUrl}=require('@aws-sdk/s3-request-presigner')
 const multer=require('multer')
+const crypto=require('crypto')
+
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+
 
     const s3Client=new S3Client({
         region:"us-east-1",
@@ -12,7 +15,7 @@ const multer=require('multer')
             secretAccessKey:'6IWRIwnvR/Gok1Wf4dU4FXHB+rbli/HrwVcHBAvP'
         }
     }) 
-
+    const randomImage=(bytes=32)=>crypto.randomBytes(bytes).toString('hex')
     const bucketName="testing-delivery"
 
     async function getObjectURL(key){
@@ -24,10 +27,7 @@ const multer=require('multer')
         return url 
     }
     //
-    async function init(){
-      console.log('URL fucking for 21.png',await getObjectURL("21.png"))
-    }
-    init()
+    
 
 
 module.exports=dependencies =>{
@@ -49,15 +49,23 @@ module.exports=dependencies =>{
             console.log('req.body',req.body)
             console.log('req.file',req.file)
 
-            req.file.buffer
+            //resize image 
+            const imageName=randomImage()
             const params={
                 Bucket:bucketName,
-                Key:req.file.originalname,
+                Key:imageName,
                 Body:req.file.buffer,
                 ContentType:req.file.mimetype
             }
             const command = new PutObjectCommand(params)
             await s3Client.send(command)
+            async function init(){
+                console.log('fucking image',await getObjectURL(imageName))
+            }
+            
+            init()
+
+
         })
         .delete(deleteImagesController)
         .patch(updateImagesController)

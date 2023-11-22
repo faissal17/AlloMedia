@@ -9,6 +9,7 @@ const tagController=require('./tags')
 const cityController=require('./cities')
 const itemController=require('./items')
 const imageController=require('./images')
+const deliveryPersonController=require('./deliverypersone')
 
 module.exports = {
   userControllers,
@@ -21,5 +22,6 @@ module.exports = {
   tagController,
   cityController,
   itemController,
-  imageController
+  imageController,
+  deliveryPersonController
 };

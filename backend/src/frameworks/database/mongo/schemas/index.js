@@ -10,6 +10,7 @@ const tag=require('./tags.schema')
 const city=require('./cities.schema')
 const image=require('./images.schema')
 const restaurant=require('./restaurants.schema')
+const deliveryPerson=require('./delivery-person.schema')
 
 module.exports = {
   user,
@@ -22,7 +23,8 @@ module.exports = {
   tag,
   city,
   image,
-  restaurant
+  restaurant,
+  deliveryPerson
 };
 
 
