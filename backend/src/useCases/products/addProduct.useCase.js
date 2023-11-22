@@ -1,28 +1,26 @@
-const { Product } = require('../../entities')
-const { productsRepository } = require('../../frameworks/repositories/inMemory')
+const { Product } = require("../../entities");
+const {
+  productsRepository,
+} = require("../../frameworks/repositories/inMemory");
 module.exports = () => {
+  if (!productsRepository) {
+    throw new Error("productsRepository should be in dependencies");
+  }
 
+  const execute = ({ name, description, images, price, color, meta }) => {
+    const product = new Product({
+      name,
+      description,
+      images,
+      price,
+      color,
+      meta,
+    });
 
-    if (!productsRepository) {
-        throw new Error('productsRepository should be in dependencies')
-    }
+    return productsRepository.add(product);
+  };
 
-    const execute = ({
-        name,
-        description,
-        images,
-        price,
-        color,
-        meta
-    }) => {
-        const product = new Product({
-            name, description, images, price, color, meta
-        })
-
-        return productsRepository.add(product)
-    }
-
-    return {
-        execute
-    }
-}
+  return {
+    execute,
+  };
+};

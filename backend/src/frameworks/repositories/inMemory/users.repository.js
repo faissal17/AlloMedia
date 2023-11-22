@@ -1,13 +1,12 @@
-const {
-    inMemory: inMemoryDb
-}=require('../../database')
+const { inMemory: inMemoryDb } = require("../../database");
 
-const {
-    v4:uuidv4,
-} = require('uuid')
+const { v4: uuidv4 } = require("uuid");
+
 
 module.exports={
     add:async user=>{  
+        console.log('fucking user')
+        console.log(user)
         if(!user.id){
             user.id=uuidv4()
         }
@@ -32,5 +31,8 @@ module.exports={
     },
     getById:async id=>{
         return inMemoryDb.users.find((item)=>item.id===id)
-    }
-}
+    },
+    getByEmail: async (user) => {
+      return inMemoryDb.users.find((item) => item.email === user.email);
+    },
+};

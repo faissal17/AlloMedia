@@ -1,31 +1,22 @@
 const { Response} =require('../../frameworks/common')
-
-module.exports=dependencies =>{
-    const {
-        useCases:{
-            user:{
-                getUserByIdUseCase
-            }
-        }
-    }=dependencies
-
-    return async (req,res,next)=>{
-        try{ 
-            console.log('fuck are you')
-            const {
-                params={}
-            }=req 
-            const {id}=params
-            const getUserById=getUserByIdUseCase(dependencies)
-            const response=await getUserById.execute({id})
-            //https:§§domain/api/v1/users/:id
-            res.json(new Response({
-                status:true,
-                content:response
-            }))
-            next()
-        }catch(err){
-            next(err)
-        }
+const {getUserByIdUseCase} =require('../../useCases/users')
+module.exports=async (req,res) =>{
+    try{ 
+        console.log('fuck are you')
+        const {
+            params={}
+        }=req 
+        const {id}=params
+        const useCaseInstance =getUserByIdUseCase();
+        const response=await useCaseInstance.execute({id})
+        //https:§§domain/api/v1/users/:id
+        res.json(new Response({
+            status:true,
+            content:response
+        }))
+        //next()
+    }catch(err){
+        //next(err)
+        res.status(400).json({msg:err.message})
     }
 }

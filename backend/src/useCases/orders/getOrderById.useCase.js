@@ -1,18 +1,12 @@
-const {Order} =require('../../entities')
-
-module.exports=dependencies=>{
-    const {
-        ordersRepository
-    }=dependencies
-
-    if(!ordersRepository){
-        throw new Error('productsRepository should be in dependencies')
+const {orderRepository} =require('../../frameworks/repositories/mongo')
+module.exports=()=>{
+    if(!orderRepository){
+        throw new Error('productsssRepository should be in dependencies')
     }
 
-    const execute=({
-        id
-    })=>{
-        return ordersRepository.getById(id)
+    const execute=(id)=>{
+        console.log('fuck usecase',id)
+        return orderRepository.getById(id)
     }
 
     return {

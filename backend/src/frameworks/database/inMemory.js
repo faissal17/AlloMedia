@@ -1,5 +1,8 @@
-module.exports={
-    users:[],
-    products:[],
-    orders:[]
-}
+module.exports = {
+  users: [],
+  products: [],
+  orders: [],
+  cuisines: [],
+  categories: [],
+  restaurants: [],
+};
