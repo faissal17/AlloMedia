@@ -79,18 +79,6 @@ const Overview = () => {
           />
         </div>
       </div>
-<<<<<<< HEAD
-  <div
-    className=" relative lg:absolute bg-white z-50 rounded-lg shadow-lg
-         sm:h-40 lg:h-56 xl:h-64     
-          lg:bottom-[-112px]  xl:bottom-[-128px] 
-              lg:w-[80%] xl:w-[50%]
-         right-0
-        lg:right-20 p-4"
-  >
-    dfdfdfdfdfdf
-  </div>
-=======
       <div className="category__slider-product-home h-[100px] sm:h-[100px] 
          md:h-[150px] lg:h-[160]  mx-1 md:mx-10 lg:mx-11 my-1 bg-color-red-button 
          relative shadow-md">
@@ -219,7 +207,6 @@ const Overview = () => {
         
       </div>
 
->>>>>>> 63fdbfd0863defb3d4d6f259f4a18d165003cb51
     </div >
   );
 };
