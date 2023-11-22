@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { logout } from "../service/api/auth/auth";
 import "../../public/css/Home.css";
 import Overview from "../components/Home/Overview";
@@ -13,10 +13,10 @@ const Home = () => {
     }
   }, [active]);
   return (
-      <div className=" min-h-[200vh]">
-        <Navbar/>
-        <Overview/>
-      </div>
+    <div className=" min-h-[200vh]">
+      <Navbar />
+      <Overview />
+    </div>
   );
 };
 
