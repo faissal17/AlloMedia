@@ -2,6 +2,7 @@ const express = require("express");
 const usersRouter = require("./users");
 const productsRouter = require("./products");
 const cuisineRouter = require("./cuisine");
+const menuRouter = require("./menu");
 const restaurantRoute = require("./restaurent")
 const categoryRouter=require('./category')
 const orderRouter=require('./orders')
@@ -18,20 +19,22 @@ module.exports = (dependencies) => {
   const cuisine = cuisineRouter(dependencies);
   const category = categoryRouter(dependencies);
   const restaurant = restaurantRoute(dependencies);
-  const item=itemRouter(dependencies)
+
+  const order = orderRouter(dependencies);
+  const brand = brandRouter(dependencies);
+  const tag = tagRouter(dependencies);
+  const city = cityRouter(dependencies);
+  const item = itemRouter(dependencies);
+  const menu = menuRouter(dependencies);
+
   const img=imgRouter(dependencies)
-  const order=orderRouter(dependencies)
-  const brand=brandRouter(dependencies)
-  const tag=tagRouter(dependencies)
-  const city=cityRouter(dependencies)
-  
-  
   
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
   routes.use("/products", products);
   routes.use("/cuisines", cuisine);
   routes.use("/category", category);
+  routes.use("/menu", menu);
   routes.use('/order',order)
   routes.use('/brands',brand)
   routes.use('/tags',tag)

@@ -10,6 +10,7 @@ const LeafletClick = () => {
   const map = useMap();
   const dispatch = useDispatch();
   const mapState = useSelector((state) => state.map);
+  console.log(ma);
 
   useEffect(() => {
     let marker;

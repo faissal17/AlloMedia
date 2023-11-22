@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 3000;
 const routes = require("./frameworks/expressSpecific/routes");
 const mongoose = require("./frameworks/database/mongo/index");
 
+const cors = require("cors");
+
+
 
 
 
@@ -15,18 +18,12 @@ const mongoose = require("./frameworks/database/mongo/index");
 // const {getSignedUrl}=require('@aws-sdk/s3-request-presigner')
 //
 
-
-
-
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 //this is for form data  urlencoded is meaning of form data extended is false means only string and array
 app.use(bodyParser.urlencoded({ extended: false }));
-const apiRoutes = routes();
 const { connect: connectMongo } = require("./frameworks/database/mongo");
-const cors = require("cors");
-app.use("/api/v1", apiRoutes);
+
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
   origin: function (origin, callback) {

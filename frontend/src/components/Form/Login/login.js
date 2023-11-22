@@ -6,10 +6,13 @@ import { validateCredentials as validationLogin } from "../../../helpers/validat
 import { LoginAPI } from "../../../service/query/auth.js";
 import useMutateHook from "../../../hooks/useMutations.jsx";
 import { useLoginMutation } from "../../../redux/service/auth/authApi.js";
+import { setlogin } from "../../../redux/features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
 
 export const LoginService = () => {
   // const navigate=useNavigate()
   // const queryClient = useQueryClient()
+  const dispatch = useDispatch();
   const [submet, setSubmet] = useState(false);
   const [login, setLogin] = useState({ email: "", password: "" });
   const [loginStatus, setLoginStatus] = useState({
@@ -84,6 +87,7 @@ export const LoginService = () => {
   useEffect(() => {
     if (isLoginSuccess) {
       console.log(loginData);
+      dispatch(setlogin(loginData));
     }
   }, [isLoginSuccess]);
   const loginUserMutation = useMutateHook(LoginAPI());
