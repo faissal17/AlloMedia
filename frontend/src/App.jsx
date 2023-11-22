@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
 import Contact from "./pages/Contact.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import Restaurant from "./pages/Restaurant.jsx";
 import { PrivateRoute } from "./routes/privateRoute";
 const Home = lazy(() => import("./pages/Home"));
 const Inscreption = lazy(() => import("./pages/Inscreption"));
@@ -61,6 +62,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/restaurant" element={<Restaurant />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
@@ -72,7 +74,7 @@ function App() {
               element={<PageRes />}
             ></Route>
           </Routes>
-        </Suspense>
+        </Suspense> 
       </Router>
       <ReactQueryDevtools />
     </QueryClientProvider>

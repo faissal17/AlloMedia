@@ -29,7 +29,7 @@ function Navbar() {
             Categories
           </li>
         </Link>
-        <Link>
+        <Link to="/restaurant">
           <li className=" text-sm font-semibold transition hover:text-primary">
             Restaurants
           </li>
