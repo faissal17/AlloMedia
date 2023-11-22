@@ -9,6 +9,7 @@ const brandRouter = require("./brands");
 const tagRouter = require("./tags");
 const cityRouter = require("./cities");
 const itemRouter = require("./items");
+const menuRouter = require("./menu");
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -22,6 +23,7 @@ module.exports = (dependencies) => {
   const tag = tagRouter(dependencies);
   const city = cityRouter(dependencies);
   const item = itemRouter(dependencies);
+  const menu = menuRouter(dependencies);
 
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
@@ -33,5 +35,6 @@ module.exports = (dependencies) => {
   routes.use("/tags", tag);
   routes.use("/cities", city);
   routes.use("/items", item);
+  routes.use("/menu", menu);
   return routes;
 };

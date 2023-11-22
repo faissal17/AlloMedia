@@ -1,3 +1,4 @@
+const bcrypt = require("../../config/bcrypt");
 const { User } = require("../../entities");
 const { usersRepository } = require("../../frameworks/repositories/mongo");
 
@@ -6,15 +7,21 @@ module.exports = () => {
     throw new Error("usersRepository should be in dependencies");
   }
 
-  const execute = ({ email, password }) => {
+  const execute = async ({ email, _password }) => {
     const user = new User({
       email,
-      password,
+      _password,
     });
 
-    const getUser = usersRepository.getByEmail(user);
+    const getUser = await usersRepository.getByEmail(user);
 
-    return getUser;
+    const { password } = getUser;
+
+    const isPasswordCorrect = await bcrypt.comparePassword(_password, password);
+    if (isPasswordCorrect) {
+      return getUser;
+    }
+    throw new Error("Email and Password is incorrect");
   };
 
   return {
