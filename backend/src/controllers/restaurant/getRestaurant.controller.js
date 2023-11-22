@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
     console.log("before");
     // Call the execute method on the use case instance
-    const getRestaurantById = await useCaseInstance.execute({ id });
+    const getRestaurantById = await useCaseInstance.execute(id);
     console.log("after");
 
     res.json(

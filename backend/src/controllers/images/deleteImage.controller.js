@@ -1,12 +1,13 @@
 const { Response } = require("../../frameworks/common");
-const { deleteTagUseCase } = require('../../useCases/tags')
+const { deleteImageUseCase } = require('../../useCases/images')
 module.exports = async (req,res) => {
     try {
+      const { body = {} } = req;
       const {id} = req.body;
-      console.log('controller id:',id)
-      const useCaseInstance=deleteTagUseCase()
+      console.log('id:',id)
+      const useCaseInstance=deleteImageUseCase()
       const response = await useCaseInstance.execute({
-        tag: {id},
+        brand: {id},
       });
       res.json(
         new Response({
@@ -14,7 +15,9 @@ module.exports = async (req,res) => {
           content: response,
         })
       );
+      //next();
     } catch (err) {
+      //next(err);
       console.log(err)
     }
   };

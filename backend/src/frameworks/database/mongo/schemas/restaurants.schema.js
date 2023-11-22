@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const validator=require('validator')
 const restaurantSchema = new mongoose.Schema({
   // Other tag-related fields
-    user: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User' 
-    },
     name: {
         type: String,
         required: [true, "brand  of product name is required"],
@@ -13,6 +9,14 @@ const restaurantSchema = new mongoose.Schema({
         index: true,
         lowercase: true,
         trim: true,
+        validator: (value) => {
+            return validator.isAlpha(value.replace(/\s/g, ""));
+        },
+    },
+    description: {
+        type: String,
+        required: [true, "brand  of product name is required"],
+        lowercase: true,
         validator: (value) => {
             return validator.isAlpha(value.replace(/\s/g, ""));
         },
@@ -91,6 +95,6 @@ const restaurantSchema = new mongoose.Schema({
     },
 });
 
-const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = Restaurant;
+
+module.exports = restaurantSchema;
