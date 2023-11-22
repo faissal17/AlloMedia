@@ -1,14 +1,11 @@
-const {Order} =require('../../entities')
-const {ordersRepository} =require('../../frameworks/repositories/inMemory')
+const {orderRepository} =require('../../frameworks/repositories/mongo')
 module.exports=()=>{
-    if(!ordersRepository){
+    if(!orderRepository){
         throw new Error('productsRepository should be in dependencies')
     }
 
-    const execute=({
-        order
-    })=>{
-        return ordersRepository.delete(order)
+    const execute=(id)=>{
+        return orderRepository.delete(id)
     }
 
     return {

@@ -1,28 +1,22 @@
 const { Response} =require('../../frameworks/common')
 const {getOrderByIdUseCase} =require('../../useCases/orders')
 module.exports=async (req,res) =>{
-    console.log('fuck of')
-   
+    try{ 
+        console.log('fuck are youddd')
+        const {id}=req.params
+        console.log(id)
+        const useCaseInstance = getOrderByIdUseCase();
         
-        try{
-            console.log('totototo')
-            
-            const {id}=req.params
-            console.log('tototototeeee')
-            const useCaseInstance = getOrderByIdUseCase();
-
-            console.log('before')
-            // Call the execute method on the use case instance
-            const getOrderId = await useCaseInstance.execute({ id });
-            console.log('after')
-            
-            res.json(new Response({
-                status:true,
-                content:getOrderId
-            }))
-            //next()
-        }catch(err){
-            console.log(err)
-        }
-    
+        console.log(id)
+        const response=await useCaseInstance.execute(id)
+        //https:§§domain/api/v1/users/:id
+        res.json(new Response({
+            status:true,
+            content:response
+        }))
+        //next()
+    }catch(err){
+        //next(err)
+        res.status(400).json({msg:err.message})
+    }
 }

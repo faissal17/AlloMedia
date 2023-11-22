@@ -57,9 +57,14 @@ const orderSchema = new mongoose.Schema({
   },
   status:{
     type:String,
-    enum:['MANAGER','USER','LIVREUR','ADMIN']
+    enum:['PENDING','CANCEL','DONE'],
+    default:null,
   },
   deletedAt:{
+    type:Date,
+    default:null
+  },
+  updatedAt:{
     type:Date,
     default:null
   }

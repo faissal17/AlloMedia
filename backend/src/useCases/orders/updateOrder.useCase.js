@@ -1,5 +1,4 @@
-const {Order} =require('../../entities')
-const {ordersRepository} =require('../../frameworks/repositories/inMemory')
+const {ordersRepository} =require('../../frameworks/repositories/mongo')
 module.exports=()=>{
    
     if(!ordersRepository){
