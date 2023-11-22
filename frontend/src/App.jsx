@@ -8,7 +8,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
-import ContactUs from "./pages/ConatctUs.jsx";
+import Contact from "./pages/Contact.jsx";
+import Checkout from "./pages/Checkout.jsx";
 import { PrivateRoute } from "./routes/privateRoute";
 const Home = lazy(() => import("./pages/Home"));
 const Inscreption = lazy(() => import("./pages/Inscreption"));
@@ -58,7 +59,8 @@ function App() {
             <Route path="/verifyEmail/:token?" element={<VerifyEmail />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/contactUs" element={<ContactUs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/checkout" element={<Checkout />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />

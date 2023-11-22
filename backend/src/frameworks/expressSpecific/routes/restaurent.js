@@ -12,13 +12,15 @@ module.exports = (dependencies) => {
     getRestaurantByIdController,
   } = restaurantController(dependencies);
 
-  router.route("/").post(addRestaurantController);
+  router.route("/")
+    .post(addRestaurantController)
+    .delete(deleteRestaurantController)
+    .patch(updateRestaurantController);
 
   router
     .route("/:id")
     .get(getRestaurantByIdController)
-    .delete(deleteRestaurantController)
-    .put(updateRestaurantController);
+    
 
   return router;
 };

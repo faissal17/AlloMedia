@@ -1,48 +1,49 @@
-const { inMemory: inMemoryDb } = require("../../database");
-const Restaurant = require("../../database/mongo/schemas/restaurants.schema");
+const mongoose=require('mongoose')
+const entityName="Restaurant"
+const {
+  schemas:{
+      restaurant:restaurantSchema
+  }
+}=require('../../database/mongo')
 
-const { v4: uuidv4 } = require("uuid");
+const Restaurant=mongoose.model(entityName,restaurantSchema)
+module.exports= {
+  
 
-module.exports = {
-  add: async (restaurant) => {
-    if (!restaurant.id) {
-      restaurant.id = uuidv4();
-    }
-    inMemoryDb.restaurants.push(restaurant);
-    try {
-      await Restaurant.create(restaurant);
-    } catch (error) {
-      console.log(error.message);
-    }
-    return restaurant;
-  },
-  update: async (restaurant, id) => {
-    try {
-      const newResturant = await Restaurant.findByIdAndUpdate(id, restaurant);
-      return newResturant;
-    } catch (error) {
-      console.log(error.message);
-    }
-    return null;
-  },
-  delete: async (restaurant, id) => {
-    try {
-      const deleteResturant = await Restaurant.findByIdAndDelete(
-        id,
-        restaurant
-      );
-      return deleteResturant;
-    } catch (error) {
-      console.log(error.message);
-    }
-    return null;
-  },
-  getById: async (id) => {
-    try {
-      const getRestaurantById = await Restaurant.findById(id);
-      return getRestaurantById;
-    } catch (error) {
-      console.log(error.message);
-    }
-  },
+    add: async (restaurant) => {
+      console.log("repositpry restaurantssss")
+      console.log('restaurant',restaurant)
+      const restaurants=new Restaurant(restaurant)
+      return restaurants.save()
+    },
+    update: async (id,restaurant) => {
+      console.log("restaurant repository",restaurant)
+      // const { id , updates }=restaurant
+        return Restaurant.findByIdAndUpdate(id,{
+            ...restaurant,
+            updatedAt:new Date()
+        },{
+            new:true 
+      })
+    },
+    delete: async (id) => {
+      console.log('delete repository ',id)
+      return Restaurant.findByIdAndUpdate(id,{
+        deleted_at:new Date(),
+      },{
+        new:true
+      })
+    },
+    getById: async (id) => {
+      console.log('id hhhhhh', id)
+      const restaurant=await Restaurant.findOne({
+        _id:id,
+      })
+      if(!restaurant){
+        throw new Error (`Restaurant with ID ${id} does not exists`)
+      }
+
+      return restaurant
+    },
 };
+
