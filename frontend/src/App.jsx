@@ -12,6 +12,8 @@ import useAuth from './hooks/useAuth';
 import { PrivateRoute } from './routes/PrivateRoute';
 
 import Dashboard from './pages/Dashboard';
+import ShoppingCart from './pages/ShoppingCart';
+
 const Home = lazy(() => import('./pages/Home'))
 const Inscreption = lazy(() => import('./pages/Inscreption'))
 import Redirect from './components/Redirect';
@@ -57,6 +59,7 @@ function App() {
           <Route path='/forgotPassword' element={<ForgotPassword/>} />
           <Route path="*" element={<NotFound />} />
           <Route path='/dashboard' element={<Dashboard/>} />
+          <Route path='/shopping-cart' element={<ShoppingCart/>} />
         </Routes>
       </Suspense>
       </Router>
