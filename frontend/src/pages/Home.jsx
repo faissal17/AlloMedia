@@ -19,14 +19,16 @@ const Home = () => {
       logout();
     }
   }, [active]);
+
+
   return (
     <div className=" min-h-[200vh]">
       <Navbar />
       <Overview />
       <Offres className=' mt-44' offre1={offre1} offre2={offre2} />
-      <Items/>
+      <Items />
       <Offres offre1={kfc1} offre2={kfc2} />
-      <Items/>
+      <Items />
       <p>kjsdjsjkd</p>
     </div>
   );

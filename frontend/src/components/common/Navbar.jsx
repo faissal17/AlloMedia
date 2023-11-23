@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
+
 function Navbar() {
   return (
     <nav className=" p-2 sm:p-3 md:p-2 lg:p-1 px-4 md:px-4 lg:px-14 xl:px-20 flex shadow-lg items-center bg-gray-100">
@@ -15,7 +16,7 @@ function Navbar() {
           name="search"
           id="search"
           placeholder="Search..."
-          onChange={() => {}}
+          onChange={() => { }}
           className="
                 rounded-3xl
                w-[350px] py-[10px] lg:py-[10px] lg:w-[400px] xl:w-[450px] border border-gray-300 

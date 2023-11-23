@@ -70,7 +70,7 @@ const Overview = () => {
             id="search"
             localisation={true}
             placeholder="Enter your delivery address"
-            onChange={() => {}}
+            onChange={() => { }}
             className="
                      rounded-md lg:rounded-2xl
                    py-[20px] lg:py-[10px] lg:py-[25px]  
@@ -207,7 +207,7 @@ const Overview = () => {
         
       </div>
 
-    </div>
+    </div >
   );
 };
 
