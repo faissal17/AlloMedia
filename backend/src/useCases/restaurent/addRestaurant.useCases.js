@@ -1,8 +1,6 @@
 const { Restaurant } = require("../../entities");
-const {
-  restaurantRepository,
-} = require("../../frameworks/repositories/mongo");
-const slugify=require('slugify')
+const { restaurantRepository } = require("../../frameworks/repositories/mongo");
+const slugify = require("slugify");
 
 module.exports = () => {
   if (!restaurantRepository) {
@@ -14,17 +12,18 @@ module.exports = () => {
     tags,
     brands,
     categories,
-    description
+    description,
+    localisation,
   }) => {
-    const restaurant={
+    const restaurant = {
       name,
-      slug:slugify(name),
+      slug: slugify(name),
       brands,
       tags,
       categories,
       description,
-    }
-      
+      localisation,
+    };
 
     return restaurantRepository.add(restaurant);
   };
