@@ -10,8 +10,8 @@ import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
 import Contact from "./pages/Contact.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import Restaurant from "./pages/Restaurant.jsx";
-import { PrivateRoute } from "./routes/privateRoute";
+// import { PrivateRoute } from "./routes/privateRoute";
+import { PrivateRoute } from "./routes/PrivateRoute.jsx";
 const Home = lazy(() => import("./pages/Home"));
 const Inscreption = lazy(() => import("./pages/Inscreption"));
 import Redirect from "./components/Redirect";
@@ -20,6 +20,9 @@ import MapManager from "./components/Maps/mapManager.jsx";
 
 import ProductDetails from "./pages/ProductDetails";
 import PageRes from "./components/Maps/page/index.jsx";
+
+import Dashboard from "./pages/Dashboard";
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -68,6 +71,8 @@ function App() {
             <Route path="/manager/maps" element={<MapManager />} />
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/shopping-cart' element={<ShoppingCart />} />
 
             <Route
               path="/restaurant/search/:name?"

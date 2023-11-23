@@ -3,43 +3,50 @@ import { Backgrounds } from "../Backgrounds";
 import { Shadow } from "../shadow";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CustomInput from "../common/Input";
-import React, { useState, useEffect } from "react";
-const Overview = () => {
-  const products = [
-    "product1",
-    "product2",
-    "product3",
-    "product4",
-    "product5",
-    "produxt 6",
-  ]; // Add your product data here
-  const [position, setPosition] = useState(0);
+import React, { useState, useEffect, useRef, } from "react";
+import { Link } from "react-router-dom";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
-  const handlePrevClick = () => {
-    setPosition(
-      (prevPosition) => (prevPosition - 1 + products.length) % products.length
-    );
+import images from '../../assets/cafe.jpg'
+import "./homeCss.scss"
+const Overview = () => {
+  const categorySliderRef = useRef(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const containerWidth = () => {
+    const containerRect = categorySliderRef.current.getBoundingClientRect();
+    return containerRect.width / 4;
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollLeft(categorySliderRef.current.scrollLeft);
+    };
+
+    categorySliderRef.current.addEventListener('scroll', handleScroll);
+
+    return () => {
+      categorySliderRef.current.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollLeft]);
 
   const handleNextClick = () => {
-    setPosition((prevPosition) => {
-      const newPosition = (prevPosition + 1) % products.length;
-      return newPosition === 0 ? 0 : newPosition;
+    console.log(scrollLeft)
+    setScrollLeft((prevScrollLeft) => {
+      const newScrollLeft = prevScrollLeft + containerWidth();
+      if (newScrollLeft >= 600) {
+        return 0;
+      }
+      return newScrollLeft;
     });
   };
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     // Update the position to the next index (circular)
-  //     setPosition((prevPosition) => (prevPosition + 1) % products.length);
-  //   }, timeoutDuration);
 
-  //   return () => {
-  //     // Clear the timeout when the component unmounts
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [position]); // Re-run the effect when the position changes
+  const handlePrevClick = () => {
+    setScrollLeft((prevScrollLeft) => prevScrollLeft - containerWidth());
+  };
   return (
-    <div className=" w-full h-[55vh] lg:h-[85vh] relative bg-red-600">
+    <div className=" w-full h-[55vh] lg:h-[75vh] relative bg-red-600">
       <Backgrounds src={videoBack} className={"w-full h-full"} />
       <Shadow className={` bg-gray-500 opacity-40`} />
       <div
@@ -63,7 +70,7 @@ const Overview = () => {
             id="search"
             localisation={true}
             placeholder="Enter your delivery address"
-            onChange={() => {}}
+            onChange={() => { }}
             className="
                      rounded-md lg:rounded-2xl
                    py-[20px] lg:py-[10px] lg:py-[25px]  
@@ -72,17 +79,135 @@ const Overview = () => {
           />
         </div>
       </div>
-      <div
-        className=" relative lg:absolute bg-white z-50 rounded-lg shadow-lg
-         sm:h-40 lg:h-56 xl:h-64     
-          lg:bottom-[-112px]  xl:bottom-[-128px] 
-              lg:w-[80%] xl:w-[50%]
-         right-0
-        lg:right-20 p-4"
-      >
-        dfdfdfdfdfdf
+      <div className="category__slider-product-home h-[100px] sm:h-[100px] 
+         md:h-[150px] lg:h-[160]  mx-1 md:mx-10 lg:mx-11 my-1 bg-color-red-button 
+         relative shadow-md">
+        <div 
+              className="content__categories" 
+              ref={categorySliderRef} 
+              style={{ scrollLeft:scrollLeft }}
+            >
+            <div className="category-home" 
+            ref={categorySliderRef} 
+            style={{  overflowX:'scroll',scrollLeft:scrollLeft }}>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+              <Link to="">
+                  <div style={{overflow:'hidden'}}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
+                  lg:min-w-[140px] lg:h-[140px]">
+                      <img  className=" w-full h-full" src={images} alt='' />
+                  </div>
+              </Link>
+            </div>
+        </div>
+        
       </div>
-    </div>
+
+    </div >
   );
 };
 

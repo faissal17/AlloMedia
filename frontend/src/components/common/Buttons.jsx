@@ -59,7 +59,7 @@ FormButton.propTypes = {
 };
 
 ButtonDefault.propTypes = {
-    children: PropTypes.element, // You can specify the expected prop types
+    children: PropTypes.any, // You can specify the expected prop types
     className: PropTypes.string,
     onClick: PropTypes.func,
 };
