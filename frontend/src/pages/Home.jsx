@@ -10,6 +10,7 @@ import offre2 from '../assets/adds3.jpg'
 import kfc1 from '../assets/kfc2.jpg'
 import kfc2 from '../assets/kfc3.png'
 
+
 const Home = () => {
   const [active, setActive] = useState(false);
 

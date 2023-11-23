@@ -66,7 +66,7 @@ export const Login = () => {
       <Toaster position="top-right" reverseOrder={false}>
         {/* Add any toasts you want to display when an error occurs */}
       </Toaster>
-      <FormButton disabled={loginUserMutation.isLoading}>
+      <FormButton disabled={loginUserMutation.isLoading} className='w-full'>
         {loginUserMutation.isLoading ? "Login..." : "Login"}
       </FormButton>
       <div className=" text-white w-[80%] mx-auto hover:underline transition text-sm">

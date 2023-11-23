@@ -13,7 +13,7 @@ const FormButton = ({
             disabled={disabled}    
             className={`
                 button-form
-                w-[80%] mx-auto flex  p-3 rounded-md 
+                 mx-auto flex  p-3 rounded-md 
                 justify-center items-center scale-[.99] hover:scale-100 text-white font-bold bg-primary transition 
                 duration-200 ease-in-out hover:bg-red-500 active:bg-red-600 active:scale-[.98]
                ${className}`
