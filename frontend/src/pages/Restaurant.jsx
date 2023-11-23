@@ -1,16 +1,10 @@
 import React from "react";
-import Navbar from "../components/common/Navbar";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import pizza from "../assets/pizza.jpg";
 
 const Restaurant = () => {
-  const [query, setQuery] = useState("");
-  const [restaurant, setRestaurant] = useState([]);
-
   return (
     <React.Fragment>
-      <table className="divide-gray-200 w-full">
+      <table className="divide-gray-200 w-full mt-5">
         <thead className="bg-gray-200">
           <tr>
             <th
