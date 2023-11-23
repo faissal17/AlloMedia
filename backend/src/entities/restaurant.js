@@ -1,5 +1,15 @@
 class Restaurant {
-  constructor({ user, name, slug, picture, status, tags, brands, categories }) {
+  constructor({
+    user,
+    name,
+    slug,
+    picture,
+    status,
+    tags,
+    brands,
+    categories,
+    localisation,
+  }) {
     this.user = user;
     this.name = name;
     this.slug = slug;
@@ -8,6 +18,7 @@ class Restaurant {
     this.tags = tags;
     this.brands = brands;
     this.categories = categories;
+    this.localisation = localisation;
   }
 }
 
