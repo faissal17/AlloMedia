@@ -48,4 +48,22 @@ module.exports = {
 
     return restaurant;
   },
+  getAll: async () => {
+    const restaurant = await Restaurant.find();
+    if (!restaurant) {
+      throw new Error(`restaurant does not exist or has been deleted.`);
+    }
+    return restaurant;
+  },
+  search: async (search) => {
+    const restaurant = await Restaurant.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+      ],
+    });
+    if (!restaurant) {
+      throw new Error(`restaurant does not exist or has been deleted.`);
+    }
+    return restaurant;
+  },
 };

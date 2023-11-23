@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import data from "../Form/data.json";
 
 import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
+import { useGetOneRestaurantMutation } from "../../../redux/service/restaurant/restaurantApi";
 const PageRes = () => {
   const [position, setPosition_] = useState([31.7917, -7.0926]);
   const [_position, setPosition] = useState(null);
@@ -14,36 +15,41 @@ const PageRes = () => {
   const { search } = useLocation();
   const query = new URLSearchParams(search);
   const name = query.get("name");
+  const slug = query.get("slug");
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (geoLocation) => {
-        const { latitude, longitude } = geoLocation.coords;
-        setPosition([latitude, longitude]);
-      },
-      (error) => {
-        console.error(error.message);
-      }
-    );
-  }, []);
+  const {
+    
+  } = useGetOneRestaurantMutation();
 
-  useEffect(() => {
-    const matchingRestaurant = data.find((restaurant) => {
-      const lowerCaseQuery = name.toLowerCase();
-      return (
-        restaurant.name.toLowerCase().includes(lowerCaseQuery) ||
-        restaurant.cuisine.toLowerCase().includes(lowerCaseQuery)
-      );
-    });
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (geoLocation) => {
+  //       const { latitude, longitude } = geoLocation.coords;
+  //       setPosition([latitude, longitude]);
+  //     },
+  //     (error) => {
+  //       console.error(error.message);
+  //     }
+  //   );
+  // }, []);
 
-    if (matchingRestaurant) {
-      setRestaurant(matchingRestaurant);
-      setPosition_([matchingRestaurant.latitude, matchingRestaurant.longitude]);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const matchingRestaurant = data.find((restaurant) => {
+  //     const lowerCaseQuery = name.toLowerCase();
+  //     return (
+  //       restaurant.name.toLowerCase().includes(lowerCaseQuery) ||
+  //       restaurant.cuisine.toLowerCase().includes(lowerCaseQuery)
+  //     );
+  //   });
+
+  //   if (matchingRestaurant) {
+  //     setRestaurant(matchingRestaurant);
+  //     setPosition_([matchingRestaurant.latitude, matchingRestaurant.longitude]);
+  //   }
+  // }, []);
 
   return (
     <section className="lg:py-10 py-6">

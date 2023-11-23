@@ -3,13 +3,15 @@ import { Backgrounds } from "../Backgrounds";
 import { Shadow } from "../shadow";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CustomInput from "../common/Input";
-import React, { useState, useEffect, useRef, } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
-import images from '../../assets/cafe.jpg'
-import "./homeCss.scss"
+import images from "../../assets/cafe.jpg";
+import "./homeCss.scss";
+import { RestaurantService } from "./restaurantService";
+
 const Overview = () => {
   const categorySliderRef = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -24,15 +26,15 @@ const Overview = () => {
       setScrollLeft(categorySliderRef.current.scrollLeft);
     };
 
-    categorySliderRef.current.addEventListener('scroll', handleScroll);
+    categorySliderRef.current.addEventListener("scroll", handleScroll);
 
     return () => {
-      categorySliderRef.current.removeEventListener('scroll', handleScroll);
+      categorySliderRef.current.removeEventListener("scroll", handleScroll);
     };
   }, [scrollLeft]);
 
   const handleNextClick = () => {
-    console.log(scrollLeft)
+    console.log(scrollLeft);
     setScrollLeft((prevScrollLeft) => {
       const newScrollLeft = prevScrollLeft + containerWidth();
       if (newScrollLeft >= 600) {
@@ -44,6 +46,24 @@ const Overview = () => {
 
   const handlePrevClick = () => {
     setScrollLeft((prevScrollLeft) => prevScrollLeft - containerWidth());
+  };
+
+  const { getRestaurant, data } = RestaurantService();
+
+  const [shwoRestaurant, setShwoRestaurant] = useState(false);
+
+  const handleChangeRestaurant = async (e) => {
+    const { name, value } = e.target;
+
+    if (value === "") {
+      setShwoRestaurant(false);
+      return;
+    }
+    await getRestaurant({
+      search: value,
+    });
+
+    setShwoRestaurant(true);
   };
   return (
     <div className=" w-full h-[55vh] lg:h-[75vh] relative bg-red-600">
@@ -66,148 +86,195 @@ const Overview = () => {
           <CustomInput
             icon={<FaMapMarkerAlt className=" scale-125 text-primary" />}
             type="text"
-            name="search"
-            id="search"
+            name="searchRestaurant"
+            id="searchRestaurant"
             localisation={true}
             placeholder="Enter your delivery address"
-            onChange={() => { }}
+            onChange={handleChangeRestaurant}
             className="
                      rounded-md lg:rounded-2xl
                    py-[20px] lg:py-[10px] lg:py-[25px]  
                   focus:border-bg-gray-300 text-md lg:text-lg focus:border m-0"
             submit={false}
           />
+          <div>
+            {shwoRestaurant && data && (
+              <li className=" absolute top-[100%] left-0 w-full bg-white rounded-md shadow-md">
+                <ul className=" flex flex-col gap-2">
+                  {data.map((data) => (
+                    <li className=" border-b border-gray-300 py-2 px-3">
+                      <Link to={`/restaurant/search/?slug=${data.slug}`}>
+                        <h3 className=" text-lg font-semibold text-gray-800">
+                          {data.name}
+                        </h3>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            )}
+          </div>
         </div>
       </div>
-      <div className="category__slider-product-home h-[100px] sm:h-[100px] 
+      <div
+        className="category__slider-product-home h-[100px] sm:h-[100px] 
          md:h-[150px] lg:h-[160]  mx-1 md:mx-10 lg:mx-11 my-1 bg-color-red-button 
-         relative shadow-md">
-        <div 
-              className="content__categories" 
-              ref={categorySliderRef} 
-              style={{ scrollLeft:scrollLeft }}
-            >
-            <div className="category-home" 
-            ref={categorySliderRef} 
-            style={{  overflowX:'scroll',scrollLeft:scrollLeft }}>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+         relative shadow-md"
+      >
+        <div
+          className="content__categories"
+          ref={categorySliderRef}
+          style={{ scrollLeft: scrollLeft }}
+        >
+          <div
+            className="category-home"
+            ref={categorySliderRef}
+            style={{ overflowX: "scroll", scrollLeft: scrollLeft }}
+          >
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-              <Link to="">
-                  <div style={{overflow:'hidden'}}
-                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+            <Link to="">
+              <div
+                style={{ overflow: "hidden" }}
+                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]">
-                      <img  className=" w-full h-full" src={images} alt='' />
-                  </div>
-              </Link>
-            </div>
+                  lg:min-w-[140px] lg:h-[140px]"
+              >
+                <img className=" w-full h-full" src={images} alt="" />
+              </div>
+            </Link>
+          </div>
         </div>
-        
       </div>
-
-    </div >
+    </div>
   );
 };
 

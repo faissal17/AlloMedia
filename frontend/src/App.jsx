@@ -75,10 +75,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/shopping-cart" element={<ShoppingCart />} />
 
-            <Route
+            {/* <Route
               path="/restaurant/search/:name?"
               element={<PageRes />}
-            ></Route>
+            ></Route> */}
+            <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
           </Routes>
         </Suspense>
       </Router>
