@@ -8,9 +8,10 @@ const brandController = require("./brands");
 const tagController = require("./tags");
 const cityController = require("./cities");
 const menuController = require("./menu");
-const itemController=require('./items')
-const imageController=require('./images')
-const deliveryPersonController=require('./deliverypersone')
+const itemController = require("./items");
+const imageController = require("./images");
+const deliveryPersonController = require("./deliverypersone");
+const orderDetailsController = require("./orderDetails");
 
 module.exports = {
   userControllers,
@@ -26,5 +27,6 @@ module.exports = {
 
   deliveryPersonController,
   menuController,
-  imageController
+  imageController,
+  orderDetailsController,
 };
