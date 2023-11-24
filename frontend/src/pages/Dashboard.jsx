@@ -1,12 +1,17 @@
 // import React from 'react'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../public/css/Dashboard.css'
+import { IoIosNotifications } from "react-icons/io";
+import { FaSun } from "react-icons/fa";
+import io from 'socket.io-client'
+const socket=io.connect("http://localhost:5000")
 
 function Dashboard() {
     const links = ["Brand Name", "Dashboard", "Customers", "Messages", "Help", "Settings", "Password", "Sign Out"];
     const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [menuActive, setMenuActive] = useState(false);
+    const [notification,setNotification]=useState(0)
 
 
 
@@ -36,6 +41,13 @@ function Dashboard() {
         setDropdownOpen(prevState => !dropdownOpen);
     }
 
+    useEffect(()=>{
+        socket.on("getNotification", (data) => {
+            console.log('fuck notif')
+            console.log(data)
+          });
+    },[socket])
+
 
     return (
         <div>
@@ -55,7 +67,7 @@ function Dashboard() {
             </div>
             <div className={`main ${menuActive ? 'active' : ''}`}>
                 {/* Main content here */}
-                <div className='topbar'>
+                <div className='topbar shadow-sm'>
                     <div className="toggle" onClick={toggleMenu} onKeyDown={toggleMenu} tabIndex="0">
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
@@ -67,14 +79,31 @@ function Dashboard() {
                         </label>
                     </div>
 
-                    <div className="grid grid-cols-2">
+                    <div className=" flex  gap-3 items-center pr-4">
+                        <div className=' relative w-9 h-9'>
+                            <span 
+                                className='
+                                    absolute right-1 z-20 top-0 w-[16px] h-[16px] bg-red-500 rounded-full text-[10px] 
+                                    font-semibold text-white flex justify-center items-center'>
+                                        {notification}
+                            </span>
+                            <span>
+                                <IoIosNotifications 
+                                    className=' w-9 h-9 text-gray-300' 
+                                />
+                            </span>
+                        </div>
+                        <span className='w-8 h-8'>
+                            <FaSun
+                                className='  w-7 h-7 text-gray-300' 
+                            />
+                        </span>
                         <div className="relative inline-block text-left" onClick={toggleDropdown} onKeyDown={toggleDropdown} tabIndex="0">
                             <div className='flex items-center cursor-pointer'>
                                 <img className="rounded-full h-10 w-10" src="../../public/imgs/customer01.jpg" alt="" />
-                                <span className="username ml-2">Username</span>
                             </div>
                             {dropdownOpen && (
-                                <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-blue-900 ring-1 ring-black ring-opacity-5">
+                                <div className="origin-top-right absolute  right-[16px]  mt-2 w-[100px] rounded-md shadow-lg bg-blue-900 ring-1 ring-black ring-opacity-5">
                                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                         <a href="#" className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                                             <ion-icon name="person-outline" class="mr-2"></ion-icon>Profile

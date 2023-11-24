@@ -4,7 +4,11 @@ import { validateCredentials } from "../../../helpers/validations/register.crede
 import { RegisterAPI } from "../../../service/query/auth.js";
 import useMutateHook from "../../../hooks/useMutations.jsx";
 import { useRegisterMutation } from "../../../redux/service/auth/authApi.js";
+import io from 'socket.io-client'
+import { useNavigate } from "react-router-dom";
+const socket=io.connect("http://localhost:5000")
 export const RegisterService = () => {
+  const navigate=useNavigate()
   const [submet, setSubmet] = useState(false);
   const [register, setRegister] = useState({
     first_name: "",
@@ -128,6 +132,14 @@ export const RegisterService = () => {
   useEffect(() => {
     if (isregisterSuccess) {
       console.log(registerData);
+      console.log('mother fuckerssssssssssssssssssss')
+      const userConnect=()=>{
+        socket.emit("sendNotification",register.first_name)
+      }
+      userConnect()
+      // navigate('/dashboard')
+      
+
     }
   }, [isregisterSuccess]);
   const createUserMutation = useMutateHook(RegisterAPI());
