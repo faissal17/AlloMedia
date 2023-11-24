@@ -13,6 +13,7 @@ import kfc2 from '../assets/kfc3.png'
 import Footer from "./Footer";
 import CorporateContainer from "./CorporateContainer";
 
+
 const Home = () => {
   const [active, setActive] = useState(false);
 

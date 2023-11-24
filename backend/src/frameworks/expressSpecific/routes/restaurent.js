@@ -10,17 +10,19 @@ module.exports = (dependencies) => {
     deleteRestaurantController,
     updateRestaurantController,
     getRestaurantByIdController,
+    getAllRestaurantController,
+    filterRestaurantController,
   } = restaurantController(dependencies);
 
-  router.route("/")
+  router
+    .route("/")
     .post(addRestaurantController)
     .delete(deleteRestaurantController)
-    .patch(updateRestaurantController);
+    .patch(updateRestaurantController)
+    .get(getAllRestaurantController);
 
-  router
-    .route("/:id")
-    .get(getRestaurantByIdController)
-    
+  router.route("/:id").get(getRestaurantByIdController);
+  router.route("/search").post(filterRestaurantController);
 
   return router;
 };

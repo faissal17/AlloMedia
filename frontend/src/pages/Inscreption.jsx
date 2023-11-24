@@ -51,12 +51,12 @@ const Inscreption = () => {
   return (
     <>
     <Backgrounds src={videoBack} className={'w-full h-screen'} />
-    <div className="modal-inscreption">
+    <div className="modal-inscreption   px-14">
         <h3 className=" w-full text-white text-center inline-block text-5xl">AlloMedia</h3>
         <div className="flex gap-[3%] my-3 p-1 w-[65%] mx-auto bg-gray-900 rounded-md">
           <ButtonDefault
             onClick={handleLogin}
-            className={`${login ? 'opacity-100 border border-white' : 'opacity-50'}`}>
+            className={`${login ? '  opacity-100 border border-white' : 'opacity-50'}`}>
             login
           </ButtonDefault>
           <ButtonDefault

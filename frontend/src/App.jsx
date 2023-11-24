@@ -20,6 +20,7 @@ import MapManager from "./components/Maps/mapManager.jsx";
 
 import ProductDetails from "./pages/ProductDetails";
 import PageRes from "./components/Maps/page/index.jsx";
+import Restaurant from "./pages/Restaurant.jsx";
 
 import Dashboard from "./pages/Dashboard";
 import ShoppingCart from "./pages/ShoppingCart";
@@ -68,6 +69,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/restaurant" element={<Restaurant />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
@@ -78,10 +80,11 @@ function App() {
             <Route path='/footer' element={<CorporateContainer />} />
             <Route path='/how-works' element={<HowItWorks />} />
 
-            <Route
+            {/* <Route
               path="/restaurant/search/:name?"
               element={<PageRes />}
-            ></Route>
+            ></Route> */}
+            <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
           </Routes>
         </Suspense>
       </Router>
