@@ -4,50 +4,58 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { AiOutlineEnvironment, AiOutlineCoffee } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
-import data from "../Form/data.json";
+import _data from "../Form/data.json";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { useGetAllRestaurantQuery } from "../../../redux/service/restaurant/restaurantApi";
 
-import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const PageRes = () => {
-  const [position, setPosition_] = useState([31.7917, -7.0926]);
-  const [_position, setPosition] = useState(null);
+  const [position, setPosition] = useState([]);
   const [restaurant, setRestaurant] = useState({});
   const { search } = useLocation();
   const query = new URLSearchParams(search);
-  const name = query.get("name");
   const slug = query.get("slug");
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen(!open);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const { data, error, isLoading } = useGetAllRestaurantQuery(slug);
 
+  useEffect(() => {
+    if (data) {
+      setRestaurant(data.content);
+    }
+  }, [data]);
 
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (geoLocation) => {
-  //       const { latitude, longitude } = geoLocation.coords;
-  //       setPosition([latitude, longitude]);
-  //     },
-  //     (error) => {
-  //       console.error(error.message);
-  //     }
-  //   );
-  // }, []);
-
-  // useEffect(() => {
-  //   const matchingRestaurant = data.find((restaurant) => {
-  //     const lowerCaseQuery = name.toLowerCase();
-  //     return (
-  //       restaurant.name.toLowerCase().includes(lowerCaseQuery) ||
-  //       restaurant.cuisine.toLowerCase().includes(lowerCaseQuery)
-  //     );
-  //   });
-
-  //   if (matchingRestaurant) {
-  //     setRestaurant(matchingRestaurant);
-  //     setPosition_([matchingRestaurant.latitude, matchingRestaurant.longitude]);
-  //   }
-  // }, []);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (geoLocation) => {
+        const { latitude, longitude } = geoLocation.coords;
+        console.log(
+          "🚀 ~ file: index.jsx ~ line 58 ~ navigator.geolocation.getCurrentPosition ~ latitude",
+          geoLocation.coords
+        );
+        setPosition([latitude, longitude]);
+      },
+      (error) => {
+        console.error(error.message);
+      }
+    );
+  }, []);
 
   return (
     <section className="lg:py-10 py-6">
@@ -68,10 +76,12 @@ const PageRes = () => {
               </div>
             </div>
           </div>
-
+          {isLoading && (
+            <div className="w-10 h-10 border-4 border-red-500 rounded-full animate-spin"></div>
+          )}
           <div>
             <h3 className="text-4xl font-medium text-default-800 mb-1">
-              {restaurant && restaurant.name}
+              {data && data.content.name}
             </h3>
             <h5 className="text-lg font-medium text-default-600 mb-2">
               <span className="text-base font-normal text-default-500">by</span>{" "}
@@ -101,7 +111,7 @@ const PageRes = () => {
             </div>
 
             <p className="text-sm text-default-500 mb-4">
-              {restaurant && restaurant.description}
+              {data && data.content.description}
             </p>
 
             <div className="flex gap-2 mb-5">
@@ -130,7 +140,7 @@ const PageRes = () => {
             <div className="flex items-center gap-3 mb-8">
               <button
                 className="w-8 py-3 bg-primary rounded text-white text-sm"
-                onClick={handleOpen}
+                onClick={handleClickOpen}
               >
                 <span className="flex items-center justify-center gap-1">
                   <AiOutlineEnvironment />
@@ -146,52 +156,74 @@ const PageRes = () => {
           </div>
         </div>
       </div>
-      <Dialog open={open} handler={handleOpen} className="w-2/4">
-        <DialogHeader>
-          <h5 className="text-2xl font-medium text-default-800 flex items-center gap-2.5">
-            <span className="text-base font-normal text-default-500 ">
-              <AiOutlineEnvironment />
-            </span>{" "}
-            Map
-          </h5>
-        </DialogHeader>
-        <DialogBody>
-          {restaurant && restaurant.latitude && restaurant.longitude && (
-            <MapContainer
-              center={[restaurant.latitude, restaurant.longitude]}
-              zoom={15}
-              scrollWheelZoom={true}
-              style={{ height: "50vh" }}
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <div>
+        <React.Fragment>
+          <Dialog
+            open={open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+            fullWidth={"md"}
+            maxWidth={"md"}
+          >
+            <DialogTitle>{"Map"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="alert-dialog-slide-description"
+                style={{ height: "50vh", width: "800px" }}
+              >
+                {restaurant && restaurant.localisation && (
+                  <MapContainer
+                    center={[
+                      restaurant.localisation.lat,
+                      restaurant.localisation.lng,
+                    ]}
+                    zoom={15}
+                    scrollWheelZoom={true}
+                    style={{ height: "50vh", width: "100%" }}
+                  >
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-              <Marker position={[restaurant.latitude, restaurant.longitude]}>
-                <Popup>
-                  <b>{restaurant.name}</b>
-                  <br />
-                  address: {restaurant.address}
-                  <br />
-                  cuisine: {restaurant.cuisine}
-                </Popup>
-              </Marker>
+                    <Marker
+                      position={[
+                        restaurant.localisation.lat,
+                        restaurant.localisation.lng,
+                      ]}
+                    >
+                      <Popup>
+                        <b>{restaurant.name}</b>
+                        <br />
+                        address: {restaurant.address}
+                        <br />
+                        cuisine: {restaurant.cuisine}
+                      </Popup>
+                    </Marker>
 
-              {_position && (
-                <Marker
-                  position={_position}
-                  icon={L.icon({
-                    iconUrl: "../../src/assets/logoLocalisation.png",
-                    iconSize: [35, 41],
-                    iconAnchor: [12.5, 41],
-                    popupAnchor: [0, -41],
-                  })}
-                >
-                  <Popup>Tu es ici !</Popup>
-                </Marker>
-              )}
-            </MapContainer>
-          )}
-        </DialogBody>
-      </Dialog>
+                    {position && (
+                      <Marker
+                        position={position}
+                        icon={L.icon({
+                          iconUrl: "../../src/assets/logoLocalisation.png",
+                          iconSize: [35, 41],
+                          iconAnchor: [12.5, 41],
+                          popupAnchor: [0, -41],
+                        })}
+                      >
+                        <Popup>Tu es ici !</Popup>
+                      </Marker>
+                    )}
+                  </MapContainer>
+                )}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
+      </div>
+
       <div className="pt-10 px-16">
         <div className="grid lg:grid-cols-4 items-center gap-5 w-full">
           <div className="bg-primary/10 py-8 rounded-lg flex flex-col items-center justify-center">

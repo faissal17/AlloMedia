@@ -27,6 +27,8 @@ import ShoppingCart from "./pages/ShoppingCart";
 // import Footer from "./pages/Footer.jsx";
 import CorporateContainer from "./pages/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
+import Modeltest from "./components/Maps/page/model.jsx";
+import Restaurantposition from "./components/Maps/page/model.jsx";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -69,22 +71,20 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/restaurant" element={<Restaurant />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/shopping-cart' element={<ShoppingCart />} />
-            <Route path='/footer' element={<CorporateContainer />} />
-            <Route path='/how-works' element={<HowItWorks />} />
-
-            {/* <Route
-              path="/restaurant/search/:name?"
-              element={<PageRes />}
-            ></Route> */}
-            <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/shopping-cart" element={<ShoppingCart />} />
+            <Route path="/footer" element={<CorporateContainer />} />
+            <Route path="/how-works" element={<HowItWorks />} />
+            <Route path="/restaurant/:slug?" element={<PageRes />}></Route>
+            <Route
+              path="/restaurant/position"
+              element={<Restaurantposition />}
+            ></Route>
           </Routes>
         </Suspense>
       </Router>
