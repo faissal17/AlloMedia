@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import data from "../Form/data.json";
 
 import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
-import { useGetOneRestaurantMutation } from "../../../redux/service/restaurant/restaurantApi";
 const PageRes = () => {
   const [position, setPosition_] = useState([31.7917, -7.0926]);
   const [_position, setPosition] = useState(null);
@@ -20,9 +19,8 @@ const PageRes = () => {
 
   const handleOpen = () => setOpen(!open);
 
-  const {
-    
-  } = useGetOneRestaurantMutation();
+
+
 
   // useEffect(() => {
   //   navigator.geolocation.getCurrentPosition(

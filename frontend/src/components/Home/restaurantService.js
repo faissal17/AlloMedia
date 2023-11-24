@@ -31,6 +31,6 @@ export const RestaurantService = () => {
   return {
     handleSubmit,
     getRestaurant,
-    data,
+    dataRestaurant: data,
   };
 };
