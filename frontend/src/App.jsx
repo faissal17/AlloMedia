@@ -27,8 +27,8 @@ import ShoppingCart from "./pages/ShoppingCart";
 // import Footer from "./pages/Footer.jsx";
 import CorporateContainer from "./pages/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
-import Modeltest from "./components/Maps/page/model.jsx";
-import Restaurantposition from "./components/Maps/page/model.jsx";
+import Modeltest from "./components/Maps/page/Restaurantposition.jsx";
+import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
