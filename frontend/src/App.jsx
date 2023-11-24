@@ -23,6 +23,9 @@ import PageRes from "./components/Maps/page/index.jsx";
 
 import Dashboard from "./pages/Dashboard";
 import ShoppingCart from "./pages/ShoppingCart";
+// import Footer from "./pages/Footer.jsx";
+import CorporateContainer from "./pages/CorporateContainer.jsx";
+import HowItWorks from "./pages/HowItWorks.jsx";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -72,6 +75,8 @@ function App() {
             <Route path="/ProductDetails" element={<ProductDetails />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/shopping-cart' element={<ShoppingCart />} />
+            <Route path='/footer' element={<CorporateContainer />} />
+            <Route path='/how-works' element={<HowItWorks />} />
 
             <Route
               path="/restaurant/search/:name?"
