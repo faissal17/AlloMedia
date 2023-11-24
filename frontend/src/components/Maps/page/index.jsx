@@ -12,7 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { useGetAllRestaurantQuery } from "../../../redux/service/restaurant/restaurantApi";
+import { useGetRestaurantQuery } from "../../../redux/service/restaurant/restaurantApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -33,7 +33,7 @@ const PageRes = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, error, isLoading } = useGetAllRestaurantQuery(slug);
+  const { data, error, isLoading } = useGetRestaurantQuery(slug);
 
   useEffect(() => {
     if (data) {

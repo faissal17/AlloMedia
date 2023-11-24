@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetOneRestaurantMutation } from "../../redux/service/restaurant/restaurantApi";
+import { useSearchRestaurantMutation } from "../../redux/service/restaurant/restaurantApi";
 
 export const RestaurantService = () => {
   const [data, setData] = useState({});
@@ -11,7 +11,7 @@ export const RestaurantService = () => {
       isError: isrestaurantError,
       error: restaurantError,
     },
-  ] = useGetOneRestaurantMutation();
+  ] = useSearchRestaurantMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
