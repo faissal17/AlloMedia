@@ -11,7 +11,10 @@
     "cypress": "npx cypress open"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material-tailwind/react": "^2.1.4",
+    "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.0.5",
     "@tanstack/react-query-devtools": "^5.0.5",
@@ -37,8 +40,8 @@
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.17.0",
     "sass": "^1.69.5",
-    "swiper": "^11.0.5",
     "socket.io-client": "^4.7.2",
+    "swiper": "^11.0.5",
     "tailwind-scrollbar": "^3.0.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "yup": "^1.3.2"

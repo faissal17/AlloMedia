@@ -51,7 +51,6 @@ module.exports = {
   },
   getAll: async () => {
     const categories = await Category.find();
-    console.log(categories);
     if (!categories) {
       throw new Error(`categories does not exist or has been deleted.`);
     }

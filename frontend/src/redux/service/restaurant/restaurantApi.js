@@ -4,7 +4,7 @@ export const restaurantApi = ApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllRestaurant: builder.query({
       query: (slug) => ({
-        url: `${"restaurant/".slug}`,
+        url: `restaurant/${slug}`,
         method: "GET",
       }),
     }),
