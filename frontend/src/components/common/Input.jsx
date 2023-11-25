@@ -5,6 +5,8 @@ import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { ButtonDefault } from "./Buttons";
 import { IoSend } from "react-icons/io5";
+import { FaMapMarkerAlt } from "react-icons/fa";
+
 const CustomInput = ({
   icon,
   type,
@@ -66,19 +68,19 @@ const CustomInput = ({
           {localisation && (
             <span className=" flex gap-2 items-center">
               <ButtonDefault
-              className="border  text-white w-[80px] 
+                className="border  text-white w-[80px] 
                     absolute right-5 top-[50%] translate-y-[-70%] flex items-center justify-center 
                     z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-3"
-            >
-              <IoSend className=" text-white text-2xl" />
-            </ButtonDefault>
-            <ButtonDefault
-            className="border  text-white w-[80px] 
+              >
+                <IoSend className=" text-white text-2xl" />
+              </ButtonDefault>
+              <ButtonDefault
+                className="border  text-white w-[80px] h-[49px] 
                   absolute right-[100px] top-[50%] translate-y-[-70%] flex items-center justify-center 
                   z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-3"
-          >
-            Rachid
-          </ButtonDefault>
+              >
+                <FaMapMarkerAlt className=" scale-12" />
+              </ButtonDefault>
             </span>
           )}
         </span>

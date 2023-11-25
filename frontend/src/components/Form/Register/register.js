@@ -6,8 +6,7 @@ import useMutateHook from "../../../hooks/useMutations.jsx";
 import { useRegisterMutation } from "../../../redux/service/auth/authApi.js";
 import io from 'socket.io-client'
 import { useNavigate } from "react-router-dom";
-const socket=io.connect("http://localhost:5000")
-export const RegisterService = () => {
+export const RegisterService = (socket) => {
   const navigate=useNavigate()
   const [submet, setSubmet] = useState(false);
   const [register, setRegister] = useState({
@@ -131,13 +130,13 @@ export const RegisterService = () => {
 
   useEffect(() => {
     if (isregisterSuccess) {
-      console.log(registerData);
-      console.log('mother fuckerssssssssssssssssssss')
+      // console.log(registerData);
+      // console.log('mother fuckerssssssssssssssssssss')
       const userConnect=()=>{
-        socket.emit("sendNotification",register.first_name)
+        socket.emit("user_registration",register.first_name)
       }
       userConnect()
-      // navigate('/dashboard')
+      navigate('/dashboard')
       
 
     }

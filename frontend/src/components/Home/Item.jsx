@@ -3,7 +3,18 @@ import itemImg from '../../assets/pizza.jpg'
 import { FaStar } from "react-icons/fa6";
 import { ButtonDefault } from '../common/Buttons';
 import { FaCartShopping } from "react-icons/fa6";
+import io from 'socket.io-client'
+import { useNavigate } from "react-router-dom";
+const socket=io.connect("http://localhost:5000")
+
 const Item = ({className}) => {
+    
+    const handleClick=()=>{
+        console.log('click')
+        socket.emit("sendNotification", {
+            data:'cart item'
+        });
+    }
   return (
     <div className={` rounded-md overflow-hidden bg-red-500 relative shadow-md ${className} `}>
         <img alt='' src={itemImg} className=' absolute top-0 left-0 w-full h-[80%]' />
@@ -19,7 +30,9 @@ const Item = ({className}) => {
                 </ul>
             </div>
             <div className=' flex gap-2'>
-                <ButtonDefault className=' flex w-[45px] justify-center px-2  items-center'>
+                <ButtonDefault 
+                onClick={handleClick}
+                className=' flex w-[45px] justify-center px-2  items-center'>
                     <FaCartShopping className='  w-20   text-lg font-bold ' />
                 </ButtonDefault>
                 <ButtonDefault className=' flex w-[45px] justify-center px-2  items-center'>

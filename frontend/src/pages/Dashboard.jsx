@@ -1,52 +1,83 @@
 // import React from 'react'
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import '../../public/css/Dashboard.css'
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
 import io from 'socket.io-client'
-const socket=io.connect("http://localhost:5000")
+import Restaurant from "./Restaurant";
 
-function Dashboard() {
-    const links = ["Brand Name", "Dashboard", "Customers", "Messages", "Help", "Settings", "Password", "Sign Out"];
-    const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [menuActive, setMenuActive] = useState(false);
+
+
+    
+
+
+
+function Dashboard({socket}) {
+   
     const [notification,setNotification]=useState(0)
+    const [query, setQuery] = useState("");
+    const links = [
+        "Brand Name",
+        "Dashboard",
+        "Customers",
+        "Messages",
+        "Help",
+        "Settings",
+        "Password",
+        "Sign Out",
+    ];
+  const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuActive, setMenuActive] = useState(false);
 
+  const icons = {
+    "Brand Name": "home-outline",
+    Dashboard: "grid-outline",
+    Customers: "people-outline",
+    Messages: "chatbubble-ellipses-outline",
+    Help: "help-circle-outline",
+    Settings: "settings-outline",
+    Password: "key-outline",
+    "Sign Out": "log-out-outline",
+  };
 
+  const handleClick = (index) => {
+    setActiveLink(index);
+    console.log(`Link ${index} clicked`);
+    // Add your click handling logic here
+  };
 
-    const icons = {
-        "Brand Name": "home-outline",
-        "Dashboard": "grid-outline",
-        "Customers": "people-outline",
-        "Messages": "chatbubble-ellipses-outline",
-        "Help": "help-circle-outline",
-        "Settings": "settings-outline",
-        "Password": "key-outline",
-        "Sign Out": "log-out-outline"
-    };
+  const toggleMenu = () => {
+    setMenuActive(!menuActive);
+  };
 
+  const toggleDropdown = () => {
+    setDropdownOpen((prevState) => !dropdownOpen);
+  };
 
-    const handleClick = (index) => {
-        setActiveLink(index);
-        console.log(`Link ${index} clicked`);
-        // Add your click handling logic here
-    }
-
-    const toggleMenu = () => {
-        setMenuActive(!menuActive);
-    }
-
-    const toggleDropdown = () => {
-        setDropdownOpen(prevState => !dropdownOpen);
-    }
+  
 
     useEffect(()=>{
-        socket.on("getNotification", (data) => {
-            console.log('fuck notif')
-            console.log(data)
-          });
-    },[socket])
+        let d;
+
+        const handleNotification = (data) => {
+            d = data;
+            console.log('Received notification:', d);
+            // Now you can do something with the notification, e.g., update state
+            setNotification((prevNotification) => prevNotification + 1);
+        };
+
+        // Subscribe to the socket event
+        socket.on("getNotification", handleNotification);
+
+        console.log('fuck')
+        console.log(notification)
+
+        // Clean up the subscription when the component unmounts
+        return () => {
+            socket.off("getNotification", handleNotification);
+        };
+    },[socket,setNotification])
 
 
     return (
@@ -120,10 +151,11 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-
+                <Restaurant />
             </div>
-        </div>
+          </div>
+        
     );
 }
 
-export default Dashboard
+export default Dashboard;

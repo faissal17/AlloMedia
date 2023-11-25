@@ -7,8 +7,8 @@ import registerInput from "../../../constants/register";
 
 
 //new QueyClient is a new instance of QueryClient we use it to make request to the server
-export const Register = () => {
-  const registerService = RegisterService();
+export const Register = ({socket}) => {
+  const registerService = RegisterService(socket);
   const { submet, registerStatus, handleSubmit, handleRegisterChange } =
     registerService;
   //---------------------------------------------------------------

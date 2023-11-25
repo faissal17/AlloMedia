@@ -1,6 +1,6 @@
 import "./App.css";
 import VerifyEmail from "./pages/VerifyEmail";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ForgotPassword from "./pages/ForgotPassword";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -20,12 +20,21 @@ import MapManager from "./components/Maps/mapManager.jsx";
 
 import ProductDetails from "./pages/ProductDetails";
 import PageRes from "./components/Maps/page/index.jsx";
+import Restaurant from "./pages/Restaurant.jsx";
 
 import Dashboard from "./pages/Dashboard";
 import ShoppingCart from "./pages/ShoppingCart";
+import { io } from "socket.io-client";
+// import Footer from "./pages/Footer.jsx";
+import CorporateContainer from "./pages/CorporateContainer.jsx";
+import HowItWorks from "./pages/HowItWorks.jsx";
 
 function App() {
+  const [socket, setSocket] = useState(null);
   const { isLoading, isAuthenticated } = useAuth();
+  useEffect(() => {
+    setSocket(io("http://localhost:5000"));
+  }, []);
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
@@ -49,7 +58,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/inscription"
-              element={false ? <Redirect /> : <Inscreption />}
+              element={false ? <Redirect /> : <Inscreption socket={socket} />}
             />
             <Route
               path="/profile"
@@ -65,18 +74,22 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/restaurant" element={<Restaurant />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/dashboard' element={<Dashboard socket={socket} />} />
             <Route path='/shopping-cart' element={<ShoppingCart />} />
+            <Route path='/footer' element={<CorporateContainer />} />
+            <Route path='/how-works' element={<HowItWorks />} />
 
-            <Route
+            {/* <Route
               path="/restaurant/search/:name?"
               element={<PageRes />}
-            ></Route>
+            ></Route> */}
+            <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
           </Routes>
         </Suspense>
       </Router>
