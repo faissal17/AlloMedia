@@ -33,8 +33,7 @@ import HowItWorks from "./pages/HowItWorks.jsx";
 import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
 import CategoryDashboard from "./pages/categories/index.jsx";
 import DashboardOverView from "./pages/DashboardOverView/index.jsx";
-import  Restaurant  from "./pages/Restaurant.jsx";
-
+import Restaurant from "./pages/Restaurant.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -78,7 +77,7 @@ function App() {
             />
             <Route path="/verifyEmail/:token?" element={<VerifyEmail />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path='/delivery' element={<Delivery/>} />
+            <Route path="/delivery" element={<Delivery />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
@@ -88,18 +87,18 @@ function App() {
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
 
-            <Route path='/dashboard' element={<Dashboard socket={socket} />} />
-            <Route path='/shopping-cart' element={<ShoppingCart />} />
-            <Route path='/footer' element={<CorporateContainer />} />
-            <Route path='/how-works' element={<HowItWorks />} />
-            
+            <Route path="/shopping-cart" element={<ShoppingCart />} />
+            <Route path="/footer" element={<CorporateContainer />} />
+            <Route path="/how-works" element={<HowItWorks />} />
 
             {/* <Route
               path="/restaurant/search/:name?"
               element={<PageRes />}
             ></Route> */}
-            <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
-
+            <Route
+              path="/restaurant/search/:slug?"
+              element={<PageRes />}
+            ></Route>
 
             {/* <Route path="/dashboard" element={<Dashboard />} /> */}
 
@@ -108,15 +107,17 @@ function App() {
               path="/restaurant/position"
               element={<Restaurantposition />}
             ></Route>
-
-            <Route element={<Dashboard />}>
-              <Route path={"/dashboards"} element={<DashboardOverView />} />
+            <Route path="/dashboard" element={<Dashboard socket={socket} />} >
+            <Route path={"/dashboard"} element={<DashboardOverView />} />
               <Route
                 path={"/dashboard/category"}
                 element={<CategoryDashboard />}
               />
               <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
             </Route>
+            {/* <Route element={<Dashboard />}>
+              
+            </Route> */}
           </Routes>
         </Suspense>
       </Router>
