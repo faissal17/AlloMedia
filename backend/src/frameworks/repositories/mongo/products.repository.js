@@ -51,7 +51,14 @@ const repository=()=>{
                 throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
             }
             return item;
-        }
+        },
+        getAll: async () => {
+            const items = await Item.find();
+            if (!items) {
+              throw new Error(`categories does not exist or has been deleted.`);
+            }
+            return items;
+        },
     }
 }
 

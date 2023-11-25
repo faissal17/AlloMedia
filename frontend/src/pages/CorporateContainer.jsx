@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import 'swiper/swiper-bundle.css';
 // import 'swiper/swiper.css';
@@ -35,18 +35,20 @@ const CorporateContainer = () => {
                             src="https://res.cloudinary.com/glovoapp/image/fetch/q_30,f_auto,c_lpad,dpr_1.0,h_220,w_254,b_transparent/https://glovoapp.com/images/corporate-container/rider-image.png"
                         />
                         <h3 className="mt-8 text-lg font-semibold">
-                            Become a rider
+                            Become a Delivey
                         </h3>
-                        <p className="mt-4 text-base text-gray-900">
+                        <p className="mt-4 text-base text-gray-900 text-md">
                             Enjoy flexibility, freedom and competitive <br />
                             earnings by delivering through AlloMedia.
                         </p>
                         <div className='mt-12'>
-                            <button type="button" href="" className='text-center bg-emerald-600 h-12 w-40 rounded-full' data-v-8e2cabee="">
-                                <span className="font-bold text-slate-100" data-v-8e2cabee="">
-                                    Register here
-                                </span>
-                            </button>
+                            <Link to='/delivery'>
+                                <button type="button" href="" className='text-center bg-emerald-600 h-12 w-40 rounded-full' data-v-8e2cabee="">
+                                    <span className="font-bold text-slate-100" data-v-8e2cabee="">
+                                        Register here
+                                    </span>
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -7,10 +7,12 @@ module.exports=dependencies =>{
         addItemController,
         deleteItemController,
         updateItemController,
-        getItemByIdController
+        getItemByIdController,
+        getAllItemController
     }=itemController(dependencies)
 
     router.route('/')
+        .get(getAllItemController)
         .post(addItemController)
         .delete(deleteItemController)
         .patch(updateItemController)

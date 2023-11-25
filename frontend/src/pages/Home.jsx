@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { logout } from "../service/api/auth/auth";
 import "../../public/css/Home.css";
 // import StylesHome from "../../public/css/Home.css";
 import Overview from "../components/Home/Overview";
@@ -15,14 +13,8 @@ import CorporateContainer from "./CorporateContainer";
 
 
 const Home = () => {
-  const [active, setActive] = useState(false);
 
-  useEffect(() => {
-    if (active) {
-      logout();
-    }
-  }, [active]);
-
+  
 
   return (
     <div className="flex flex-col min-h-screen">

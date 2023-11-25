@@ -7,10 +7,12 @@ module.exports=dependencies =>{
         addCityController,
         deleteCityController,
         updateCityController,
-        getCityByIdController
+        getCityByIdController,
+        getAllCityController
     }=cityController(dependencies)
 
     router.route('/')
+        .get(getAllCityController)
         .post(addCityController)
         .delete(deleteCityController)
         .patch(updateCityController)

@@ -103,9 +103,10 @@ const Overview = () => {
             {shwoRestaurant && dataRestaurant && (
               <li className=" absolute top-[100%] left-0 w-full bg-white rounded-md shadow-md">
                 <ul className=" flex flex-col gap-2">
-                  {dataRestaurant.map((data, index) => (
+
+                {dataRestaurant.map((data, index) => (
                     <li
-                      key={index}
+                      key={data.slug}
                       className=" border-b border-gray-300 py-2 px-3"
                     >
                       <Link to={`/restaurant/?slug=${data.slug}`}>
