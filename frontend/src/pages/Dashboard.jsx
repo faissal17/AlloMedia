@@ -1,14 +1,13 @@
 // import React from 'react'
-import  { useEffect, useState } from 'react';
-import '../../public/css/Dashboard.css'
+import { useEffect, useState } from "react";
+import "../../public/css/Dashboard.css";
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
-import io from 'socket.io-client'
+import io from "socket.io-client";
 import Restaurant from "./Restaurant";
 import { Link, Outlet } from "react-router-dom";
 
-
-function Dashboard({socket}) {
+function Dashboard({ socket }) {
   const [query, setQuery] = useState("");
   const links = [
     "Brand Name",
@@ -30,55 +29,55 @@ function Dashboard({socket}) {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: "grid-outline",
+      icon: "home-outline",
     },
     {
       name: "Restaurant",
       path: "/dashboard/restaurant",
-      icon: "home-outline",
+      icon: "restaurant-outline",  // Updated icon name
     },
     {
       name: "Product",
       path: "/dashboard/product",
-      icon: "product-icon",
+      icon: "box-outline",
     },
     {
       name: "Category",
       path: "/dashboard/category",
-      icon: "category-icon",
+      icon: "list-outline",
     },
     {
       name: "Order",
       path: "/dashboard/order",
-      icon: "order-icon",
+      icon: "cart-outline",  // Updated icon name
     },
     {
       name: "Driver",
       path: "/dashboard/driver",
-      icon: "driver-icon",
+      icon: "car-outline",  // Updated icon name
     },
     {
       name: "Customer",
       path: "/dashboard/customer",
-      icon: "customer-icon",
+      icon: "person-outline",  // Updated icon name
     },
     {
       name: "Review",
       path: "/dashboard/review",
-      icon: "review-icon",
+      icon: "star-outline",  // Updated icon name
     },
     {
       name: "Payment",
       path: "/dashboard/payment",
-      icon: "payment-icon",
+      icon: "credit-card-outline",  // Updated icon name
     },
   ];
-
+  
 
   const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
-  const [notification,setNotification]=useState(0)
+  const [notification, setNotification] = useState(0);
 
   const icons = {
     "Brand Name": "home-outline",
@@ -105,106 +104,140 @@ function Dashboard({socket}) {
     setDropdownOpen((prevState) => !dropdownOpen);
   };
 
-  
+  useEffect(() => {
+    let d;
 
-    useEffect(()=>{
-        let d;
+    const handleNotification = (data) => {
+      d = data;
+      console.log("Received notification:", d);
+      // Now you can do something with the notification, e.g., update state
+      setNotification((prevNotification) => prevNotification + 1);
+    };
 
-        const handleNotification = (data) => {
-            d = data;
-            console.log('Received notification:', d);
-            // Now you can do something with the notification, e.g., update state
-            setNotification((prevNotification) => prevNotification + 1);
-        };
+    // Subscribe to the socket event
+    socket.on("getNotification", handleNotification);
 
-        // Subscribe to the socket event
-        socket.on("getNotification", handleNotification);
+    console.log("fuck");
+    console.log(notification);
 
-        console.log('fuck')
-        console.log(notification)
+    // Clean up the subscription when the component unmounts
+    return () => {
+      socket.off("getNotification", handleNotification);
+    };
+  }, [socket, setNotification]);
 
-        // Clean up the subscription when the component unmounts
-        return () => {
-            socket.off("getNotification", handleNotification);
-        };
-    },[socket,setNotification])
+  return (
+    <div>
+      <div className={`navigation ${menuActive ? "active" : ""}`}>
+        <ul>
+          {listLinks.map((link, index) => (
+            <li
+              key={index}
+              className={index === activeLink ? "hovered" : ""}
+              onClick={() => handleClick(index)}
+              onKeyDown={() => handleClick(index)}
+              tabIndex="0"
+            >
+              <Link to={link.path}>
+                <span className="icon">
+                  <ion-icon name={link.icon}></ion-icon>
+                </span>
+                <span className="title">{link.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={`main ${menuActive ? "active" : ""}`}>
+        {/* Main content here */}
+        <div className="topbar shadow-sm">
+          <div
+            className="toggle"
+            onClick={toggleMenu}
+            onKeyDown={toggleMenu}
+            tabIndex="0"
+          >
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
 
+          <div className="search">
+            <label>
+              <input type="text" placeholder="Search here" />
+              <ion-icon name="search-outline"></ion-icon>
+            </label>
+          </div>
 
-    return (
-        <div>
-            <div className={`navigation ${menuActive ? 'active' : ''}`}>
-                <ul>
-                    {links.map((link, index) => (
-                        <li key={link} className={index === activeLink ? 'hovered' : ''} onClick={() => handleClick(index)} onKeyDown={() => handleClick(index)} tabIndex="0">
-                            <a href="#">
-                                <span className="icon">
-                                    <ion-icon name={icons[link]}></ion-icon>
-                                </span>
-                                <span className="title">{link}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className={`main ${menuActive ? 'active' : ''}`}>
-                {/* Main content here */}
-                <div className='topbar shadow-sm'>
-                    <div className="toggle" onClick={toggleMenu} onKeyDown={toggleMenu} tabIndex="0">
-                        <ion-icon name="menu-outline"></ion-icon>
-                    </div>
-
-                    <div className="search">
-                        <label>
-                            <input type="text" placeholder="Search here" />
-                            <ion-icon name="search-outline"></ion-icon>
-                        </label>
-                    </div>
-
-                    <div className=" flex  gap-3 items-center pr-4">
-                        <div className=' relative w-9 h-9'>
-                            <span 
-                                className='
+          <div className=" flex  gap-3 items-center pr-4">
+            <div className=" relative w-9 h-9">
+              <span
+                className="
                                     absolute right-1 z-20 top-0 w-[16px] h-[16px] bg-red-500 rounded-full text-[10px] 
-                                    font-semibold text-white flex justify-center items-center'>
-                                        {notification}
-                            </span>
-                            <span>
-                                <IoIosNotifications 
-                                    className=' w-9 h-9 text-gray-300' 
-                                />
-                            </span>
-                        </div>
-                        <span className='w-8 h-8'>
-                            <FaSun
-                                className='  w-7 h-7 text-gray-300' 
-                            />
-                        </span>
-                        <div className="relative inline-block text-left" onClick={toggleDropdown} onKeyDown={toggleDropdown} tabIndex="0">
-                            <div className='flex items-center cursor-pointer'>
-                                <img className="rounded-full h-10 w-10" src="../../public/imgs/customer01.jpg" alt="" />
-                            </div>
-                            {dropdownOpen && (
-                                <div className="origin-top-right absolute  right-[16px]  mt-2 w-[100px] rounded-md shadow-lg bg-blue-900 ring-1 ring-black ring-opacity-5">
-                                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                        <a href="#" className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                            <ion-icon name="person-outline" class="mr-2"></ion-icon>Profile
-                                        </a>
-                                        <a href="#" className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                            <ion-icon name="settings-outline" class="mr-2"></ion-icon>Settings
-                                        </a>
-                                        <a href="#" className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                            <ion-icon name="log-out-outline" class="mr-2"></ion-icon>Logout
-                                        </a>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                                    font-semibold text-white flex justify-center items-center"
+              >
+                {notification}
+              </span>
+              <span>
+                <IoIosNotifications className=" w-9 h-9 text-gray-300" />
+              </span>
+            </div>
+            <span className="w-8 h-8">
+              <FaSun className="  w-7 h-7 text-gray-300" />
+            </span>
+            <div
+              className="relative inline-block text-left"
+              onClick={toggleDropdown}
+              onKeyDown={toggleDropdown}
+              tabIndex="0"
+            >
+              <div className="flex items-center cursor-pointer">
+                <img
+                  className="rounded-full h-10 w-10"
+                  src="../../public/imgs/customer01.jpg"
+                  alt=""
+                />
+              </div>
+              {dropdownOpen && (
+                <div className="origin-top-right absolute  right-[16px]  mt-2 w-[100px] rounded-md shadow-lg bg-blue-900 ring-1 ring-black ring-opacity-5">
+                  <div
+                    className="py-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
+                    <a
+                      href="#"
+                      className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      <ion-icon name="person-outline" class="mr-2"></ion-icon>
+                      Profile
+                    </a>
+                    <a
+                      href="#"
+                      className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      <ion-icon name="settings-outline" class="mr-2"></ion-icon>
+                      Settings
+                    </a>
+                    <a
+                      href="#"
+                      className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      <ion-icon name="log-out-outline" class="mr-2"></ion-icon>
+                      Logout
+                    </a>
+                  </div>
                 </div>
-                <Restaurant />
+              )}
             </div>
           </div>
-    );
+        </div>
+        <Outlet />
+      </div>
+    </div>
+  );
 }
 
 export default Dashboard;

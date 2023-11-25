@@ -45,10 +45,7 @@ const PageRes = () => {
     navigator.geolocation.getCurrentPosition(
       (geoLocation) => {
         const { latitude, longitude } = geoLocation.coords;
-        console.log(
-          "🚀 ~ file: index.jsx ~ line 58 ~ navigator.geolocation.getCurrentPosition ~ latitude",
-          geoLocation.coords
-        );
+
         setPosition([latitude, longitude]);
       },
       (error) => {
@@ -164,7 +161,7 @@ const PageRes = () => {
             keepMounted
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
-            fullWidth={"md"}
+            fullWidth={true}  
             maxWidth={"md"}
           >
             <DialogTitle>{"Map"}</DialogTitle>

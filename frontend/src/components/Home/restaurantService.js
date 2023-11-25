@@ -19,7 +19,11 @@ export const RestaurantService = () => {
   };
 
   const getRestaurant = async (restaurant) => {
-    await sendrestaurant(restaurant);
+    try {
+      await sendrestaurant(restaurant);
+    } catch (error) {
+      console.error("Error sending restaurant:", error);
+    }
   };
 
   useEffect(() => {
