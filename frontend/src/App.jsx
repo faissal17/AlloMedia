@@ -33,6 +33,7 @@ import HowItWorks from "./pages/HowItWorks.jsx";
 import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
 import CategoryDashboard from "./pages/categories/index.jsx";
 import DashboardOverView from "./pages/DashboardOverView/index.jsx";
+import  Restaurant  from "./pages/Restaurant.jsx";
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
             <Route path="/manager/maps" element={<MapManager />} />
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
+
             <Route path='/dashboard' element={<Dashboard socket={socket} />} />
             <Route path='/shopping-cart' element={<ShoppingCart />} />
             <Route path='/footer' element={<CorporateContainer />} />
@@ -99,6 +101,7 @@ function App() {
             <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
 
 
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
 
             <Route path="/restaurant/:slug?" element={<PageRes />}></Route>
             <Route
@@ -107,7 +110,7 @@ function App() {
             ></Route>
 
             <Route element={<Dashboard />}>
-              <Route path={"/dashboard"} element={<DashboardOverView />} />
+              <Route path={"/dashboards"} element={<DashboardOverView />} />
               <Route
                 path={"/dashboard/category"}
                 element={<CategoryDashboard />}
