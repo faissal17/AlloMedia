@@ -2,6 +2,7 @@ import "./App.css";
 import VerifyEmail from "./pages/VerifyEmail";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ForgotPassword from "./pages/ForgotPassword";
+import Delivery from "./pages/Delivery";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -20,7 +21,7 @@ import MapManager from "./components/Maps/mapManager.jsx";
 
 import ProductDetails from "./pages/ProductDetails";
 import PageRes from "./components/Maps/page/index.jsx";
-import Restaurant from "./pages/Restaurant.jsx";
+// import Restaurant from "./pages/Restaurant.jsx";
 
 import Dashboard from "./pages/Dashboard";
 import ShoppingCart from "./pages/ShoppingCart";
@@ -28,6 +29,9 @@ import { io } from "socket.io-client";
 // import Footer from "./pages/Footer.jsx";
 import CorporateContainer from "./pages/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
+// import Modeltest from "./components/Maps/page/Restaurantposition.jsx";
+import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
+
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -71,10 +75,10 @@ function App() {
             />
             <Route path="/verifyEmail/:token?" element={<VerifyEmail />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path='/delivery' element={<Delivery/>} />
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/restaurant" element={<Restaurant />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
@@ -84,12 +88,19 @@ function App() {
             <Route path='/shopping-cart' element={<ShoppingCart />} />
             <Route path='/footer' element={<CorporateContainer />} />
             <Route path='/how-works' element={<HowItWorks />} />
+            
 
             {/* <Route
               path="/restaurant/search/:name?"
               element={<PageRes />}
             ></Route> */}
             <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
+
+            <Route path="/restaurant/:slug?" element={<PageRes />}></Route>
+            <Route
+              path="/restaurant/position"
+              element={<Restaurantposition />}
+            ></Route>
           </Routes>
         </Suspense>
       </Router>

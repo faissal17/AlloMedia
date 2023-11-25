@@ -21,7 +21,8 @@ module.exports = (dependencies) => {
     .patch(updateRestaurantController)
     .get(getAllRestaurantController);
 
-  router.route("/:id").get(getRestaurantByIdController);
+  // router.route("/:id").get(getRestaurantByIdController);
+  router.route("/:slug").get(getRestaurantByIdController);
   router.route("/search").post(filterRestaurantController);
 
   return router;

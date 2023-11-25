@@ -11,10 +11,12 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import images from "../../assets/cafe.jpg";
 import "./homeCss.scss";
 import { RestaurantService } from "./restaurantService";
+import { useGetCategoryQuery } from "../../redux/service/categories/categoryApi";
 
 const Overview = () => {
   const categorySliderRef = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const { data, error, isLoading } = useGetCategoryQuery();
 
   const containerWidth = () => {
     const containerRect = categorySliderRef.current.getBoundingClientRect();
@@ -48,7 +50,7 @@ const Overview = () => {
     setScrollLeft((prevScrollLeft) => prevScrollLeft - containerWidth());
   };
 
-  const { getRestaurant, data } = RestaurantService();
+  const { getRestaurant, dataRestaurant } = RestaurantService();
 
   const [shwoRestaurant, setShwoRestaurant] = useState(false);
 
@@ -98,12 +100,16 @@ const Overview = () => {
             submit={false}
           />
           <div>
-            {shwoRestaurant && data && (
+            {shwoRestaurant && dataRestaurant && (
               <li className=" absolute top-[100%] left-0 w-full bg-white rounded-md shadow-md">
                 <ul className=" flex flex-col gap-2">
-                  {data.map((data,index) => (
-                    <li key={index} className=" border-b border-gray-300 py-2 px-3">
-                      <Link to={`/restaurant/search/?slug=${data.slug}`}>
+
+                {dataRestaurant.map((data, index) => (
+                    <li
+                      key={data.slug}
+                      className=" border-b border-gray-300 py-2 px-3"
+                    >
+                      <Link to={`/restaurant/?slug=${data.slug}`}>
                         <h3 className=" text-lg font-semibold text-gray-800">
                           {data.name}
                         </h3>
@@ -131,146 +137,27 @@ const Overview = () => {
             ref={categorySliderRef}
             style={{ overflowX: "scroll", scrollLeft: scrollLeft }}
           >
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
+            {isLoading && (
+              <div className="w-10 h-10 border-4 border-red-500 rounded-full animate-spin"></div>
+            )}
+
+            {data &&
+              data.content.map((category, index) => (
+                <div
+                  key={index}
+                  className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
                   sm:h-[80px] md:min-w-[120px] md:h-[120px] 
                   lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
-            <Link to="">
-              <div
-                style={{ overflow: "hidden" }}
-                className="box-category mx-2 md:mx-3 sm:min-w-[80px] 
-                  sm:h-[80px] md:min-w-[120px] md:h-[120px] 
-                  lg:min-w-[140px] lg:h-[140px]"
-              >
-                <img className=" w-full h-full" src={images} alt="" />
-              </div>
-            </Link>
+                >
+                  <Link to={`/restaurant/search/?slug=${category.slug}`}>
+                    <img
+                      className=" w-full h-full"
+                      src={category.picture}
+                      alt=""
+                    />
+                  </Link>
+                </div>
+              ))}
           </div>
         </div>
       </div>

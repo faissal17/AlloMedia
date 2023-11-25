@@ -25,6 +25,16 @@ const categorySchema = new mongoose.Schema(
         return validator.isAlpha(value.replace(/\s/g, ""));
       },
     },
+    picture: {
+      type: String,
+      required: [true, "brand  of product picture is required"],
+      trim: true,
+      validator: (value) => {
+        return validator.isURL(value.replace(/\s/g, ""));
+      },
+      default:
+        "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png",
+    },
     status: {
       type: Number,
       required: [true, "category  of product status is required"],
@@ -72,6 +82,4 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
-
-module.exports = categorySchema
+module.exports = categorySchema;
