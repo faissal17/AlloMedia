@@ -5,30 +5,80 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
 import io from 'socket.io-client'
 import Restaurant from "./Restaurant";
-
-
-
-    
-
+import { Link, Outlet } from "react-router-dom";
 
 
 function Dashboard({socket}) {
-   
-    const [notification,setNotification]=useState(0)
-    const [query, setQuery] = useState("");
-    const links = [
-        "Brand Name",
-        "Dashboard",
-        "Customers",
-        "Messages",
-        "Help",
-        "Settings",
-        "Password",
-        "Sign Out",
-    ];
+  const [query, setQuery] = useState("");
+  const links = [
+    "Brand Name",
+    "Dashboard",
+    "Customers",
+    "Messages",
+    "Help",
+    "Settings",
+    "Password",
+    "Sign Out",
+  ];
+
+  const listLinks = [
+    {
+      name: "Brand Name",
+      path: "/dashboard",
+      icon: "grid-outline",
+    },
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: "grid-outline",
+    },
+    {
+      name: "Restaurant",
+      path: "/dashboard/restaurant",
+      icon: "home-outline",
+    },
+    {
+      name: "Product",
+      path: "/dashboard/product",
+      icon: "product-icon",
+    },
+    {
+      name: "Category",
+      path: "/dashboard/category",
+      icon: "category-icon",
+    },
+    {
+      name: "Order",
+      path: "/dashboard/order",
+      icon: "order-icon",
+    },
+    {
+      name: "Driver",
+      path: "/dashboard/driver",
+      icon: "driver-icon",
+    },
+    {
+      name: "Customer",
+      path: "/dashboard/customer",
+      icon: "customer-icon",
+    },
+    {
+      name: "Review",
+      path: "/dashboard/review",
+      icon: "review-icon",
+    },
+    {
+      name: "Payment",
+      path: "/dashboard/payment",
+      icon: "payment-icon",
+    },
+  ];
+
+
   const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
+  const [notification,setNotification]=useState(0)
 
   const icons = {
     "Brand Name": "home-outline",
@@ -154,7 +204,6 @@ function Dashboard({socket}) {
                 <Restaurant />
             </div>
           </div>
-        
     );
 }
 

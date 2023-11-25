@@ -31,6 +31,8 @@ import CorporateContainer from "./pages/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
 // import Modeltest from "./components/Maps/page/Restaurantposition.jsx";
 import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
+import CategoryDashboard from "./pages/categories/index.jsx";
+import DashboardOverView from "./pages/DashboardOverView/index.jsx";
 
 
 function App() {
@@ -96,11 +98,22 @@ function App() {
             ></Route> */}
             <Route path="/restaurant/search/:slug?" element={<PageRes />}></Route>
 
+
+
             <Route path="/restaurant/:slug?" element={<PageRes />}></Route>
             <Route
               path="/restaurant/position"
               element={<Restaurantposition />}
             ></Route>
+
+            <Route element={<Dashboard />}>
+              <Route path={"/dashboard"} element={<DashboardOverView />} />
+              <Route
+                path={"/dashboard/category"}
+                element={<CategoryDashboard />}
+              />
+              <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
+            </Route>
           </Routes>
         </Suspense>
       </Router>
