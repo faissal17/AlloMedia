@@ -53,7 +53,7 @@ function Navbar() {
               absolute top-[-2px] right-[-2px] bg-primary text-white 
               flex items-center justify-center text-[10px] rounded-full min-w-[14px] min-h-[14px]"
             >
-              {shoppingcart && shoppingcart.total}
+              {shoppingcart && shoppingcart.shoppingCart.length}
             </span>
           </span>
         </Link>
