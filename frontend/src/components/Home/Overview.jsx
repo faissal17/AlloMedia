@@ -55,7 +55,7 @@ const Overview = () => {
   const [shwoRestaurant, setShwoRestaurant] = useState(false);
 
   const handleChangeRestaurant = async (e) => {
-    const { name, value } = e.target;
+    const { name, value } = await e.target;
 
     if (value === "") {
       setShwoRestaurant(false);
