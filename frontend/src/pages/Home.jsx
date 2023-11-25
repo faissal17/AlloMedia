@@ -9,7 +9,7 @@ import offre2 from '../assets/adds3.jpg'
 import kfc1 from '../assets/kfc2.jpg'
 import kfc2 from '../assets/kfc3.png'
 import Footer from "./Footer";
-import CorporateContainer from "./CorporateContainer";
+import CorporateContainer from "../components/CorporateContainer";
 
 
 const Home = () => {

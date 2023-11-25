@@ -27,7 +27,7 @@ import Dashboard from "./pages/Dashboard";
 import ShoppingCart from "./pages/ShoppingCart";
 import { io } from "socket.io-client";
 // import Footer from "./pages/Footer.jsx";
-import CorporateContainer from "./pages/CorporateContainer.jsx";
+import CorporateContainer from "./components/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
 // import Modeltest from "./components/Maps/page/Restaurantposition.jsx";
 import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";

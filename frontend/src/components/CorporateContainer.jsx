@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import 'swiper/swiper-bundle.css';
 // import 'swiper/swiper.css';
-const CorporateContainer = () => {
+ const CorporateContainer = () => {
 
     return (
         <div className="mt-3 bg-red-300">
@@ -42,7 +42,7 @@ const CorporateContainer = () => {
                             earnings by delivering through AlloMedia.
                         </p>
                         <div className='mt-12'>
-                            <Link to='/delivery'>
+                            <Link to="/delivery">
                                 <button type="button" href="" className='text-center bg-emerald-600 h-12 w-40 rounded-full' data-v-8e2cabee="">
                                     <span className="font-bold text-slate-100" data-v-8e2cabee="">
                                         Register here
@@ -116,3 +116,4 @@ const CorporateContainer = () => {
 }
 
 export default CorporateContainer
+

@@ -9,8 +9,10 @@ import { useGetCityQuery } from "../redux/service/cities/cityApi"
 import trans1 from '../assets/motor-removebg-preview.png'
 import trans2 from '../assets/bicycle-removebg-preview.png'
 import { ButtonDefault } from "../components/common/Buttons"
+import { useEffect } from "react"
 
 const Delivery = () => {
+    useEffect(()=>{},[])
     const { data, error, isLoading } = useGetCityQuery();
     return (
         <div className="flex flex-col min-h-screen">
