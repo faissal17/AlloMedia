@@ -23,17 +23,7 @@ const Overview = () => {
     return containerRect.width / 4;
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollLeft(categorySliderRef.current.scrollLeft);
-    };
-
-    categorySliderRef.current.addEventListener("scroll", handleScroll);
-
-    return () => {
-      categorySliderRef.current.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollLeft]);
+  
 
   const handleNextClick = () => {
     console.log(scrollLeft);
