@@ -29,6 +29,8 @@ import CorporateContainer from "./pages/CorporateContainer.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
 import Modeltest from "./components/Maps/page/Restaurantposition.jsx";
 import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
+import CategoryDashboard from "./pages/categories/index.jsx";
+import DashboardOverView from "./pages/DashboardOverView/index.jsx";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
@@ -76,7 +78,7 @@ function App() {
             <Route path="/manager/maps" element={<MapManager />} />
 
             <Route path="/ProductDetails" element={<ProductDetails />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
             <Route path="/shopping-cart" element={<ShoppingCart />} />
             <Route path="/footer" element={<CorporateContainer />} />
             <Route path="/how-works" element={<HowItWorks />} />
@@ -85,6 +87,15 @@ function App() {
               path="/restaurant/position"
               element={<Restaurantposition />}
             ></Route>
+
+            <Route element={<Dashboard />}>
+              <Route path={"/dashboard"} element={<DashboardOverView />} />
+              <Route
+                path={"/dashboard/category"}
+                element={<CategoryDashboard />}
+              />
+              <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
+            </Route>
           </Routes>
         </Suspense>
       </Router>
