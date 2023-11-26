@@ -1,5 +1,6 @@
 const express = require("express");
 const { categoryController } = require("../../../controllers");
+const auth = require("../middlewares/Auth");
 
 module.exports = (dependencies) => {
   const router = express.Router();
@@ -14,9 +15,9 @@ module.exports = (dependencies) => {
   router
     .route("/")
     .get(getAllCategoryController)
-    .post(addCategoryController)
-    .delete(deleteCategoryController)
-    .patch(updateCategoryController);
+    .post(auth.isManager, addCategoryController)
+    .delete(auth.isManager, deleteCategoryController)
+    .patch(auth.isManager, updateCategoryController);
 
   router.route("/:id").get(getCategoryController);
 

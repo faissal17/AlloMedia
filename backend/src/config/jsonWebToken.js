@@ -18,6 +18,7 @@ class jsonWebToken {
       console.log(err);
     }
   }
+
 }
 
 module.exports = jsonWebToken;

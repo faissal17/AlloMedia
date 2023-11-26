@@ -1,5 +1,6 @@
 const express = require("express");
 const { brandController } = require("../../../controllers");
+const auth = require("../middlewares/Auth");
 
 module.exports = (dependencies) => {
   const router = express.Router();
@@ -12,9 +13,9 @@ module.exports = (dependencies) => {
 
   router
     .route("/")
-    .post(addBrandController)
-    .delete(deleteBrandController)
-    .patch(updateBrandController);
+    .post(auth.isManager, addBrandController)
+    .delete(auth.isManager, deleteBrandController)
+    .patch(auth.isManager, updateBrandController);
 
   router.route("/:id").get(getBrandByIdController);
 

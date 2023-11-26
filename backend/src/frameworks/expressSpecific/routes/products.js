@@ -2,6 +2,7 @@ const express = require("express");
 const {} = require("../../../config/dependencies");
 
 const { productControllers } = require("../../../controllers");
+const auth = require("../middlewares/Auth");
 
 module.exports = (dependencies) => {
   const router = express.Router();
