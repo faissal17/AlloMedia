@@ -1,6 +1,13 @@
 const express=require('express')
 const { itemController } = require("../../../controllers");
+const redis = require('redis');
+const { createClient} =require('redis')
 
+const redisClient = redis.createClient({
+    legacyMode: true,
+    PORT: 6379
+  })
+  redisClient.connect().catch(console.error)
 module.exports=dependencies =>{
     const router=express.Router()
     const {
@@ -12,7 +19,23 @@ module.exports=dependencies =>{
     }=itemController(dependencies)
 
     router.route('/')
-        .get(getAllItemController)
+        .get((req,res,next)=>{
+            let item='items'
+            try{
+                redisClient.get(item, async (err, response) => {
+                    console.log(response);
+                    if(response) {
+                        
+                      console.log("User successfully retrieved from cache");
+                      res.status(200).send(JSON.parse(response));
+                    } else {
+                      next()
+                    }
+                })
+            }catch(err){
+                console.log('fucking error',err)
+            }
+        },getAllItemController)
         .post(addItemController)
         .delete(deleteItemController)
         .patch(updateItemController)

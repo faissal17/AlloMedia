@@ -4,7 +4,10 @@ module.exports = () => {
     throw new Error("The item repository should be exist in dependancies");
   }
   const execute = () => {
-    return itemsRepository.getAll();
+    
+    const all=  itemsRepository.getAll();
+    //console.log('from fucking repository')
+    return all
   };
   return { execute };
 };
