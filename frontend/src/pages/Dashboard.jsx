@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import "../../public/css/Dashboard.css";
 import Restaurant from "./Restaurant";
+import Categorie from "./Categorie";
+import {Link} from "react-router-dom"
 
 function Dashboard() {
   const [query, setQuery] = useState("");
   const links = [
     "Brand Name",
     "Dashboard",
-    "Customers",
+    "Categorie",
     "Messages",
     "Help",
     "Settings",
@@ -22,7 +24,7 @@ function Dashboard() {
   const icons = {
     "Brand Name": "home-outline",
     Dashboard: "grid-outline",
-    Customers: "people-outline",
+    Categorie: "people-outline",
     Messages: "chatbubble-ellipses-outline",
     Help: "help-circle-outline",
     Settings: "settings-outline",
@@ -97,7 +99,7 @@ function Dashboard() {
               onKeyDown={toggleDropdown}
               tabIndex="0"
             >
-              <div className="flex items-center cursor-pointer">
+              <div className="flex items-center cursor-pointer" >
                 <img
                   className="rounded-full h-10 w-10"
                   src="../../public/imgs/customer01.jpg"

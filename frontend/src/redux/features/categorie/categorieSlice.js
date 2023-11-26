@@ -1,14 +1,14 @@
 import axois from "axios"
 
-const restaurantApi = axois.create({
+const categorieApi = axois.create({
     baseURL:"http://localhost:5000/api/v1",
     timeout:5000
 })
 
 
-export const createRestaurant = async ()=>{
+export const createCategorie = async ()=>{
     try {
-        const response = restaurantApi.post("/restaurant")
+        const response = categorieApi.post("/categorie")
         return response.data
     } catch (error) {
         console.log(error.message)
@@ -16,9 +16,9 @@ export const createRestaurant = async ()=>{
     }
 }
 
-export const getRestaurant = async ()=>{
+export const getCategorie = async ()=>{
     try {
-        const response = restaurantApi.get("/restaurant")
+        const response = categorieApi.get("/categorie")
         return response.data
     } catch (error) {
         console.log(error.message)
@@ -26,9 +26,9 @@ export const getRestaurant = async ()=>{
     }
 }
 
-export const deleteRestaurant = async ()=>{
+export const deleteCategorie = async ()=>{
     try {
-        const response = restaurantApi.delete("/restaurant")
+        const response = categorieApi.delete("/categorie")
         return response.data
     } catch (error) {
         console.log(error.message)
@@ -36,9 +36,9 @@ export const deleteRestaurant = async ()=>{
     }
 }
 
-export const updateRestaurant = async ()=>{
+export const updateCategorie = async ()=>{
     try {
-        const response = restaurantApi.put("/restaurant")
+        const response = categorieApi.put("/categorie")
         return response.data
     } catch (error) {
         console.log(error.message)

@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
 import Contact from "./pages/Contact.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import Categorie from "./pages/Categorie.jsx";
 // import { PrivateRoute } from "./routes/privateRoute";
 import { PrivateRoute } from "./routes/PrivateRoute.jsx";
 const Home = lazy(() => import("./pages/Home"));
@@ -71,6 +72,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/Categorie" element={<Categorie />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />

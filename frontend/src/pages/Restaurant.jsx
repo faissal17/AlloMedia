@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import pizza from "../assets/pizza.jpg";
+import { deleteRestaurant } from "../redux/features/restaurant/restaurantSlice";
+import { getRestaurant } from "../redux/features/restaurant/restaurantSlice";
 
 const Restaurant = () => {
-  return (
+
+    return (
     <React.Fragment>
       <table className="divide-gray-200 w-full mt-5">
         <thead className="bg-gray-200">
@@ -52,7 +55,7 @@ const Restaurant = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
-          <tr>
+          <tr >
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="flex items-center">
                 <div className="flex-shrink-0 h-10 w-10">
