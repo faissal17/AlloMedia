@@ -5,15 +5,56 @@ import CustomInput from "../components/common/Input"
 import { IoIosSearch } from "react-icons/io"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { Link } from "react-router-dom"
+import io from 'socket.io-client'
 import { useGetCityQuery } from "../redux/service/cities/cityApi"
 import trans1 from '../assets/motor-removebg-preview.png'
 import trans2 from '../assets/bicycle-removebg-preview.png'
 import { ButtonDefault } from "../components/common/Buttons"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+const socket=io.connect("http://localhost:5000")
 
 const Delivery = () => {
-    useEffect(()=>{},[])
-    const { data, error, isLoading } = useGetCityQuery();
+    useEffect(()=>{},[]) 
+    const { data, isLoading } = useGetCityQuery();
+    const [delivery, setDelivery] = useState({
+        user:"65SD5b6bbf40e2sddf0d65791cf1",
+        fullName: '',
+        email: '',
+        phone: '',
+        city: '',
+        vycle:''
+    });
+    function handleClick(type){
+        setDelivery({ ...delivery, vycle: type });
+        console.log(delivery)
+    }
+    const handleSubmit=()=>{
+        const currentDate = new Date();
+    
+        // You can format the date as needed, for example: YYYY-MM-DD HH:mm:ss
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+            .toString().padStart(2, '0')}-${currentDate
+                .getDate().toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+        console.log(delivery)
+        socket.emit("sendNotificationJob", {
+            data:{
+                name:delivery.fullName,
+                for: 'Job',
+                date: formattedDate
+            }
+        });
+    }
+    const handleChange=(e)=>{
+        const { name, value } = e.target;
+        if (name === 'city') {
+            // If the changed input is the city, update the delivery state
+            setDelivery({ ...delivery, city: value });
+        } else {
+            // For other inputs (like text input), update the delivery state as usual
+            setDelivery({ ...delivery, [name]: value });
+        }
+        console.log(delivery)
+    }
     return (
         <div className="flex flex-col min-h-screen">
         <div className="flex-grow">
@@ -35,10 +76,10 @@ const Delivery = () => {
                             <CustomInput
                                 icon={<IoIosSearch className=" w-6" />}
                                 type="text"
-                                name="search"
-                                id="search"
+                                name="fullName"
+                                id="fullName"
                                 placeholder="Full Name"
-                                onChange={() => { }}
+                                onChange={handleChange}
                                 className="
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
@@ -48,10 +89,11 @@ const Delivery = () => {
                             <CustomInput
                                 icon={<IoIosSearch className=" w-6" />}
                                 type="email"
-                                name="search"
-                                id="search"
+                                name="email"
+                                
+                                id="email"
                                 placeholder="Email"
-                                onChange={() => { }}
+                                onChange={handleChange}
                                 className="
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
@@ -62,10 +104,12 @@ const Delivery = () => {
                                 <InputLabel id="">Country</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={"er"}
+                                    id="city"
+                                    name="city"
+                                    value={delivery.city}
                                     label="Age"
-                                    onChange={()=>{}}
+
+                                    onChange={handleChange}
                                 >
                                     {
                                         isLoading && (
@@ -89,10 +133,11 @@ const Delivery = () => {
                             <CustomInput
                                 icon={<IoIosSearch className=" w-6" />}
                                 type="text"
+                                onChange={handleChange}
                                 name="phone"
                                 id="phone"
                                 placeholder="+212.000.000"
-                                onChange={() => { }}
+                                
                                 className="
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
@@ -100,14 +145,16 @@ const Delivery = () => {
                                 submit={false}
                             />
                             <div className=" flex gap-2">
-                                <span className=" cursor-pointer  w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
-                                    <img className=" w-full h-full" src={trans1} alt='' />
+                                <span data-type='MOTOR' onClick={()=>handleClick('MOTOR')} className=" cursor-pointer  w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
+                                    <img data-type='MOTOR' className=" w-full h-full" src={trans1} alt='' />
                                 </span>
-                                <span className=" cursor-pointer w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
-                                    <img className=" w-full h-full" src={trans2} alt='' />
+                                <span data-type='bCYcle' onClick={()=>handleClick('bCYcle')} className=" cursor-pointer w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
+                                    <img data-type='bCYcle' className=" w-full h-full" src={trans2} alt='' />
                                 </span>
                             </div>
-                            <ButtonDefault className='  w-full '>
+                            <ButtonDefault 
+                            onClick={handleSubmit}
+                            className='  w-full '>
                                 Confirme
                             </ButtonDefault>
                             <Link className=" text-sm underline text-center text-blue-500">

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const socket=io.connect("http://localhost:5000")
 
 const Item = ({className,data,key}) => {
-    console.log(data.title)
+    console.log(data.title) 
     const handleClick=()=>{
         console.log('click')
         socket.emit("sendNotification", {

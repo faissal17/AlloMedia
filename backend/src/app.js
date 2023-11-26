@@ -94,12 +94,20 @@ module.exports = {
           console.log(data)
           io.emit("getNotification", {
             d:'you except notification'
-          });
+      });
+
+      
         
         
         
         // socket.emit("recevied_notification", count);
         //console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
+      })
+      socket.on('sendNotificationJob',(data)=>{
+        console.log(data)
+        io.emit("getNotificationJob", {
+          data:data
+      });
       })
       
      

@@ -4,7 +4,6 @@ import "../../public/css/Dashboard.css";
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
 import io from "socket.io-client";
-import Restaurant from "./Restaurant";
 import { Link, Outlet } from "react-router-dom";
 
 function Dashboard({ socket }) {
@@ -116,6 +115,7 @@ function Dashboard({ socket }) {
 
     // Subscribe to the socket event
     socket.on("getNotification", handleNotification);
+    socket.on("getNotificationJob",handleNotification)
 
     console.log("fuck");
     console.log(notification);
@@ -123,6 +123,7 @@ function Dashboard({ socket }) {
     // Clean up the subscription when the component unmounts
     return () => {
       socket.off("getNotification", handleNotification);
+      socket.off("getNotificationJob",handleNotification)
     };
   }, [socket, setNotification]);
 
