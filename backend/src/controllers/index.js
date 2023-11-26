@@ -12,6 +12,7 @@ const itemController = require("./items");
 const imageController = require("./images");
 const deliveryPersonController = require("./deliverypersone");
 const orderDetailsController = require("./orderDetails");
+const roleController = require("./roles");
 
 module.exports = {
   userControllers,
@@ -29,4 +30,5 @@ module.exports = {
   menuController,
   imageController,
   orderDetailsController,
+  roleController,
 };

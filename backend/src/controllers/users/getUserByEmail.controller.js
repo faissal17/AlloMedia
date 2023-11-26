@@ -4,9 +4,12 @@ module.exports = async (req, res) => {
   try {
     const { email, password } = req.body;
     const useCaseInstance = getUserByEmailUseCase();
-    const getUser = await useCaseInstance.execute({
+    const { getUser, token } = await useCaseInstance.execute({
       email,
       _password: password,
+    });
+    res.cookie("_cks_ui", token, {
+      secure: true,
     });
 
     return res.json(

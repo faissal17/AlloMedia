@@ -1,4 +1,5 @@
 const bcrypt = require("../../config/bcrypt");
+const jsonWebToken = require("../../config/jsonWebToken");
 const { User } = require("../../entities");
 const { usersRepository } = require("../../frameworks/repositories/mongo");
 
@@ -15,11 +16,22 @@ module.exports = () => {
 
     const getUser = await usersRepository.getByEmail(user);
 
-    const { password } = getUser;
+    const { password, _id, first_name, last_name, role } = getUser;
 
     const isPasswordCorrect = await bcrypt.comparePassword(_password, password);
     if (isPasswordCorrect) {
-      return getUser;
+      const token = await jsonWebToken.sign({
+        _id,
+        email,
+        first_name,
+        last_name,
+        role,
+      });
+
+      return {
+        token,
+        getUser,
+      };
     }
     throw new Error("Email and Password is incorrect");
   };

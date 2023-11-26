@@ -14,7 +14,7 @@ const AuthState = {
   password: null,
   picture: null,
   refreshToken: null,
-  role: [],
+  role: {},
   search: [],
   updatedAt: null,
   username: null,
