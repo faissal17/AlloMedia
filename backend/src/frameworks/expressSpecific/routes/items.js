@@ -1,5 +1,9 @@
-const express=require('express')
+const express = require("express");
 const { itemController } = require("../../../controllers");
+
+const auth = require("../middlewares/Auth");
+
+
 const redis = require('redis');
 const { createClient} =require('redis')
 
@@ -36,11 +40,12 @@ module.exports=dependencies =>{
                 console.log('fucking error',err)
             }
         },getAllItemController)
-        .post(addItemController)
-        .delete(deleteItemController)
-        .patch(updateItemController)
+        .post(auth.isManager,addItemController)
+        .delete(auth.isManager,deleteItemController)
+        .patch(auth.isManager,updateItemController)
 
-    router.route('/:id').get(getItemByIdController)
 
-    return router
-}
+  router.route("/:id").get(getItemByIdController);
+
+  return router;
+};

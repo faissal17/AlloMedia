@@ -47,7 +47,7 @@ module.exports = (dependencies) => {
   routes.use("/order", order);
   routes.use("/brands", brand);
   routes.use("/tags", tag);
-  routes.use("/cities", city);
+  routes.use("/cities",city);
   routes.use("/items", item);
   routes.use("/testimg", img);
   routes.use("/deliveryperson", deliveryperson);

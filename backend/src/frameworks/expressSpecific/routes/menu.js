@@ -1,5 +1,6 @@
 const express = require("express");
 const { menuController } = require("../../../controllers");
+const auth = require("../middlewares/Auth");
 
 module.exports = (dependencies) => {
   const router = express.Router();
@@ -13,10 +14,10 @@ module.exports = (dependencies) => {
 
   router
     .route("/")
-    .post(addMenuController)
+    .post(auth.isManager, addMenuController)
     .get(getAllMenuController)
-    .delete(deleteMenuController)
-    .patch(updateMenuController);
+    .delete(auth.isManager, deleteMenuController)
+    .patch(auth.isManager, updateMenuController);
 
   router.route("/:id").get(getMenuByIdController);
 
