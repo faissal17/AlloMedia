@@ -19,11 +19,14 @@ const Delivery = () => {
   useEffect(() => {}, []);
 
   const { data, isLoading } = useGetCityQuery();
+
+  const [addDelivery, { data: deliveryData, error, isLoading: isAddLoading }] =
+    useAddDeliveryMutation();
   const [delivery, setDelivery] = useState({
     user: "65SD5b6bbf40e2sddf0d65791cf1",
     fullName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     city: "",
     vycle: "",
   });
@@ -31,7 +34,7 @@ const Delivery = () => {
     setDelivery({ ...delivery, vycle: type });
     console.log(delivery);
   }
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const currentDate = new Date();
 
     // You can format the date as needed, for example: YYYY-MM-DD HH:mm:ss
@@ -52,7 +55,6 @@ const Delivery = () => {
       .getSeconds()
       .toString()
       .padStart(2, "0")}`;
-    console.log(delivery);
     socket.emit("sendNotificationJob", {
       data: {
         name: delivery.fullName,
@@ -60,6 +62,7 @@ const Delivery = () => {
         date: formattedDate,
       },
     });
+    await addDelivery(delivery);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -142,8 +145,8 @@ const Delivery = () => {
                   icon={<IoIosSearch className=" w-6" />}
                   type="text"
                   onChange={handleChange}
-                  name="phone"
-                  id="phone"
+                  name="phoneNumber"
+                  id="phoneNumber"
                   placeholder="+212.000.000"
                   className="
                                         rounded-md
