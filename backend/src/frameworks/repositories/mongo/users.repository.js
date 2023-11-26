@@ -59,7 +59,7 @@ const repository = () => {
       const { email } = user;
       const _User = await User.findOne({
         email: email,
-      });
+      }).populate("role");
       //   console.log(_User);
       if (!_User) {
         // throw new Error(`User with email ${email} does not exist.`);
