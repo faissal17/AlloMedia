@@ -1,8 +1,14 @@
 import React from "react";
 import Navbar from "../components/common/Navbar";
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { useAddOrderMutation } from "../redux/service/orders/orderApi";
 
 const Checkout = () => {
+  const shoppingcart = useSelector((state) => state.shoppingcart);
+
+  const [addOrder, { data, error, isLoading }] = useAddOrderMutation();
+  // console.log(shoppingcart);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,7 +40,22 @@ const Checkout = () => {
       }
       return errors;
     },
+    onSubmit: async (values) => {
+      const order = {
+        name: values.name,
+        email: values.email,
+        cardNumber: values.cardNumber,
+        ExDate: values.ExDate,
+        ccv: values.ccv,
+        city: values.city,
+        address: values.address,
+        orderDetails: shoppingcart.shoppingCart,
+      };
+      console.log(order);
+      await addOrder(order);
+    },
   });
+
   return (
     <React.Fragment>
       <Navbar />
