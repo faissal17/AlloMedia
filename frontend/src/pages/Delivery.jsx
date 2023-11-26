@@ -12,37 +12,65 @@ import { ButtonDefault } from "../components/common/Buttons";
 import { useEffect, useState } from "react";
 import { useAddDeliveryMutation } from "../redux/service/delivery/delivery";
 
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5000");
+
 const Delivery = () => {
-  const navigate = useNavigate();
-  const delivery = {
+  useEffect(() => {}, []);
+
+  const { data, isLoading } = useGetCityQuery();
+  const [delivery, setDelivery] = useState({
+    user: "65SD5b6bbf40e2sddf0d65791cf1",
     fullName: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     city: "",
-    transport: "",
-  };
-  const [valuedelivery, setDelivery] = useState(delivery);
+    vycle: "",
+  });
+  function handleClick(type) {
+    setDelivery({ ...delivery, vycle: type });
+    console.log(delivery);
+  }
+  const handleSubmit = () => {
+    const currentDate = new Date();
 
-  const { data, error, isLoading } = useGetCityQuery();
-  const [
-    addDelivery,
-    { data: dataDelivery, error: errorDelivery, isLoading: isLoadingDelivery },
-  ] = useAddDeliveryMutation();
-
-  useEffect(() => {
-    if (isLoadingDelivery) {
-      navigate("/");
-    }
-  }, [isLoadingDelivery]);
-
-  const handleChange = (e) => {
-    setDelivery({
-      ...valuedelivery,
-      [e.target.name]: e.target.value,
+    // You can format the date as needed, for example: YYYY-MM-DD HH:mm:ss
+    const formattedDate = `${currentDate.getFullYear()}-${(
+      currentDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${currentDate
+      .getDate()
+      .toString()
+      .padStart(2, "0")} ${currentDate
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${currentDate
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+    console.log(delivery);
+    socket.emit("sendNotificationJob", {
+      data: {
+        name: delivery.fullName,
+        for: "Job",
+        date: formattedDate,
+      },
     });
   };
-  const handleSubmit = async () => {
-    await addDelivery(valuedelivery);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "city") {
+      // If the changed input is the city, update the delivery state
+      setDelivery({ ...delivery, city: value });
+    } else {
+      // For other inputs (like text input), update the delivery state as usual
+      setDelivery({ ...delivery, [name]: value });
+    }
+    console.log(delivery);
   };
   return (
     <div className="flex flex-col min-h-screen">
@@ -74,6 +102,7 @@ const Delivery = () => {
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
                                     focus:border-primary focus:border-[1.5px] text-gray-600"
+                  submit={false}
                 />
                 <CustomInput
                   icon={<IoIosSearch className=" w-6" />}
@@ -86,14 +115,15 @@ const Delivery = () => {
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
                                     focus:border-primary focus:border-[1.5px] text-gray-600"
+                  submit={false}
                 />
                 <FormControl fullWidth>
                   <InputLabel id="">Country</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
+                    id="city"
                     name="city"
-                    id="demo-simple-select"
-                    value={"er"}
+                    value={delivery.city}
                     label="Age"
                     onChange={handleChange}
                   >
@@ -111,24 +141,43 @@ const Delivery = () => {
                 <CustomInput
                   icon={<IoIosSearch className=" w-6" />}
                   type="text"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  placeholder="+212.000.000"
                   onChange={handleChange}
+                  name="phone"
+                  id="phone"
+                  placeholder="+212.000.000"
                   className="
                                         rounded-md
                                     w-[350px] py-[14px]  border border-gray-300 
                                     focus:border-primary focus:border-[1.5px] text-gray-600"
+                  submit={false}
                 />
                 <div className=" flex gap-2">
-                  <span className=" cursor-pointer  w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
-                    <img className=" w-full h-full" src={trans1} alt="" />
+                  <span
+                    data-type="MOTOR"
+                    onClick={() => handleClick("MOTOR")}
+                    className=" cursor-pointer  w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1"
+                  >
+                    <img
+                      data-type="MOTOR"
+                      className=" w-full h-full"
+                      src={trans1}
+                      alt=""
+                    />
                   </span>
-                  <span className=" cursor-pointer w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1">
-                    <img className=" w-full h-full" src={trans2} alt="" />
+                  <span
+                    data-type="bCYcle"
+                    onClick={() => handleClick("bCYcle")}
+                    className=" cursor-pointer w-20 h-20 lg:w-16 lg:h-16 border rounded-lg border-primary p-1"
+                  >
+                    <img
+                      data-type="bCYcle"
+                      className=" w-full h-full"
+                      src={trans2}
+                      alt=""
+                    />
                   </span>
                 </div>
-                <ButtonDefault className="  w-full " onClick={handleSubmit}>
+                <ButtonDefault onClick={handleSubmit} className="  w-full ">
                   Confirme
                 </ButtonDefault>
                 <Link className=" text-sm underline text-center text-blue-500">

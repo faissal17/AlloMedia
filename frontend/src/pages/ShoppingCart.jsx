@@ -1,3 +1,7 @@
+
+import Navbar from '../components/common/Navbar';
+import Footer from './Footer';
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -52,6 +56,7 @@ function ShoppingCart() {
     //     return newQuantities;
     //   }, {})
     // );
+
 
     dispatch(deleteOrderInCart(productId));
   };
@@ -179,9 +184,10 @@ function ShoppingCart() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
+        <Footer/>
+        </div>
+        </div>
+    );
 }
 
 export default ShoppingCart;

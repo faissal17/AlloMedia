@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { addOrderInCart } from "../../redux/features/shopping/ShoppingCartSlice";
 const socket = io.connect("http://localhost:5000");
 
+
 const Item = ({ className, data }) => {
   const dispatch = useDispatch();
   const handleClick = async () => {
@@ -25,6 +26,7 @@ const Item = ({ className, data }) => {
       data: "cart item",
     });
   };
+  
   return (
     <div
       className={` rounded-md overflow-hidden bg-red-500 relative shadow-md ${className} `}
