@@ -48,7 +48,14 @@ const repository=()=>{
                 throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
             }
             return city;
-        }
+        },
+        getAll: async () => {
+            const cities = await City.find();
+            if (!cities) {
+              throw new Error(`cities does not exist or has been deleted.`);
+            }
+            return cities;
+        },
     }
 }
 

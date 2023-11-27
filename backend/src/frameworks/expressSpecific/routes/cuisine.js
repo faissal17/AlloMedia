@@ -1,5 +1,6 @@
 const express = require("express");
 const { cuisineControllers } = require("../../../controllers");
+const auth = require("../middlewares/Auth");
 
 module.exports = (dependencies) => {
   const router = express.Router();
@@ -13,9 +14,9 @@ module.exports = (dependencies) => {
 
   router
     .route("/")
-    .post(addCuisineController)
-    .delete(deleteCuisineController)
-    .patch(updateCuisineController)
+    .post(auth.isManager, addCuisineController)
+    .delete(auth.isManager, deleteCuisineController)
+    .patch(auth.isManager, updateCuisineController)
     .get(getAllCuisineController);
 
   router.route("/:id").get(getCuisineController);

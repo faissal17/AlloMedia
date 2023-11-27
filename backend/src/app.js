@@ -8,10 +8,15 @@ const routes = require("./frameworks/expressSpecific/routes");
 const mongoose = require("./frameworks/database/mongo/index");
 const http=require('http')
 const { Server } = require("socket.io");
-
+const axios = require('axios');
 const cors = require("cors");
+const redis = require('redis');
+const { createClient} =require('redis')
 
 
+
+// added Fake API
+const MOCK_API = "https://jsonplaceholder.typicode.com/users/";
 
 
 
@@ -21,6 +26,13 @@ app.use(cookieParser());
 //this is for form data  urlencoded is meaning of form data extended is false means only string and array
 app.use(bodyParser.urlencoded({ extended: false }));
 const { connect: connectMongo } = require("./frameworks/database/mongo");
+const redisClient = redis.createClient({
+  legacyMode: true,
+  PORT: 6379
+})
+redisClient.connect().catch(console.error)
+
+
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -46,6 +58,19 @@ module.exports = {
     //app.use(ErrorHandler)
 
     //this is for form data  urlencoded is meaning of form data extended is false means only string and array
+    let onlineUsers = [];
+    const addNewUser = (username, socketId) => {
+      !onlineUsers.some((user) => user.username === username) &&
+        onlineUsers.push({ username, socketId });
+        console.log('from add function user 0')
+        console.log(onlineUsers[0].socketId)
+        console.log('all users')
+        console.log(onlineUsers)
+        
+    };
+    const getUser = (username) => {
+      return onlineUsers.find((user) => user.username === username);
+    };
     const server=http.createServer(app)
     const io = new Server(server,{
       cors:{
@@ -53,12 +78,85 @@ module.exports = {
         methods: ["GET","POST"]
       }
     })
+    let d=0
     io.on('connection',(socket)=>{
-      console.log(` this is the fucking id :${socket.id}`)
+      //console.log(` this is the fucking id :${socket.id}`)
+
+      socket.on('user_registration',(data)=>{
+        addNewUser(data, socket.id);
+        socket.join(data)
+        
+        let count=1
+        // socket.emit("recevied_notification", count);
+        //console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
+      })
+      socket.on('sendNotification',(data)=>{
+          console.log(data)
+          io.emit("getNotification", {
+            d:'you except notification'
+      });
+
+      
+        
+        
+        
+        // socket.emit("recevied_notification", count);
+        //console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
+      })
+      socket.on('sendNotificationJob',(data)=>{
+        console.log(data)
+        io.emit("getNotificationJob", {
+          data:data
+      });
+      })
+      
+     
+      
+
       socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id);
       });
     })
+
+
+    //testing fake data 
+    //API Call
+    app.get('/user/:email', async (req, res) => {
+      const email = req.params.email;
+
+      try {
+        const response = await axios.get(`${MOCK_API}?email=${email}`);
+        const user = response.data
+        console.log("User successfully retrieved from the API");
+        res.status(200).send(user);
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    })
+    app.get('/cache/user/:email', async (req, res) => {
+      const email = req.params.email;
+    
+      try{
+        redisClient.get(email, async (err, response) => {
+          console.log(response);
+          if(response) {
+            console.log("User successfully retrieved from cache");
+            res.status(200).send(JSON.parse(response));
+          } else {
+            const response = await axios.get(`${MOCK_API}?email=${email}`);
+            const user = response.data;
+            redisClient.setex(email, 600, JSON.stringify(user));
+            console.log("User successfully retrieved from the API");
+            res.status(200).send(user);
+          }
+        })
+      }catch(err) {
+        res.status(500).send({ error: err.message });
+      }
+    })
+
+
+
 
     server.listen(PORT, () => {
       console.log(`Succeess FUcking running under port ${PORT}`);

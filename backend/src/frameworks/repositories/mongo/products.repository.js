@@ -1,22 +1,48 @@
 const mongoose=require('mongoose')
+const redis = require('redis');
+const { createClient} =require('redis')
 const entityName="Items"
-
+const redisClient = redis.createClient({
+    legacyMode: true,
+    PORT: 6379
+  })
+  redisClient.connect().catch(console.error)
 
 const {
     schemas:{
         item:itemSchema
     }
-}=require('../../database/mongo')
+}=require('../../database/mongo') 
 
 const repository=()=>{
     //schema
     const Item=mongoose.model(entityName,itemSchema)
+    
     return {
         add:async item=>{
-            console.log('fucking realy items shittt')
-            console.log(item)
-            const mongoObject=new Item(item)
-            return mongoObject.save()
+            console.log('Adding item to MongoDB and Redis');
+            console.log(item);
+            // Save to MongoDB
+            const mongoObject = new Item(item);
+            let itemss=await mongoObject.save();
+            console.log(itemss)
+            // Save to Redis
+            redisClient.get('items', (err, cachedItems) => {
+                if (err) {
+                    console.error('Error getting items from Redis:', err);
+                    return;
+                }
+                let items = [];
+                if (cachedItems) {
+                    console.log('ohh yess')
+                    items = JSON.parse(cachedItems);
+                }
+                items.push(itemss);
+                // Set the updated items array back to Redis
+                redisClient.setex('items', 3600, JSON.stringify(items));
+                
+            });
+            return itemss
         },
         update:async item=>{
             const { id , updates }=item
@@ -51,7 +77,16 @@ const repository=()=>{
                 throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
             }
             return item;
-        }
+        },
+        getAll: async () => {
+            const items = await Item.find();
+            redisClient.setex('items', 3600, JSON.stringify(items));
+            if (!items) {
+            throw new Error(`categories does not exist or has been deleted.`);
+            }
+            return items;
+                    
+        },
     }
 }
 

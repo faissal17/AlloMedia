@@ -12,7 +12,8 @@ module.exports=dependencies =>{
 
     router.route('/')
         .post(addDeliveryController)
-        .delete(deleteDeliveryController)
+        .delete(
+            deleteDeliveryController)
         .patch(updateDeliveryController)
 
     router.route('/:id').get(getDeliveryByIdController)

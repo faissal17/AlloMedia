@@ -1,4 +1,4 @@
-//import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { validateCredentials as validationLogin } from "../../../helpers/validations/login.credentials.js";
 // import Cookies from 'js-cookie'
@@ -10,7 +10,7 @@ import { setlogin } from "../../../redux/features/auth/authSlice.js";
 import { useDispatch } from "react-redux";
 
 export const LoginService = () => {
-  // const navigate=useNavigate()
+  const navigate = useNavigate();
   // const queryClient = useQueryClient()
   const dispatch = useDispatch();
   const [submet, setSubmet] = useState(false);
@@ -86,8 +86,11 @@ export const LoginService = () => {
 
   useEffect(() => {
     if (isLoginSuccess) {
-      console.log(loginData);
       dispatch(setlogin(loginData));
+      if (loginData.content.role.role === "MANAGER") {
+        
+        navigate("/dashboard");
+      }
     }
   }, [isLoginSuccess]);
   const loginUserMutation = useMutateHook(LoginAPI());

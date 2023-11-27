@@ -89,6 +89,16 @@ const itemSchema = new mongoose.Schema(
         },
       },
     ],
+    picture: {
+      type: String,
+      required: [true, "brand  of product picture is required"],
+      trim: true,
+      validator: (value) => {
+        return validator.isURL(value.replace(/\s/g, ""));
+      },
+      default:
+        "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png",
+    },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
