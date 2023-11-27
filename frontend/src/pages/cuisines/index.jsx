@@ -8,17 +8,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import {
-  useAddCategoryMutation,
-  useGetCategoryQuery,
-  useDeleteCategoryMutation,
-  useUpdateCatrgoryMutation,
-} from "../../redux/service/categories/categoryApi";
+  useGetCuisineQuery,
+  useAddCuisineMutation,
+  useDeleteCuisineMutation,
+  useUpdateCuisineMutation,
+} from "../../redux/service/cuisines/cuisineApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CategoryDashboard = () => {
+const CuisinDashboard = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
   const [valueCategory, setCateory] = useState({
@@ -26,15 +26,15 @@ const CategoryDashboard = () => {
     name: "",
   });
   const {
-    data: categories,
-    error: errorCategories,
-    isLoading: isLoadingCategories,
+    data: cuisines,
+    error: errorcuisines,
+    isLoading: isLoadingcuisines,
     refetch,
-  } = useGetCategoryQuery();
+  } = useGetCuisineQuery();
 
-  const [addCategory, { data, error, isLoading }] = useAddCategoryMutation();
-  const [deleteCategory, { data: dataDelete }] = useDeleteCategoryMutation();
-  const [updateCategory, { data: dataUpdate }] = useUpdateCatrgoryMutation();
+  const [addCuisine, { data, error, isLoading }] = useAddCuisineMutation();
+  const [deleteCuisine, { data: dataDelete }] = useDeleteCuisineMutation();
+  const [updateCuisine, { data: dataUpdate }] = useUpdateCuisineMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,20 +58,20 @@ const CategoryDashboard = () => {
   };
 
   const handleSubmit = async () => {
-    await addCategory(valueCategory);
+    await addCuisine(valueCategory);
     setOpen(false);
     refetch();
   };
 
   const handleDelete = async (e) => {
-    await deleteCategory({
+    await deleteCuisine({
       id: e.target.id,
     });
     refetch();
   };
 
   const handleSubmitEdit = async (e) => {
-    await updateCategory({ ...valueCategory });
+    await updateCuisine({ ...valueCategory });
     setOpen(false);
     refetch();
   };
@@ -130,8 +130,8 @@ const CategoryDashboard = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
-          {categories &&
-            categories.content?.map((category) => (
+          {cuisines &&
+            cuisines.content?.map((category) => (
               <tr key={category.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
@@ -254,4 +254,4 @@ const CategoryDashboard = () => {
   );
 };
 
-export default CategoryDashboard;
+export default CuisinDashboard;

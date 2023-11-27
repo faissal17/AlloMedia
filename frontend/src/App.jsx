@@ -41,6 +41,7 @@ import OrderDetails from "./pages/OrderDetails.jsx";
 import PersonDelivery from "./pages/PersonDelivery.jsx";
 import Menu from "./pages/Menu.jsx";
 import Orders from "./pages/Orders.jsx";
+import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -130,6 +131,10 @@ function App() {
                 element={<PersonDelivery />}
               />
               <Route path={"/dashboard/menus"} element={<Menu />} />
+              <Route
+                path={"/dashboard/cuisine"}
+                element={<CuisinDashboard />}
+              />
             </Route>
             {/* <Route element={<Dashboard />}>
               
