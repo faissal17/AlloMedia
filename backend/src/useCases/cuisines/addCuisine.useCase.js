@@ -7,10 +7,11 @@ module.exports = () => {
     throw new Error("cuisinesRepository should be in dependencies");
   }
 
-  const execute = ({ name }) => {
+  const execute = ({ name, user }) => {
     const cuisine = new Cuisine({
       name,
       slug: slugify(name),
+      user,
     });
 
     return cuisinesRepository.add(cuisine);
