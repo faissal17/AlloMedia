@@ -74,6 +74,13 @@ const restaurantSchema = new mongoose.Schema({
       default: null,
     },
   ],
+  cuisines: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cuisine",
+      default: null,
+    },
+  ],
   localisation: {
     type: Object,
     default: null,
