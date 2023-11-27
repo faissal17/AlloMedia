@@ -1,16 +1,9 @@
 // import React from 'react'
 import { useEffect, useState } from "react";
 import "../../public/css/Dashboard.css";
-<<<<<<< HEAD
-import Restaurant from "./Restaurant";
-import Categorie from "./Categorie";
-import {Link} from "react-router-dom"
-=======
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
-import io from "socket.io-client";
-import { Link, Outlet } from "react-router-dom";
->>>>>>> dev
+import { Outlet,Link } from "react-router-dom";
 
 function Dashboard({ socket }) {
   const [query, setQuery] = useState("");

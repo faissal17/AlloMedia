@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const entityName = "Restaurant";
 const {
-  schemas: { restaurant: restaurantSchema },
+  schemas: { restaurant: restaurantSchema},
 } = require("../../database/mongo");
 
 const Restaurant = mongoose.model(entityName, restaurantSchema);
@@ -50,7 +50,9 @@ module.exports = {
     return restaurant;
   },
   getAll: async () => {
+    console.log('reposutiry rest')
     const restaurant = await Restaurant.find();
+    console.log(restaurant)
     if (!restaurant) {
       throw new Error(`restaurant does not exist or has been deleted.`);
     }
