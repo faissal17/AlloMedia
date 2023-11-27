@@ -114,40 +114,22 @@ function App() {
               path="/restaurant/position"
               element={<Restaurantposition />}
             ></Route>
-            <Route path="/dashboard" element={<Dashboard socket={socket} />} >
-            <Route path={"/dashboard"} element={<DashboardOverView />} />
+            <Route path="/dashboard" element={<Dashboard socket={socket} />}>
+              <Route path={"/dashboard"} element={<DashboardOverView />} />
               <Route
                 path={"/dashboard/category"}
                 element={<CategoryDashboard />}
               />
-              <Route 
-                path={"/dashboard/restaurant"} 
-                element={<Restaurant />} 
+              <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
+              <Route path={"/dashboard/brands"} element={<Brands />} />
+              <Route path={"/dashboard/items"} element={<Items />} />
+              <Route path={"/dashboard/users"} element={<Users />} />
+              <Route path={"/dashboard/orders"} element={<Orders />} />
+              <Route
+                path={"/dashboard/deliveryPersone"}
+                element={<PersonDelivery />}
               />
-              <Route 
-                path={"/dashboard/brands"} 
-                element={<Brands />} 
-              />
-              <Route 
-                path={"/dashboard/items"} 
-                element={<Items />} 
-              />
-              <Route 
-                path={"/dashboard/users"} 
-                element={<Users />} 
-              />
-              <Route 
-                path={"/dashboard/orders"} 
-                element={<Orders />} 
-              />
-              <Route 
-                path={"/dashboard/deliveryPersone"} 
-                element={<PersonDelivery />} 
-              />
-              <Route 
-                path={"/dashboard/menus"} 
-                element={<Menu />} 
-              />
+              <Route path={"/dashboard/menus"} element={<Menu />} />
             </Route>
             {/* <Route element={<Dashboard />}>
               
