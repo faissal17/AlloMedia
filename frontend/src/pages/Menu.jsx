@@ -1,7 +1,6 @@
-import React from "react";
+import React from "react"
 import pizza from "../assets/pizza.jpg";
-
-const Restaurant = () => {
+const Menu = () => {
   return (
     <React.Fragment>
       <table className="divide-gray-200 w-full mt-5">
@@ -17,13 +16,13 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Description
+              Restaurant
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              picture
+              Cuisine
             </th>
             <th
               scope="col"
@@ -31,24 +30,14 @@ const Restaurant = () => {
             >
               Status
             </th>
+            
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-             Localisation
+              Date
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              User
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Actions
-            </th>
+            
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
@@ -96,6 +85,7 @@ const Restaurant = () => {
         </tbody>
       </table>
     </React.Fragment>
-  );
-};
-export default Restaurant;
+  )
+}
+
+export default Menu

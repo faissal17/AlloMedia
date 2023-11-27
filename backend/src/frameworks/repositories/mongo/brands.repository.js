@@ -33,7 +33,7 @@ const repository=()=>{
             return Brand.findByIdAndUpdate(id,{
                 deletedAt:new Date()
             },{
-                new:true 
+                new:true  
             })
         },
         getById:async id=>{

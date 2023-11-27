@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
   // Other tag-related fields
   user:{
     type:String,
-    ref:'User',
+    ref:'User', 
     default:null
   },
   subTotal:{
@@ -58,7 +58,7 @@ const orderSchema = new mongoose.Schema({
   status:{
     type:String,
     enum:['PENDING','CANCEL','DONE'],
-    default:null,
+    default:'PENDING',
   },
   deletedAt:{
     type:Date,

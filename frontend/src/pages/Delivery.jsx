@@ -62,6 +62,8 @@ const Delivery = () => {
         date: formattedDate,
       },
     });
+    console.log('here')
+    console.log(delivery)
     await addDelivery(delivery);
   };
   const handleChange = (e) => {

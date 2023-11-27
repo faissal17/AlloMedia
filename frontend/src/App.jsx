@@ -34,6 +34,13 @@ import Restaurantposition from "./components/Maps/page/Restaurantposition.jsx";
 import CategoryDashboard from "./pages/categories/index.jsx";
 import DashboardOverView from "./pages/DashboardOverView/index.jsx";
 import Restaurant from "./pages/Restaurant.jsx";
+import Brands from "./pages/Brands.jsx";
+import Items from "./pages/Items.jsx";
+import Users from "./pages/Users.jsx";
+import OrderDetails from "./pages/OrderDetails.jsx";
+import PersonDelivery from "./pages/PersonDelivery.jsx";
+import Menu from "./pages/Menu.jsx";
+import Orders from "./pages/Orders.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -113,7 +120,34 @@ function App() {
                 path={"/dashboard/category"}
                 element={<CategoryDashboard />}
               />
-              <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
+              <Route 
+                path={"/dashboard/restaurant"} 
+                element={<Restaurant />} 
+              />
+              <Route 
+                path={"/dashboard/brands"} 
+                element={<Brands />} 
+              />
+              <Route 
+                path={"/dashboard/items"} 
+                element={<Items />} 
+              />
+              <Route 
+                path={"/dashboard/users"} 
+                element={<Users />} 
+              />
+              <Route 
+                path={"/dashboard/orders"} 
+                element={<Orders />} 
+              />
+              <Route 
+                path={"/dashboard/deliveryPersone"} 
+                element={<PersonDelivery />} 
+              />
+              <Route 
+                path={"/dashboard/menus"} 
+                element={<Menu />} 
+              />
             </Route>
             {/* <Route element={<Dashboard />}>
               
