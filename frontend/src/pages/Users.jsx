@@ -1,7 +1,6 @@
-import React from "react";
 import pizza from "../assets/pizza.jpg";
-
-const Restaurant = () => {
+import React from "react";
+const Users = () => {
   return (
     <React.Fragment>
       <table className="divide-gray-200 w-full mt-5">
@@ -17,13 +16,7 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Description
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              picture
+              Slug
             </th>
             <th
               scope="col"
@@ -35,13 +28,19 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-             Localisation
+              Tag
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              User
+              Brand
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Categorie
             </th>
             <th
               scope="col"
@@ -64,38 +63,39 @@ const Restaurant = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <div className="text-sm text-gray-900">
-              Regional Paradigm Technician
-            </div>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap">
-            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-              Excellent
-            </span>
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            Life
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            new 200
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            italiane
-          </td>
-          <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-            <a href="#" className="text-indigo-600 hover:text-indigo-900">
-              Edit
-            </a>
-            <a href="#" className="ml-2 text-red-600 hover:text-red-900">
-              Delete
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
-};
-export default Restaurant;
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">
+                Regional Paradigm Technician
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                Excellent
+              </span>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              Life
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              new 200
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              italiane
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+              <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                Edit
+              </a>
+              <a href="#" className="ml-2 text-red-600 hover:text-red-900">
+                Delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </React.Fragment>
+  )
+}
+
+export default Users

@@ -37,7 +37,7 @@ function Dashboard({ socket }) {
     },
     {
       name: "Product",
-      path: "/dashboard/product",
+      path: "/dashboard/items",
       icon: "box-outline",
     },
     {
@@ -46,18 +46,23 @@ function Dashboard({ socket }) {
       icon: "list-outline",
     },
     {
+      name: "Brand",
+      path: "/dashboard/brands",
+      icon: "list-outline",
+    },
+    {
       name: "Order",
-      path: "/dashboard/order",
+      path: "/dashboard/orders",
       icon: "cart-outline",  // Updated icon name
     },
     {
-      name: "Driver",
-      path: "/dashboard/driver",
+      name: "Delivery",
+      path: "/dashboard/deliveryPersone",
       icon: "car-outline",  // Updated icon name
     },
     {
-      name: "Customer",
-      path: "/dashboard/customer",
+      name: "Menus",
+      path: "/dashboard/menus",
       icon: "person-outline",  // Updated icon name
     },
     {

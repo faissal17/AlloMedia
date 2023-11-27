@@ -12,6 +12,7 @@ const image = require("./images.schema");
 const restaurant = require("./restaurants.schema");
 const deliveryPerson = require("./delivery-person.schema");
 const orderDetails = require("./orders-details.schema");
+const role = require("./roles.schema");
 
 module.exports = {
   user,
@@ -27,4 +28,5 @@ module.exports = {
   restaurant,
   deliveryPerson,
   orderDetails,
+  role,
 };

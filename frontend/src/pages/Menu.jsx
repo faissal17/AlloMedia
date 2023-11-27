@@ -1,6 +1,6 @@
-import React from "react";
-import pizza from "../../assets/pizza.jpg";
-const CategoryDashboard = () => {
+import React from "react"
+import pizza from "../assets/pizza.jpg";
+const Menu = () => {
   return (
     <React.Fragment>
       <table className="divide-gray-200 w-full mt-5">
@@ -16,38 +16,28 @@ const CategoryDashboard = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              picture
+              Restaurant
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              status 
+              Cuisine
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              user
+              Status
             </th>
+            
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              date
+              Date
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Categorie
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Actions
-            </th>
+            
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
@@ -95,7 +85,7 @@ const CategoryDashboard = () => {
         </tbody>
       </table>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default CategoryDashboard;
+export default Menu
