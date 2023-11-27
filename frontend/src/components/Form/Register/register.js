@@ -136,8 +136,7 @@ export const RegisterService = (socket) => {
         socket.emit("user_registration",register.first_name)
       }
       userConnect()
-      navigate('/dashboard')
-      
+      // navigate('/')
 
     }
   }, [isregisterSuccess]);

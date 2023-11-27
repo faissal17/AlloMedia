@@ -82,15 +82,13 @@ const userSchema = new mongoose.Schema(
         "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png",
       trim: true,
     },
-    role: [
-      {
-        type: String,
-        ref: "Role",
-        required: true,
-        //default is _id of role
-        default: "6530e3c6b66fead76cb05923",
-      },
-    ],
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+      required: true,
+      default: "65639f02790359a11fef4850",
+    },
+
     isBlocked: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
     search: [
