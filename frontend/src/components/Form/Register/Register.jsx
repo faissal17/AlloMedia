@@ -3,13 +3,12 @@ import { FormButton } from "../../common/Buttons";
 import { RegisterService } from "./register";
 import "./login.css";
 import registerInput from "../../../constants/register";
-import io from 'socket.io-client'
-const socket=io.connect("http://localhost:5000")
+
 
 
 //new QueyClient is a new instance of QueryClient we use it to make request to the server
-export const Register = () => {
-  const registerService = RegisterService();
+export const Register = ({socket}) => {
+  const registerService = RegisterService(socket);
   const { submet, registerStatus, handleSubmit, handleRegisterChange } =
     registerService;
   //---------------------------------------------------------------

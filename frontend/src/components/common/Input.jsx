@@ -6,6 +6,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { ButtonDefault } from "./Buttons";
 import { IoSend } from "react-icons/io5";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const CustomInput = ({
   icon,
@@ -25,6 +26,8 @@ const CustomInput = ({
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const navigate = useNavigate();
   return (
     <>
       <div className="  w-[100%] mx-auto relative ">
@@ -78,6 +81,9 @@ const CustomInput = ({
                 className="border  text-white w-[80px] h-[49px] 
                   absolute right-[100px] top-[50%] translate-y-[-70%] flex items-center justify-center 
                   z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-3"
+                onClick={() => {
+                  navigate("/restaurant/position");
+                }}
               >
                 <FaMapMarkerAlt className=" scale-12" />
               </ButtonDefault>

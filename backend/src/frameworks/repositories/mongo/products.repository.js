@@ -1,6 +1,12 @@
 const mongoose=require('mongoose')
+const redis = require('redis');
+const { createClient} =require('redis')
 const entityName="Items"
-
+const redisClient = redis.createClient({
+    legacyMode: true,
+    PORT: 6379
+  })
+  redisClient.connect().catch(console.error)
 
 const {
     schemas:{
@@ -11,6 +17,7 @@ const {
 const repository=()=>{
     //schema
     const Item=mongoose.model(entityName,itemSchema)
+    
     return {
         add:async item=>{
             console.log('fucking realy items shittt')
@@ -51,7 +58,16 @@ const repository=()=>{
                 throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
             }
             return item;
-        }
+        },
+        getAll: async () => {
+            const items = await Item.find();
+            redisClient.setex('items', 600, JSON.stringify(items));
+            if (!items) {
+            throw new Error(`categories does not exist or has been deleted.`);
+            }
+            return items;
+                    
+        },
     }
 }
 

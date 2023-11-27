@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetOneRestaurantMutation } from "../../redux/service/restaurant/restaurantApi";
+import { useSearchRestaurantMutation } from "../../redux/service/restaurant/restaurantApi";
 
 export const RestaurantService = () => {
   const [data, setData] = useState({});
@@ -11,7 +11,7 @@ export const RestaurantService = () => {
       isError: isrestaurantError,
       error: restaurantError,
     },
-  ] = useGetOneRestaurantMutation();
+  ] = useSearchRestaurantMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +19,11 @@ export const RestaurantService = () => {
   };
 
   const getRestaurant = async (restaurant) => {
-    await sendrestaurant(restaurant);
+    try {
+      await sendrestaurant(restaurant);
+    } catch (error) {
+      console.error("Error sending restaurant:", error);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +35,6 @@ export const RestaurantService = () => {
   return {
     handleSubmit,
     getRestaurant,
-    data,
+    dataRestaurant: data,
   };
 };

@@ -2,21 +2,30 @@ import { ApiSlice } from "../../api/apiSlice";
 
 export const restaurantApi = ApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllRestaurant: builder.query({
+    getRestaurant: builder.query({
       query: (slug) => ({
-        url: `${"restaurant/".slug}`,
+        url: `restaurant/${slug}`,
         method: "GET",
       }),
     }),
-    getOneRestaurant: builder.mutation({
+    searchRestaurant: builder.mutation({
       query: (body) => ({
         url: "restaurant/search",
         method: "POST",
         body: body,
       }),
     }),
+    getAllRestaurants: builder.query({
+      query: () => ({
+        url: "restaurant",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllRestaurantQuery, useGetOneRestaurantMutation } =
-  restaurantApi;
+export const {
+  useGetRestaurantQuery,
+  useSearchRestaurantMutation,
+  useGetAllRestaurantsQuery,
+} = restaurantApi;

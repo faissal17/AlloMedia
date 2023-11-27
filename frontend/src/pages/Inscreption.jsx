@@ -8,7 +8,7 @@ import axios from "axios"
 import { useMutation, useQueryClient } from "react-query"
 import { useNavigate } from "react-router-dom"
 import videoBack from '../assets/background.mp4'
-const Inscreption = () => {
+const Inscreption = ({socket}) => {
   const navigate=useNavigate()
     const [login, setLogin] = useState(true)
     const [signup,setSignup] = useState(false)
@@ -66,7 +66,7 @@ const Inscreption = () => {
           </ButtonDefault>
         </div>
         {
-            login ? <Login /> : <Register />
+            login ? <Login /> : <Register socket={socket} />
         }
     </div>
     <Shadow className={`opacity-80`}/>

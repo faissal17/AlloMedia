@@ -5,18 +5,17 @@ module.exports = async (req, res) => {
   console.log("godamn");
 
   try {
-    const { id } = req.params;
+    const { slug } = req.params;
+    console.log(slug);
     const useCaseInstance = getRestaurantByIdUseCases();
+    const getRestaurantByslug = await useCaseInstance.execute(slug);
 
-    console.log("before");
-    // Call the execute method on the use case instance
-    const getRestaurantById = await useCaseInstance.execute(id);
-    console.log("after");
+    console.log("getRestaurantByslug", getRestaurantByslug);
 
     res.json(
       new Response({
         status: true,
-        content: getRestaurantById,
+        content: getRestaurantByslug,
       })
     );
     //next()

@@ -37,14 +37,15 @@ module.exports = {
       }
     );
   },
-  getById: async (id) => {
-    console.log("id hhhhhh", id);
+  getById: async (slug) => {
+    console.log("slug", slug);
     const restaurant = await Restaurant.findOne({
-      _id: id,
+      slug: slug,
     });
     if (!restaurant) {
-      throw new Error(`Restaurant with ID ${id} does not exists`);
+      throw new Error(`Restaurant with ID ${slug} does not exists`);
     }
+    console.log(restaurant);
 
     return restaurant;
   },
@@ -57,9 +58,7 @@ module.exports = {
   },
   search: async (search) => {
     const restaurant = await Restaurant.find({
-      $or: [
-        { name: { $regex: search, $options: "i" } },
-      ],
+      $or: [{ name: { $regex: search, $options: "i" } }],
     });
     if (!restaurant) {
       throw new Error(`restaurant does not exist or has been deleted.`);
