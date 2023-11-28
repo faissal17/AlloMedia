@@ -21,6 +21,13 @@ export const restaurantApi = ApiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    createRestaurant : builder.mutation({
+      query: (body)=>({
+        url: "restaurant",
+        method:"POST",
+        body:body
+      })
+    })
   }),
 });
 
@@ -28,4 +35,5 @@ export const {
   useGetRestaurantQuery,
   useSearchRestaurantMutation,
   useGetAllRestaurantsQuery,
+  useCreateRestaurantMutation,
 } = restaurantApi;

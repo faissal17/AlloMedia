@@ -7,7 +7,6 @@ const {
 const Restaurant = mongoose.model(entityName, restaurantSchema);
 module.exports = {
   add: async (restaurant) => {
-    console.log("restaurant", restaurant);
     const restaurants = new Restaurant(restaurant);
     return restaurants.save();
   },
