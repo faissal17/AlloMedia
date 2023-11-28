@@ -65,8 +65,8 @@ function Dashboard({ socket }) {
       icon: "person-outline",  // Updated icon name
     },
     {
-      name: "Review",
-      path: "/dashboard/review",
+      name: "Cuisines",
+      path: "/dashboard/cuisine",
       icon: "star-outline",  // Updated icon name
     },
     {

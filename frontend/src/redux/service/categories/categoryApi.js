@@ -8,7 +8,38 @@ export const categoriesApi = ApiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    addCategory: builder.mutation({
+      query: (body) => ({
+        url: "category",
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteCategory: builder.mutation({
+      query: (body) => ({
+        url: `category/`,
+        method: "DELETE",
+        body: body,
+      }),
+    }),
+    updateCatrgory: builder.mutation(
+      {
+        query: (body) => ({
+          url: `category`,
+          method: "PATCH",
+          body: body,
+        }),
+      }
+      // {
+      //   dispatchConditionRejection: false,
+      // }
+    ),
   }),
 });
 
-export const { useGetCategoryQuery } = categoriesApi;
+export const {
+  useGetCategoryQuery,
+  useAddCategoryMutation,
+  useDeleteCategoryMutation,
+  useUpdateCatrgoryMutation,
+} = categoriesApi;
