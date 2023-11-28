@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 const LeafletClick = () => {
   const map = useMap();
   const dispatch = useDispatch();
-  const mapState = useSelector((state) => state.map);
-  console.log(mapState);
 
   useEffect(() => {
     let marker;
