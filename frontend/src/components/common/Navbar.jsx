@@ -11,7 +11,9 @@ function Navbar() {
 
   return (
     <nav className=" p-2 sm:p-3 md:p-2 lg:p-1 px-4 md:px-4 lg:px-14 xl:px-20 flex shadow-lg items-center bg-gray-100">
-      <LogoFood className=" w-[30%] flex justify-center sm:w-[20%] lg:w-[5%]" />
+      <Link to='/' className="w-[30%] flex justify-center sm:w-[20%] lg:w-[5%]">
+        <LogoFood className=" w-full " />
+      </Link>
       <div className=" w-[70%] md:w-[50%] lg:w-[30]">
         <CustomInput
           icon={<IoIosSearch className=" w-6" />}
