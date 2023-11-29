@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const entityNameTags = "Tag";
+const entityNameCategories = "Category";
+const entityNameBrands = "Brand";
+const tagSchema = require("../schemas/tags.schema");
+const categorySchema = require("../schemas/categories.schema");
+const brandSchema = require("../schemas/brands.schema");
+const Tag = mongoose.model(entityNameTags, tagSchema);
+const Category = mongoose.model(entityNameCategories, categorySchema);
+const Brand = mongoose.model(entityNameBrands, brandSchema);
+
 const restaurantSchema = new mongoose.Schema({
   // Other tag-related fields
   name: {
@@ -56,21 +66,21 @@ const restaurantSchema = new mongoose.Schema({
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Tag",
+      ref: entityNameTags,
       default: null,
     },
   ],
   brands: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Brand",
+      ref: entityNameBrands,
       default: null,
     },
   ],
   categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: entityNameCategories,
       default: null,
     },
   ],

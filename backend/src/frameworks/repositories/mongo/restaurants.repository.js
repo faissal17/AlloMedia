@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const entityName = "Restaurant";
 const {
-  schemas: { restaurant: restaurantSchema},
+  schemas: { restaurant: restaurantSchema },
 } = require("../../database/mongo");
-
+const entityNameTags = "Tag";
+const tagSchema = require("../../database/mongo/schemas/tags.schema");
+const Tag = mongoose.model(entityNameTags, tagSchema);
 const Restaurant = mongoose.model(entityName, restaurantSchema);
 module.exports = {
   add: async (restaurant) => {
@@ -11,7 +13,6 @@ module.exports = {
     return restaurants.save();
   },
   update: async (id, restaurant) => {
-    console.log("restaurant repository", restaurant);
     // const { id , updates }=restaurant
     return Restaurant.findByIdAndUpdate(
       id,
@@ -25,8 +26,7 @@ module.exports = {
     );
   },
   delete: async (id) => {
-    console.log("delete repository ", id);
-    return Restaurant.findByIdAndUpdate(
+    return Restaurant.findByIdAndDelete(
       id,
       {
         deleted_at: new Date(),
@@ -37,10 +37,13 @@ module.exports = {
     );
   },
   getById: async (slug) => {
-    console.log("slug", slug);
     const restaurant = await Restaurant.findOne({
       slug: slug,
-    });
+    })
+      .populate("tags")
+      .populate("categories")
+      .populate("brands");
+
     if (!restaurant) {
       throw new Error(`Restaurant with ID ${slug} does not exists`);
     }
@@ -49,9 +52,10 @@ module.exports = {
     return restaurant;
   },
   getAll: async () => {
-    console.log('reposutiry rest')
-    const restaurant = await Restaurant.find();
-    console.log(restaurant)
+    const restaurant = await Restaurant.find()
+      .populate("tags")
+      .populate("categories")
+      .populate("brands");
     if (!restaurant) {
       throw new Error(`restaurant does not exist or has been deleted.`);
     }
@@ -59,11 +63,22 @@ module.exports = {
   },
   search: async (search) => {
     const restaurant = await Restaurant.find({
-      $or: [{ name: { $regex: search, $options: "i" } }],
-    });
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        {
+          tags: {
+            $in: await Tag.find({
+              name: { $regex: search, $options: "i" },
+            }).select("_id"),
+          },
+        },
+      ],
+    }).populate("tags");
+
     if (!restaurant) {
       throw new Error(`restaurant does not exist or has been deleted.`);
     }
+
     return restaurant;
   },
 };

@@ -9,10 +9,12 @@ module.exports = (dependencies) => {
     deleteTagController,
     updateTagController,
     getTagByIdController,
+    getAllTagsController,
   } = tagController(dependencies);
 
   router
     .route("/")
+    .get(auth.isManager, getAllTagsController)
     .post(auth.isManager, addTagController)
     .delete(auth.isManager, deleteTagController)
     .patch(auth.isManager, updateTagController);
