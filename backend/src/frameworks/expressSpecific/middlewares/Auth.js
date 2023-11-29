@@ -8,9 +8,10 @@ class auth {
         status: "error",
         message: "please login first",
       });
-    const { role } = await jwtToken.verify(token);
+    const { _id, role } = await jwtToken.verify(token);
     switch (role.role) {
       case "MANAGER":
+        req.user = _id;
         next();
         break;
 

@@ -4,8 +4,7 @@ module.exports = async (req, res) => {
   try {
     const { name, tags, brands, categories, description, localisation } =
       req.body;
-    // console.log("category restaurant");
-    console.log("req.body", req.body);
+
     const useCaseInstance = addRestaurantUseCases();
     const addRestaurant = await useCaseInstance.execute({
       name,

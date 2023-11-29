@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import useAuth from "./hooks/useAuth";
 import Contact from "./pages/Contact.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import Categorie from "./pages/Categorie.jsx";
 // import { PrivateRoute } from "./routes/privateRoute";
 import { PrivateRoute } from "./routes/PrivateRoute.jsx";
 const Home = lazy(() => import("./pages/Home"));
@@ -41,6 +42,9 @@ import OrderDetails from "./pages/OrderDetails.jsx";
 import PersonDelivery from "./pages/PersonDelivery.jsx";
 import Menu from "./pages/Menu.jsx";
 import Orders from "./pages/Orders.jsx";
+import CuisinDashboard from "./pages/cuisines/index.jsx";
+
+import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -88,6 +92,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/Categorie" element={<Categorie />} />
 
             <Route path="/maps" element={<Container />} />
             <Route path="/manager/maps" element={<MapManager />} />
@@ -114,44 +119,32 @@ function App() {
               path="/restaurant/position"
               element={<Restaurantposition />}
             ></Route>
-            <Route path="/dashboard" element={<Dashboard socket={socket} />} >
-            <Route path={"/dashboard"} element={<DashboardOverView />} />
+            <Route path="/dashboard" element={<Dashboard socket={socket} />}>
+              <Route path={"/dashboard"} element={<DashboardOverView />} />
               <Route
                 path={"/dashboard/category"}
                 element={<CategoryDashboard />}
               />
-              <Route 
-                path={"/dashboard/restaurant"} 
-                element={<Restaurant />} 
+              <Route path={"/dashboard/restaurant"} element={<Restaurant />} />
+              <Route path={"/dashboard/brands"} element={<Brands />} />
+              <Route path={"/dashboard/items"} element={<Items />} />
+              <Route path={"/dashboard/users"} element={<Users />} />
+              <Route path={"/dashboard/orders"} element={<Orders />} />
+              <Route
+                path={"/dashboard/deliveryPersone"}
+                element={<PersonDelivery />}
               />
-              <Route 
-                path={"/dashboard/brands"} 
-                element={<Brands />} 
+              <Route path={"/dashboard/menus"} element={<Menu />} />
+              <Route
+                path={"/dashboard/cuisine"}
+                element={<CuisinDashboard />}
               />
-              <Route 
-                path={"/dashboard/items"} 
-                element={<Items />} 
+              <Route
+                path="/dashboard/addRestaurant"
+                element={<AddRestaurant />}
               />
-              <Route 
-                path={"/dashboard/users"} 
-                element={<Users />} 
-              />
-              <Route 
-                path={"/dashboard/orders"} 
-                element={<Orders />} 
-              />
-              <Route 
-                path={"/dashboard/deliveryPersone"} 
-                element={<PersonDelivery />} 
-              />
-              <Route 
-                path={"/dashboard/menus"} 
-                element={<Menu />} 
-              />
+
             </Route>
-            {/* <Route element={<Dashboard />}>
-              
-            </Route> */}
           </Routes>
         </Suspense>
       </Router>

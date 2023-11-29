@@ -10,6 +10,7 @@ const Category = mongoose.model(entityName, categorySchema);
 
 module.exports = {
   add: async (category) => {
+    console.log(category);
     const mongoObject = new Category(category);
     return mongoObject.save();
   },
@@ -50,7 +51,7 @@ module.exports = {
     return category;
   },
   getAll: async () => {
-    const categories = await Category.find();
+    const categories = await Category.find().populate("user");
     if (!categories) {
       throw new Error(`categories does not exist or has been deleted.`);
     }

@@ -49,7 +49,7 @@ module.exports = {
     return cuisine;
   },
   getAll: async () => {
-    const cuisines = await Cuisine.find();
+    const cuisines = await Cuisine.find().populate("user");
     if (!cuisines) {
       throw new Error(`cuisines does not exist or has been deleted.`);
     }

@@ -13,7 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { useGetRestaurantQuery } from "../../../redux/service/restaurant/restaurantApi";
-
+import { useParams } from "react-router-dom";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,9 +21,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const PageRes = () => {
   const [position, setPosition] = useState([]);
   const [restaurant, setRestaurant] = useState({});
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-  const slug = query.get("slug");
+  // const { search } = useLocation();
+  const  {
+    slug
+  } = useParams()
+  // const query = new URLSearchParams(search);
+  // const slug = query.get("slug");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -53,6 +56,8 @@ const PageRes = () => {
       }
     );
   }, []);
+
+  console.log(restaurant);
 
   return (
     <section className="lg:py-10 py-6">
@@ -113,24 +118,47 @@ const PageRes = () => {
 
             <div className="flex gap-2 mb-5">
               <div className="border border-default-200 rounded-full px-3 py-1.5 flex items-center gap-2.5">
-                <span className="text-xs">Adress :</span>
+                <span className="text-xs">Brands :</span>
                 <span className="text-xs text-default-500">
-                  {restaurant && restaurant.address}
+                  {restaurant &&
+                    restaurant.brands &&
+                    restaurant.brands.map((brand, index) => (
+                      <span
+                        className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                        key={index}
+                      >
+                        {brand.name}
+                      </span>
+                    ))}
                 </span>
               </div>
 
               <div className="border border-default-200 rounded-full px-3 py-1.5 flex items-center gap-2.5">
-                <span className="text-xs">Cuisine :</span>
-                <span className="text-xs text-default-500">
-                  {restaurant && restaurant.cuisine}
-                </span>
+                <span className="text-xs">Categories :</span>
+                {restaurant &&
+                  restaurant.categories &&
+                  restaurant.categories.map((category, index) => (
+                    <span
+                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                      key={index}
+                    >
+                      {category.name}
+                    </span>
+                  ))}
               </div>
 
               <div className="border border-default-200 rounded-full px-3 py-1.5 flex items-center gap-2.5">
-                <span className="text-xs">city :</span>
-                <span className="text-xs text-default-500">
-                  {restaurant && restaurant.city}
-                </span>
+                <span className="text-xs">Tags :</span>
+                {restaurant &&
+                  restaurant.tags &&
+                  restaurant.tags.map((tag, index) => (
+                    <span
+                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                      key={index}
+                    >
+                      {tag.name}
+                    </span>
+                  ))}
               </div>
             </div>
 
@@ -161,7 +189,7 @@ const PageRes = () => {
             keepMounted
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
-            fullWidth={true}  
+            fullWidth={true}
             maxWidth={"md"}
           >
             <DialogTitle>{"Map"}</DialogTitle>
@@ -170,7 +198,7 @@ const PageRes = () => {
                 id="alert-dialog-slide-description"
                 style={{ height: "50vh", width: "800px" }}
               >
-                {restaurant && restaurant.localisation && (
+                {/* {restaurant && restaurant.localisation && (
                   <MapContainer
                     center={[
                       restaurant.localisation.lat,
@@ -211,7 +239,7 @@ const PageRes = () => {
                       </Marker>
                     )}
                   </MapContainer>
-                )}
+                )} */}
               </DialogContentText>
             </DialogContent>
             <DialogActions>

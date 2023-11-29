@@ -21,6 +21,20 @@ export const restaurantApi = ApiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    createRestaurant: builder.mutation({
+      query: (body) => ({
+        url: "restaurant",
+        method: "POST",
+        body: body,
+      }),
+    }),
+    deleteRestaurant: builder.mutation({
+      query: (id) => ({
+        url: "restaurant",
+        method: "DELETE",
+        body: { id: id },
+      }),
+    }),
   }),
 });
 
@@ -28,4 +42,6 @@ export const {
   useGetRestaurantQuery,
   useSearchRestaurantMutation,
   useGetAllRestaurantsQuery,
+  useCreateRestaurantMutation,
+  useDeleteRestaurantMutation
 } = restaurantApi;

@@ -102,7 +102,7 @@ const Overview = () => {
                         key={data.slug}
                         className="border-b border-gray-300 py-2 px-3"
                       >
-                        <Link to={`/restaurant/?slug=${data.slug}`}>
+                        <Link to={`/restaurant/${data.slug}`}>
                           <h3 className="text-lg font-semibold text-gray-800">
                             {data.name}
                           </h3>

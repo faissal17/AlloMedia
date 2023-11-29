@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import "../../public/css/Dashboard.css";
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
-import io from "socket.io-client";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet,Link } from "react-router-dom";
 
 function Dashboard({ socket }) {
   const [query, setQuery] = useState("");
   const links = [
     "Brand Name",
     "Dashboard",
-    "Customers",
+    "Categorie",
     "Messages",
     "Help",
     "Settings",
@@ -66,8 +65,8 @@ function Dashboard({ socket }) {
       icon: "person-outline",  // Updated icon name
     },
     {
-      name: "Review",
-      path: "/dashboard/review",
+      name: "Cuisines",
+      path: "/dashboard/cuisine",
       icon: "star-outline",  // Updated icon name
     },
     {
@@ -86,7 +85,7 @@ function Dashboard({ socket }) {
   const icons = {
     "Brand Name": "home-outline",
     Dashboard: "grid-outline",
-    Customers: "people-outline",
+    Categorie: "people-outline",
     Messages: "chatbubble-ellipses-outline",
     Help: "help-circle-outline",
     Settings: "settings-outline",
@@ -195,7 +194,7 @@ function Dashboard({ socket }) {
               onKeyDown={toggleDropdown}
               tabIndex="0"
             >
-              <div className="flex items-center cursor-pointer">
+              <div className="flex items-center cursor-pointer" >
                 <img
                   className="rounded-full h-10 w-10"
                   src="../../public/imgs/customer01.jpg"

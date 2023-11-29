@@ -4,6 +4,7 @@ const { getAllRestaurantUseCase } = require("../../useCases/restaurent");
 module.exports = async (req, res) => {
   try {
     const useCaseInstance = getAllRestaurantUseCase();
+    console.log('controller rest')
     const getAllRestaurant = await useCaseInstance.execute();
 
     res.json(
