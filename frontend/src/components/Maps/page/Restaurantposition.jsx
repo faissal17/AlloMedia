@@ -82,7 +82,44 @@ export default function Restaurantposition() {
                   restaurant.localisation.lng,
                 ]}
               >
-                <Popup>{restaurant.name}</Popup>
+                <Popup
+                  maxWidth={200}
+                  minWidth={200}
+                  className="flex items-center justify-center"
+                >
+                  <div className="flex flex-col">
+                    <img
+                      src="https://img.freepik.com/photos-gratuite/burger-explosif-legumes-fromage-fondu-fond-noir-generative-ai_157027-1734.jpg?w=1060&t=st=1700214760~exp=1700215360~hmac=e1c21b20dd0b948b2333165e04741f00b9a897c355556e22902270f4b0ad81bd"
+                      alt={restaurant.name}
+                      className="flex items-center justify-center rounded-md"
+                    />
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      <Link to={`/restaurant/?slug=${restaurant.slug}`}>
+                        {restaurant.name}
+                      </Link>
+                    </h2>
+                    <ul
+                      className="flex flex-col gap-2"
+                      style={{ listStyle: "none" }}
+                    >
+                      <li>
+                        Distance:{" "}
+                        {calculateDistance(
+                          position[0],
+                          position[1],
+                          restaurant.localisation.lat,
+                          restaurant.localisation.lng
+                        ).toFixed(2)}{" "}
+                        km
+                      </li>
+                      <li>
+                        <Link to={`/restaurant/?slug=${restaurant.slug}`}>
+                          See more
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </Popup>
               </Marker>
             ))}
 

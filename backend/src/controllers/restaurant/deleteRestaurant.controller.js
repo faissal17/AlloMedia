@@ -4,7 +4,6 @@ module.exports = async (req, res) => {
   try {
     const {id}=req.body
     const useCaseInstance = deleteRestaurantUseCases();
-    console.log('controller id:',id)
     const response = await useCaseInstance.execute(id);
     res.json(
       new Response({
