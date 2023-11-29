@@ -70,7 +70,7 @@ const Restaurant = () => {
         <tbody className="bg-gray-100 divide-y divide-gray-200">
           {restaurants &&
             restaurants.content.map((restaurant, index) => (
-              <tr>
+              <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-10 w-10">

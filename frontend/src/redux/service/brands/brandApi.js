@@ -1,0 +1,21 @@
+import { ApiSlice } from "../../api/apiSlice";
+
+export const brandsApi = ApiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getbrand: builder.query({
+      query: () => ({
+        url: "brands",
+        method: "GET",
+      }),
+    }),
+    addBrand: builder.mutation({
+      query: (body) => ({
+        url: "brands",
+        method: "POST",
+        body,
+      }),
+    }),
+  }),
+});
+
+export const { useGetbrandQuery , useAddBrandMutation} = brandsApi;

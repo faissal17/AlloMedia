@@ -25,7 +25,7 @@ export const AuthProvider=({children})=>{
   useEffect(()=>{
     const token=localStorage.getItem('token')
     if(token){
-      axios.get(`http://localhost:5000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
+      axios.get(`http://localhost:4000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
         .then((response)=>{
           if(response.data){
             setUser(response.data)
@@ -59,7 +59,7 @@ const useAuth = () => {
     if (token) {
       // Make a request to your authentication endpoint to verify the token
       // Replace 'YOUR_AUTH_ENDPOINT' with your actual authentication endpoint
-      axios.get(`http://localhost:5000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
+      axios.get(`http://localhost:4000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
         
         .then((response) => {
           console.log(response.data)
