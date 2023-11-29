@@ -47,7 +47,14 @@ const repository=()=>{
                 throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
             }
             return brand;
-        }
+        },
+        getAll: async () => {
+            const brand = await Brand.find().populate("user");
+            if (!brand) {
+              throw new Error(`brand does not exist or has been deleted.`);
+            }
+            return brand;
+          },
     }
 }
 
