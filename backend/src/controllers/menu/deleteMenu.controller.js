@@ -5,7 +5,8 @@ module.exports = async (req, res) => {
   try {
     const { id } = req.body;
     const deleteMenu = deleteMenuUseCase();
-    const response = await deleteMenu.execute({ id });
+    console.log(id);
+    const response = await deleteMenu.execute(id);
     res.json(
       new Response({
         status: true,

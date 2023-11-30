@@ -22,9 +22,7 @@ const PageRes = () => {
   const [position, setPosition] = useState([]);
   const [restaurant, setRestaurant] = useState({});
   // const { search } = useLocation();
-  const  {
-    slug
-  } = useParams()
+  const { slug } = useParams();
   // const query = new URLSearchParams(search);
   // const slug = query.get("slug");
   const [open, setOpen] = React.useState(false);
@@ -198,11 +196,11 @@ const PageRes = () => {
                 id="alert-dialog-slide-description"
                 style={{ height: "50vh", width: "800px" }}
               >
-                {/* {restaurant && restaurant.localisation && (
+                {restaurant && restaurant?.localisation && (
                   <MapContainer
                     center={[
-                      restaurant.localisation.lat,
-                      restaurant.localisation.lng,
+                      restaurant?.localisation?.lat,
+                      restaurant?.localisation?.lng,
                     ]}
                     zoom={15}
                     scrollWheelZoom={true}
@@ -212,8 +210,8 @@ const PageRes = () => {
 
                     <Marker
                       position={[
-                        restaurant.localisation.lat,
-                        restaurant.localisation.lng,
+                        restaurant?.localisation.lat,
+                        restaurant?.localisation.lng,
                       ]}
                     >
                       <Popup>
@@ -239,7 +237,7 @@ const PageRes = () => {
                       </Marker>
                     )}
                   </MapContainer>
-                )} */}
+                )}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
