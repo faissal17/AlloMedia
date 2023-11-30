@@ -96,6 +96,8 @@ const Menu = () => {
     setOpen(false);
     refetch();
   };
+
+  console.log(dataMenu);
   return (
     <React.Fragment>
       <div className="flex justify-between">
@@ -172,7 +174,7 @@ const Menu = () => {
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-900">
-                  {item?.user.first_name + " " + item?.user.last_name}
+                  {item?.user?.first_name + " " + item?.user?.last_name}
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">

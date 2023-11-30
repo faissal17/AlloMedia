@@ -16,7 +16,7 @@ import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
 
 import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
 
-import { useGetAllBrandsQuery } from "../../redux/service/brands/brandApi.js";
+import { useGetbrandQuery } from "../../redux/service/brands/brandApi.js";
 
 
 const AddRestaurant = () => {
@@ -46,7 +46,7 @@ const AddRestaurant = () => {
     data: brands,
     error: errorBrands,
     isLoading: loadingBrands,
-  } = useGetBrandQuery();
+  } = useGetbrandQuery();
 
   const top100Films = [{ title: "The Shawshank Redemption", year: 1994 }];
 
