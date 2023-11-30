@@ -9,6 +9,7 @@ import { AiFillLock, AiOutlineMail } from "react-icons/ai"
     placeholder:'Enter your Email',
     onchange:()=>{},
     className:'bg-gray-900 border-solid text-white',
+    className2:'w-full',
     submit:false,
     validate:false,
     errorMessage:'',
@@ -25,6 +26,7 @@ import { AiFillLock, AiOutlineMail } from "react-icons/ai"
     submit:false,
     validate:false,
     errorMessage:'',
+    className2:'w-full',
     key:3
   },
 ]

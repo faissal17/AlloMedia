@@ -8,6 +8,7 @@ const {
 const repository = () => {
   //schema
   const Brand = mongoose.model(entityName, brandSchema);
+
   return {
     add: async (brand) => {
       const mongoObject = new Brand(brand);
@@ -31,7 +32,7 @@ const repository = () => {
       const { id } = brand;
       console.log("repository :", id);
       delete brand.id;
-      return Brand.findByIdAndUpdate(
+      return Brand.findByIdAndDelete(
         id,
         {
           deletedAt: new Date(),
@@ -49,16 +50,14 @@ const repository = () => {
         },
       });
       if (!brand) {
-        throw new Error(
-          `Brand with ID ${id} does not exist or has been deleted.`
-        );
+        throw new Error(`Brand with ID ${id} does not exist or has been deleted.`);
       }
       return brand;
     },
     getAll: async () => {
-      const brands = await Brand.find();
+      const brands = await Brand.find().populate("user");
       if (!brands) {
-        throw new Error(`brands does not exist or has been deleted.`);
+        throw new Error(`brands do not exist or have been deleted.`);
       }
       return brands;
     },

@@ -5,12 +5,14 @@ module.exports = async (req,res) => {
       const {
         name
     } = req.body;
+    const user = req.user;
       console.log('Controller')
       console.log(req.body)
       console.log('-------------------------------------------------------------------')
       const useCaseInstance = addBrandUseCase();
       const addBrand = await useCaseInstance.execute({
-        name
+        name,
+        user
       })
       res.json(
         new Response({

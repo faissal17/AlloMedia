@@ -113,7 +113,7 @@ export default function Restaurantposition() {
                         km
                       </li>
                       <li>
-                        <Link to={`/restaurant/?slug=${restaurant.slug}`}>
+                        <Link to={`/restaurant/${restaurant.slug}`}>
                           See more
                         </Link>
                       </li>
@@ -158,7 +158,7 @@ export default function Restaurantposition() {
           {restaurantsInCircle.map((restaurant, index) => (
             <li key={index} className="border-b border-gray-300 py-2 px-3">
               <h3 className="text-lg font-semibold text-gray-800">
-                <Link to={`/restaurant/?slug=${restaurant.slug}`}>
+                <Link to={`/restaurant/${restaurant.slug}`}>
                   {restaurant.name}
                 </Link>
               </h3>

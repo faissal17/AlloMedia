@@ -68,7 +68,9 @@ function ShoppingCart() {
   };
 
   return (
-    <div className="bg-gray-100 h-screen py-8">
+    <>
+    <Navbar/>
+    <div className=" min-h-[200px] py-8">
       <div className="container mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-4">Shopping Cart</h1>
         <button
@@ -184,9 +186,11 @@ function ShoppingCart() {
             </div>
           </div>
         </div>
-        <Footer/>
+        
         </div>
-        </div>
+    </div>
+    <Footer/>
+    </>
     );
 }
 

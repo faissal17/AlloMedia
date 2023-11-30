@@ -10,7 +10,8 @@ module.exports=() =>{
     const execute=({
         ...item
     })=>{
-        
+        console.log('new items')
+        console.log(item)
         // const user = new User({
         //     first_name,
         //     last_name,

@@ -8,7 +8,38 @@ export const itemsApi = ApiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    addItem: builder.mutation({
+      query: (body) => ({
+        url: "items",
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteItem: builder.mutation({
+      query: (body) => ({
+        url: `items`,
+        method: "DELETE",
+        body: body,
+      }),
+    }),
+    updateItem: builder.mutation(
+      {
+        query: (body) => ({
+          url: `item`,
+          method: "PATCH",
+          body: body,
+        }),
+      }
+      // {
+      //   dispatchConditionRejection: false,
+      // }
+    ),
   }),
 });
 
-export const { useGetItemQuery } = itemsApi;
+export const {
+  useGetItemQuery,
+  useAddItemMutation,
+  useDeleteItemMutation,
+  useUpdateItemMutation,
+} = itemsApi;

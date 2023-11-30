@@ -1,6 +1,6 @@
 const express = require("express");
 const { itemController } = require("../../../controllers");
-
+const { Response } = require("../../../frameworks/common");
 const auth = require("../middlewares/Auth");
 
 
@@ -11,6 +11,10 @@ const redisClient = redis.createClient({
     legacyMode: true,
     PORT: 6379
   })
+
+
+
+
   redisClient.connect().catch(console.error)
 module.exports=dependencies =>{
     const router=express.Router()
@@ -27,11 +31,19 @@ module.exports=dependencies =>{
             let item='items'
             try{
                 redisClient.get(item, async (err, response) => {
-                    console.log(response);
+                    //console.log(response);
                     if(response) {
                         
-                      console.log("User successfully retrieved from cache");
-                      res.status(200).send(JSON.parse(response));
+                      // console.log("User successfully retrieved from cache");
+                      // console.log(JSON.parse(response))
+                      // console.log('fuck from here')
+                     
+                      res.json(
+                        new Response({
+                          status: true,
+                          content: JSON.parse(response),
+                        })
+                      );
                     } else {
                       next()
                     }

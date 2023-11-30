@@ -13,7 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { useGetRestaurantQuery } from "../../../redux/service/restaurant/restaurantApi";
-
+import { useParams } from "react-router-dom";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,9 +21,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const PageRes = () => {
   const [position, setPosition] = useState([]);
   const [restaurant, setRestaurant] = useState({});
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-  const slug = query.get("slug");
+  // const { search } = useLocation();
+  const  {
+    slug
+  } = useParams()
+  // const query = new URLSearchParams(search);
+  // const slug = query.get("slug");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -195,7 +198,7 @@ const PageRes = () => {
                 id="alert-dialog-slide-description"
                 style={{ height: "50vh", width: "800px" }}
               >
-                {restaurant && restaurant.localisation && (
+                {/* {restaurant && restaurant.localisation && (
                   <MapContainer
                     center={[
                       restaurant.localisation.lat,
@@ -236,7 +239,7 @@ const PageRes = () => {
                       </Marker>
                     )}
                   </MapContainer>
-                )}
+                )} */}
               </DialogContentText>
             </DialogContent>
             <DialogActions>

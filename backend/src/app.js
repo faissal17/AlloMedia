@@ -9,9 +9,9 @@ const mongoose = require("./frameworks/database/mongo/index");
 const http = require("http");
 const { Server } = require("socket.io");
 const axios = require("axios");
-const cors = require("cors");
+const cors = require("cors"
 const redis = require("redis");
-const { createClient } = require("redis");
+
 
 // added Fake API
 const MOCK_API = "https://jsonplaceholder.typicode.com/users/";
@@ -20,12 +20,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 //this is for form data  urlencoded is meaning of form data extended is false means only string and array
 app.use(bodyParser.urlencoded({ extended: false }));
-const { connect: connectMongo } = require("./frameworks/database/mongo");
+
 const redisClient = redis.createClient({
   legacyMode: true,
   PORT: 6379,
 });
 redisClient.connect().catch(console.error);
+
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -63,40 +64,48 @@ module.exports = {
     const getUser = (username) => {
       return onlineUsers.find((user) => user.username === username);
     };
-    const server = http.createServer(app);
-    const io = new Server(server, {
-      cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST"],
-      },
-    });
-    let d = 0;
-    io.on("connection", (socket) => {
-      //console.log(` this is the fucking id :${socket.id}`)
+ 
+    const server=http.createServer(app)
+    const io = new Server(server,{
+      cors:{
+        origin: 'http://localhost:5173',
+        methods: ["GET","POST"]
+      }
+    })
+    let d=0
+    io.on('connection',(socket)=>{
+      console.log(` this is the fucking id :${socket.id}`)
 
-      socket.on("user_registration", (data) => {
-        addNewUser(data, socket.id);
-        socket.join(data);
+      // socket.on('user_registration',(data)=>{
+      //   addNewUser(data, socket.id);
+      //   socket.join(data)
+        
+      //   let count=1
+      //   socket.emit("recevied_notification", count);
+      //   console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
+      // })
+      socket.on('sendNotification',(data)=>{
+          console.log(data)
+          io.emit("getNotification", {
 
-        let count = 1;
-        // socket.emit("recevied_notification", count);
-        //console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
       });
-      socket.on("sendNotification", (data) => {
-        console.log(data);
-        io.emit("getNotification", {
-          d: "you except notification",
-        });
 
-        // socket.emit("recevied_notification", count);
-        //console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
-      });
-      socket.on("sendNotificationJob", (data) => {
-        console.log(data);
+
+      
+        
+        
+        
+        socket.emit("recevied_notification", count);
+        console.log(`User with his this mae is: ${socket.id} is create account with this name ${data} `)
+      })
+      socket.on('sendNotificationJob',(data)=>{
+        console.log('its comming')
+        console.log(data)
         io.emit("getNotificationJob", {
           data: data,
         });
       });
+
 
       socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id);
@@ -138,6 +147,15 @@ module.exports = {
         res.status(500).send({ error: err.message });
       }
     });
+      // socket.on("disconnect", () => {
+      //   console.log("User Disconnected", socket.id);
+      // });
+    })
+
+
+    
+
+
 
     server.listen(PORT, () => {
       console.log(`Succeess FUcking running under port ${PORT}`);

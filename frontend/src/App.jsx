@@ -50,6 +50,7 @@ function App() {
   const [socket, setSocket] = useState(null);
   const { isLoading, isAuthenticated } = useAuth();
 
+
   useEffect(() => {
     setSocket(io("http://localhost:4000"));
   }, []);
