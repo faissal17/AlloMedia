@@ -7,8 +7,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import {
-  useGetbrandQuery,
   useAddBrandMutation,
+  useGetBrandQuery,
   useDeleteBrandMutation,
   useUpdateBrandMutation,
 } from "../redux/service/brands/brandApi";
@@ -25,11 +25,11 @@ const Brands = () => {
     name: "",
   });
   const {
-    data: Brand,
-    error: errorBrand,
-    isLoading: isLoadingBrand,
+    data: brands,
+    error: errorBrands,
+    isLoading: isLoadingBrands,
     refetch,
-  } = useGetbrandQuery();
+  } = useGetBrandQuery();
 
   const [addBrand, { data, error, isLoading }] = useAddBrandMutation();
   const [deleteBrand, { data: dataDelete }] = useDeleteBrandMutation();
@@ -53,19 +53,11 @@ const Brands = () => {
   };
 
   const handleChange = (e) => {
-
-    setBrand({ ...brand, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async () => {
-    await addBrand(brand);
-
     setBrand({ ...valueBrand, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async () => {
     await addBrand(valueBrand);
-
     setOpen(false);
     refetch();
   };
@@ -78,11 +70,7 @@ const Brands = () => {
   };
 
   const handleSubmitEdit = async (e) => {
-
-    await updateBrand({ ...brand });
-
     await updateBrand({ ...valueBrand });
-
     setOpen(false);
     refetch();
   };
@@ -99,7 +87,7 @@ const Brands = () => {
           </button>
         </div>
       </div>
-      <table className="divide-gray-200 w-full mt-5">
+      <table className="divide-gray-200 w-full mt-5 ">
         <thead className="bg-gray-200">
           <tr>
             <th
@@ -112,21 +100,26 @@ const Brands = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Slug
+              picture
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Status
+              status
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Restaurant
+              user
             </th>
-
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              date
+            </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -136,37 +129,34 @@ const Brands = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
-          {Brand &&
-            Brand.content?.map((brand) => (
+          {brands &&
+            brands.content?.map((brand) => (
               <tr key={brand.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10">
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={brand.picture}
-                      />
-                    </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
                         {brand.name}
                       </div>
-
+                      
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500"> {brand.slug} </div>
+                  <div className="flex-shrink-0 w-10 h-10">
+                    <img
+                      className="w-full h-full rounded-full"
+                      src={brand.picture}
+                      alt=""
+                    />
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                     {brand.status === 1 ? "Active" : "Inactive"}
                   </span>
                 </td>
-
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {brand.restaurant}
-
                   {brand?.user?.first_name + " " + brand?.user?.last_name}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -180,14 +170,14 @@ const Brands = () => {
                   <button
                     id={brand._id}
                     onClick={handleEdit}
-                    className="text-indigo-600 hover:text-indigo-900"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                   >
                     Edit
                   </button>
                   <button
                     id={brand._id}
                     onClick={handleDelete}
-                    className="ml-2 text-red-600 hover:text-red-900"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
                     Delete
                   </button>
@@ -205,7 +195,7 @@ const Brands = () => {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>{"Create brand"}</DialogTitle>
+        <DialogTitle>{"Create Category"}</DialogTitle>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-slide-description"
@@ -216,7 +206,7 @@ const Brands = () => {
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="name"
+                    for="name"
                   >
                     Name
                   </label>
@@ -262,5 +252,4 @@ const Brands = () => {
   );
 };
 
-export default Brand;
-
+export default Brands;

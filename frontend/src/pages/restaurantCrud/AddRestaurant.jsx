@@ -16,7 +16,7 @@ import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
 
 import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
 
-import { useGetAllBrandsQuery } from "../../redux/service/brands/brandApi.js";
+import {  useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
 
 
 const AddRestaurant = () => {

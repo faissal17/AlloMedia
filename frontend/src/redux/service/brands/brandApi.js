@@ -2,7 +2,7 @@ import { ApiSlice } from "../../api/apiSlice";
 
 export const brandsApi = ApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getbrand: builder.query({
+    getBrand: builder.query({
       query: () => ({
         url: "brands",
         method: "GET",
@@ -33,7 +33,7 @@ export const brandsApi = ApiSlice.injectEndpoints({
 });
 
 export const {
-  useGetbrandQuery,
+  useGetBrandQuery,
   useAddBrandMutation,
   useDeleteBrandMutation,
   useUpdateBrandMutation,
