@@ -15,7 +15,26 @@ export const brandsApi = ApiSlice.injectEndpoints({
         body,
       }),
     }),
+    deleteBrand: builder.mutation({
+      query: (body) => ({
+        url: "brands/",
+        method: "DELETE",
+        body:body,
+      }),
+    }),
+    updateBrand: builder.mutation({
+      query: (body) => ({
+        url: "brands",
+        method: "PATCH",
+        body:body,
+      }),
+    }),
   }),
 });
 
-export const { useGetbrandQuery , useAddBrandMutation} = brandsApi;
+export const {
+  useGetbrandQuery,
+  useAddBrandMutation,
+  useDeleteBrandMutation,
+  useUpdateBrandMutation,
+} = brandsApi;
