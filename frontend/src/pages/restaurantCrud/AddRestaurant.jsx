@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MapManager from "../../components/Maps/mapManager.jsx";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { useCreateRestaurantMutation } from "../../redux/service/restaurant/restaurantApi.js";
 import { useGetCategoryQuery } from "../../redux/service/categories/categoryApi.js";
 import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
 
-import { useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
+
+import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
+
+import { useGetAllBrandsQuery } from "../../redux/service/brands/brandApi.js";
 
 
 const AddRestaurant = () => {
@@ -22,6 +29,12 @@ const AddRestaurant = () => {
     error: errorCategories,
     isLoading: loadingCategories,
   } = useGetCategoryQuery();
+
+  const {
+    data: menus,
+    error: errorMenus,
+    isLoading: loadingMenus,
+  } = useGetAllMenuQuery();
 
   const {
     data: tags,
@@ -41,6 +54,7 @@ const AddRestaurant = () => {
     name: "",
     description: "",
     status: "",
+    menu: "",
     tags: [],
     brands: [],
     categories: [],
@@ -60,6 +74,10 @@ const AddRestaurant = () => {
     await createRestaurant(formData);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+    }
+  }, [isSuccess]);
   return (
     <React.Fragment>
       <div className="w-full flex justify-between mt-6">
@@ -139,8 +157,8 @@ const AddRestaurant = () => {
                 <Autocomplete
                   multiple
                   id="tags-outlined"
-                  options={brands.content}
-                  getOptionLabel={(option) => option.name}
+                  options={brands?.content}
+                  getOptionLabel={(option) => option?.name}
                   filterSelectedOptions
                   value={formData.brands}
                   onChange={(event, newValue) =>
@@ -188,6 +206,23 @@ const AddRestaurant = () => {
                   )}
                 />
               </Stack>
+            )}
+          </div>
+          <div className="mt-3">
+            {menus && (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Menu</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  name="menu"
+                  onChange={handleInputChange}
+                >
+                  {menus.content.map((menu) => (
+                    <MenuItem value={menu._id}>{menu.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             )}
           </div>
           <button

@@ -50,6 +50,8 @@ function App() {
   const [socket, setSocket] = useState(null);
   const { isLoading, isAuthenticated } = useAuth();
 
+
+  useEffect(() => {
     setSocket(io("http://localhost:4000"));
   }, []);
   if (isLoading) {
@@ -143,7 +145,6 @@ function App() {
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
               />
-
             </Route>
           </Routes>
         </Suspense>

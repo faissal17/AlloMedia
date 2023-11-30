@@ -2,7 +2,7 @@ const { Response } = require("../../frameworks/common");
 const { addRestaurantUseCases } = require("../../useCases/restaurent");
 module.exports = async (req, res) => {
   try {
-    const { name, tags, brands, categories, description, localisation } =
+    const { name, tags, brands, categories, description, localisation, menu } =
       req.body;
 
     const useCaseInstance = addRestaurantUseCases();
@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
       categories,
       description,
       localisation,
+      menu,
     });
 
     res.json(

@@ -95,6 +95,11 @@ const restaurantSchema = new mongoose.Schema({
     type: Object,
     default: null,
   },
+  menu: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Menu",
+    default: null,
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
