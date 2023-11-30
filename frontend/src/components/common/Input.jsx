@@ -16,6 +16,7 @@ const CustomInput = ({
   onChange,
   name,
   className,
+  className2='',
   disabled = false,
   submit = false,
   validate = false,
@@ -30,7 +31,7 @@ const CustomInput = ({
   const navigate = useNavigate();
   return (
     <>
-      <div className="  w-[100%] mx-auto relative ">
+      <div className={`  mx-auto relative  ${className2}`}>
         {icon &&
           (submit && validate ? (
             <div className=" absolute z-20  text-red-500 left-3 scale-125 top-[50%] translate-y-[-50%]">
@@ -41,7 +42,7 @@ const CustomInput = ({
               <AiOutlineCheckCircle />
             </div>
           ) : (
-            <div className=" absolute z-20  text-gray-300 left-3 scale-125 top-[50%] translate-y-[-50%]">
+            <div className=" absolute z-20  text-gray-300 left-5 scale-125 top-[50%] translate-y-[-50%]">
               {icon}
             </div>
           ))}
@@ -69,23 +70,24 @@ const CustomInput = ({
                     `}
           />
           {localisation && (
-            <span className=" flex gap-2 items-center">
+            <span className=" flex gap-2 items-center  relative right-0">
               <ButtonDefault
-                className="border  text-white w-[80px] 
-                    absolute right-5 top-[50%] translate-y-[-70%] flex items-center justify-center 
-                    z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-3"
+                className="border  text-white w-[70px] 
+                    absolute right-4  flex items-center justify-center 
+                    top-[50%] translate-y-[-129%]
+                    z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-2"
               >
-                <IoSend className=" text-white text-2xl" />
+                <IoSend className=" text-white text-xl" />
               </ButtonDefault>
               <ButtonDefault
-                className="border  text-white w-[80px] h-[49px] 
-                  absolute right-[100px] top-[50%] translate-y-[-70%] flex items-center justify-center 
-                  z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-3"
+                className="border  text-white w-[70px]
+                  absolute right-[90px] top-[50%] translate-y-[-129%] flex items-center justify-center 
+                  z-50 rounded-xl opacity-75 transition hover:opacity-100 px-1 py-2"
                 onClick={() => {
                   navigate("/restaurant/position");
                 }}
               >
-                <FaMapMarkerAlt className=" scale-12" />
+                <FaMapMarkerAlt className="  text-xl" />
               </ButtonDefault>
             </span>
           )}
@@ -121,6 +123,7 @@ CustomInput.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   className: PropTypes.string,
+  className2:PropTypes.string,
   errorType: PropTypes.any,
   disabled: PropTypes.bool,
   submit: PropTypes.bool,

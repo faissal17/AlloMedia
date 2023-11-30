@@ -17,16 +17,16 @@ export const brandsApi = ApiSlice.injectEndpoints({
     }),
     deleteBrand: builder.mutation({
       query: (body) => ({
-        url: "brands/",
-        method: "DELETE",
-        body:body,
+        url: "brands",
+        method: "POST",
+        body,
       }),
     }),
     updateBrand: builder.mutation({
       query: (body) => ({
         url: "brands",
         method: "PATCH",
-        body:body,
+        body,
       }),
     }),
   }),

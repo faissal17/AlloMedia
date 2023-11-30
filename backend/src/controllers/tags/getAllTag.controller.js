@@ -1,8 +1,8 @@
 const { Response } = require("../../frameworks/common");
-const { getAllBrandUseCase } = require("../../useCases/brands");
+const { getAllTagUseCase } = require("../../useCases/tags");
 module.exports = async (req, res) => {
   try {
-    const useCaseInstance = getAllBrandUseCase();
+    const useCaseInstance = getAllTagUseCase();
     const response = await useCaseInstance.execute();
     res.json(
       new Response({
@@ -11,6 +11,7 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
+    //next(err)
     res.status(400).json({ msg: err.message });
   }
 };

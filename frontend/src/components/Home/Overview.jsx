@@ -63,7 +63,7 @@ const Overview = () => {
       <Shadow className={` bg-gray-500 opacity-40`} />
       <div
         className=" absolute flex flex-col gap-7 top-[30%]
-          z-40 left-32"
+          z-40 left-6 md:left-20 lg:left-14"
       >
         <p className=" flex text-primary items-center gap-2 text-lg font-bold">
           <span>
@@ -83,10 +83,13 @@ const Overview = () => {
             localisation={true}
             placeholder="Enter your delivery address"
             onChange={handleChangeRestaurant}
+            className2=" w-[100%] md:w-[100%] mx-0 lg:w-[60%]"
             className="
-                     rounded-md lg:rounded-2xl
-                   py-[20px] lg:py-[10px] lg:py-[25px]  
-                  focus:border-bg-gray-300 text-md lg:text-lg focus:border m-0"
+                       rounded-2xl
+                       py-6 px-12
+                  focus:border-bg-gray-300 text-md lg:text-lg focus:border m-0
+                  
+                  "
             submit={false}
           />
           <div>
@@ -99,7 +102,7 @@ const Overview = () => {
                         key={data.slug}
                         className="border-b border-gray-300 py-2 px-3"
                       >
-                        <Link to={`/restaurant/?slug=${data.slug}`}>
+                        <Link to={`/restaurant/${data.slug}`}>
                           <h3 className="text-lg font-semibold text-gray-800">
                             {data.name}
                           </h3>
