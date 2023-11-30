@@ -2,38 +2,38 @@ import axios from "axios"
 
 export const loginUser=(login)=> {
     return axios
-      .post("http://localhost:4000/api/v1/auth/login", login)
+      .post("http://localhost:3000/api/v1/auth/login", login)
       .then(res => res.data)
 }
 export const createUser=(register)=> {
   console.log('here')
     return axios
-      .post("http://localhost:4000/api/v1/auth/register", register)
+      .post("http://localhost:3000/api/v1/auth/register", register)
       .then(res => res.data)
 }
 export const verifyEm=(token)=> {
     return axios
-      .get(`http://localhost:4000/api/v1/auth/activate/${token}`)
+      .get(`http://localhost:3000/api/v1/auth/activate/${token}`)
       .then(res => res.data)
 }
 export const verifyEmail=(email)=>{
     return axios
-      .post("http://localhost:4000/api/v1/auth/sendResetPasswordCode",email)
+      .post("http://localhost:3000/api/v1/auth/sendResetPasswordCode",email)
       .then(res => res.data)
 }
 export const verifyCode=(code,email)=>{
     return axios
-      .post(`http://localhost:4000/api/v1/auth/validateResetPassword/${email}`,code)
+      .post(`http://localhost:3000/api/v1/auth/validateResetPassword/${email}`,code)
       .then(res => res.data)
 }
 export const verifyChangePassword=(password)=>{
     return axios
-      .post(`http://localhost:4000/api/v1/auth/changePassword`,password)
+      .post(`http://localhost:3000/api/v1/auth/changePassword`,password)
       .then(res => res.data)
 }
 export const logout=()=> {
     return axios
-      .get(`http://localhost:4000/api/v1/auth/logout/${localStorage.getItem('token')}`)
+      .get(`http://localhost:3000/api/v1/auth/logout/${localStorage.getItem('token')}`)
       .then(res => {
         //
         localStorage.setItem('token','')

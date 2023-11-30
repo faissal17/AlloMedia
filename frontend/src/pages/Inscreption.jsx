@@ -27,7 +27,7 @@ const Inscreption = ({socket}) => {
         navigate('/')
         /*console.log('Fetching user data...');
         axios
-          .get(`http://localhost:4000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
+          .get(`http://localhost:3000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
           .then(response => {
             // Check if the response contains data
             if (response.data) {

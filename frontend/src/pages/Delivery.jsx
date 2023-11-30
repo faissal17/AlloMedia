@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useAddDeliveryMutation } from "../redux/service/delivery/delivery";
 
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:3000");
 
 const Delivery = () => {
   useEffect(() => {}, []);

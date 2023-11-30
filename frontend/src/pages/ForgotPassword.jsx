@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   const verifyCode = (code) => {
     return axios
       .post(
-        `http://localhost:4000/api/v1/auth/validateResetPassword/${email}`,
+        `http://localhost:3000/api/v1/auth/validateResetPassword/${email}`,
         code
       )
       .then((res) => res.data);

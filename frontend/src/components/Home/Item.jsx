@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addOrderInCart } from "../../redux/features/shopping/ShoppingCartSlice";
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:3000");
 
 
 const Item = ({ className, data }) => {
