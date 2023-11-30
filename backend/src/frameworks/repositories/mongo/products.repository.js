@@ -112,12 +112,15 @@ const repository=()=>{
             return item;
         },
         getAll: async () => {
-            const items = await Item.find(
-                
-            );
+            const items = await Item.find()
+                .populate('user','first_name last_name username email mobile picture role')
+                .populate('brand','name picture')
+                .populate('category','name picture')
+                .populate('menu','name')
+                .populate('tags','name')
+                ;
             //console.log(items)
             globalItems=items
-            console.log()
             //console.log(globalItems)
             redisClient.setEx('items', 300, JSON.stringify(globalItems));
             if (!items) {

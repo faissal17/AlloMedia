@@ -29,9 +29,11 @@ export const Login = () => {
             placeholder={item.placeholder}
             onChange={handleLoginChange}
             className={`${item.className}`}
+            className2={`${item.className2}`}
             submit={submet}
             validate={loginStatus[item.name].error}
             errorMessage={loginStatus[item.name].message}
+            
           />
         );
       })}

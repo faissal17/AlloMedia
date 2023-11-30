@@ -17,10 +17,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Brand = () => {
+const Brands = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
-  const [brand, setBrand] = useState({
+  const [valueBrand, setBrand] = useState({
     id: "",
     name: "",
   });
@@ -53,11 +53,19 @@ const Brand = () => {
   };
 
   const handleChange = (e) => {
+
     setBrand({ ...brand, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async () => {
     await addBrand(brand);
+
+    setBrand({ ...valueBrand, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    await addBrand(valueBrand);
+
     setOpen(false);
     refetch();
   };
@@ -70,7 +78,11 @@ const Brand = () => {
   };
 
   const handleSubmitEdit = async (e) => {
+
     await updateBrand({ ...brand });
+
+    await updateBrand({ ...valueBrand });
+
     setOpen(false);
     refetch();
   };
@@ -139,6 +151,7 @@ const Brand = () => {
                       <div className="text-sm font-medium text-gray-900">
                         {brand.name}
                       </div>
+
                     </div>
                   </div>
                 </td>
@@ -153,6 +166,15 @@ const Brand = () => {
 
                 <td className="px-6 py-4 whitespace-nowrap">
                   {brand.restaurant}
+
+                  {brand?.user?.first_name + " " + brand?.user?.last_name}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {new Date(brand.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
@@ -201,6 +223,7 @@ const Brand = () => {
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
+                    name="name"
                     type="text"
                     onChange={handleChange}
                     placeholder="name"
@@ -240,3 +263,4 @@ const Brand = () => {
 };
 
 export default Brand;
+

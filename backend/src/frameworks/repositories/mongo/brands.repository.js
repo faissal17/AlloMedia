@@ -32,7 +32,7 @@ const repository = () => {
       const { id } = brand;
       console.log("repository :", id);
       delete brand.id;
-      return Brand.findByIdAndUpdate(
+      return Brand.findByIdAndDelete(
         id,
         {
           deletedAt: new Date(),

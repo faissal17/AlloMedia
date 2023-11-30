@@ -16,7 +16,7 @@ const CustomInput = ({
   onChange,
   name,
   className,
-  className2='',
+  className2,
   disabled = false,
   submit = false,
   validate = false,
@@ -31,7 +31,7 @@ const CustomInput = ({
   const navigate = useNavigate();
   return (
     <>
-      <div className={`  mx-auto relative  ${className2}`}>
+      <div className={`  mx-auto relative w-full   ${className2}`}>
         {icon &&
           (submit && validate ? (
             <div className=" absolute z-20  text-red-500 left-3 scale-125 top-[50%] translate-y-[-50%]">

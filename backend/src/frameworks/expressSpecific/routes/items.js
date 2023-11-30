@@ -34,9 +34,9 @@ module.exports=dependencies =>{
                     //console.log(response);
                     if(response) {
                         
-                      console.log("User successfully retrieved from cache");
-                      //console.log(JSON.parse(response))
-                      console.log('fuck from here')
+                      // console.log("User successfully retrieved from cache");
+                      // console.log(JSON.parse(response))
+                      // console.log('fuck from here')
                      
                       res.json(
                         new Response({
