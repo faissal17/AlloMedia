@@ -3,12 +3,15 @@ const validator = require("validator");
 const entityNameTags = "Tag";
 const entityNameCategories = "Category";
 const entityNameBrands = "Brand";
+const entityNameMenu = "menu";
 const tagSchema = require("../schemas/tags.schema");
 const categorySchema = require("../schemas/categories.schema");
 const brandSchema = require("../schemas/brands.schema");
+const menuSchema = require("../schemas/menu.shema");
 const Tag = mongoose.model(entityNameTags, tagSchema);
 const Category = mongoose.model(entityNameCategories, categorySchema);
 const Brand = mongoose.model(entityNameBrands, brandSchema);
+const Menu = mongoose.model(entityNameMenu, menuSchema);
 
 const restaurantSchema = new mongoose.Schema({
   // Other tag-related fields
@@ -97,7 +100,7 @@ const restaurantSchema = new mongoose.Schema({
   },
   menu: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Menu",
+    ref: entityNameMenu,
     default: null,
   },
   user: {

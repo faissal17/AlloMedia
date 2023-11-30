@@ -48,12 +48,14 @@ const Restaurant = () => {
     setOpen(false);
   };
 
-  const handleMap = async(e) => {
+  const handleMap = async (e) => {
     setOpen(true);
     const lat = e.target.id.split(" ")[0];
     const lng = e.target.id.split(" ")[1];
     await setPosition([lat, lng]);
   };
+
+  console.log(restaurants);
 
   return (
     <React.Fragment>
