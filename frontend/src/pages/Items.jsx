@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { FaDrumstickBite } from "react-icons/fa6";
 import Slide from "@mui/material/Slide";
 import {
   useAddItemMutation,
@@ -12,6 +13,10 @@ import {
   useDeleteItemMutation,
   useUpdateItemMutation,
 } from "../redux/service/items/itemApi";
+import {useGetCategoryQuery,} from "../redux/service/categories/categoryApi";
+import {useGetBrandQuery} from "../redux/service/brands/brandApi";
+import CustomInput from "../components/common/Input";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,17 +33,32 @@ const Items = () => {
     s_price:0,
     brand:'',
     category:'',
-    tags:[],
-    menu:''
-
-    
+    menu:'',
+    tags:[]
   });
+
+  const {
+    data: categories,
+    error: errorCategories,
+    isLoading: isLoadingCategories,
+    refetch: refetchCategories,
+  } = useGetCategoryQuery();
   const {
     data: items,
     error: errorItems,
     isLoading: isLoadingItems,
-    refetch,
+    refetch: refetchItems,
   } = useGetItemQuery();
+
+  const {
+    data: brands,
+    error: errorBrands,
+    isLoading: isLoadingBrands,
+    refetch: refetchBrands,
+  } = useGetBrandQuery();
+
+  console.log("brands",brands);
+  
 
   const [addItem, { data, error, isLoading }] = useAddItemMutation();
   const [deleteItem, { data: dataDelete }] = useDeleteItemMutation();
@@ -47,6 +67,7 @@ const Items = () => {
   const handleClickOpen = () => {
     setOpen(true);
     setModel(false);
+
   };
 
   const handleClose = () => {
@@ -62,27 +83,32 @@ const Items = () => {
   };
 
   const handleChange = (e) => {
+    console.log('fou tooo')
     setItem({ ...valueItem, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async () => {
     await addItem(valueItem);
     setOpen(false);
-    refetch();
+    refetchItems();
   };
 
   const handleDelete = async (e) => {
     await deleteItem({
       id: e.target.id,
     });
-    refetch();
+    refetchItems();
   };
 
   const handleSubmitEdit = async (e) => {
     await updateItem({ ...valueItem });
     setOpen(false);
-    refetch();
+    refetchItems();
   };
+
+  const handleClick=async (e)=>{
+    console.log('ohh fuck')
+  }
 
   return (
     <React.Fragment>
@@ -123,18 +149,7 @@ const Items = () => {
             >
               category
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              menu
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              status
-            </th>
+            
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -197,20 +212,8 @@ const Items = () => {
                     />
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex-shrink-0 w-10 h-10">
-                    <img
-                      className="w-full h-full rounded-full"
-                      src={item?.menu?.picture}
-                      alt=""
-                    />
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {item.status === 1 ? "Active" : "Inactive"}
-                  </span>
-                </td>
+                
+                
                 
                 <td className="px-6 py-4 whitespace-nowrap">
                   {item?.user?.first_name + " " + item?.user?.last_name}
@@ -251,7 +254,7 @@ const Items = () => {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>{"Create Category"}</DialogTitle>
+        <DialogTitle>{"Create Item"}</DialogTitle>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-slide-description"
@@ -260,20 +263,112 @@ const Items = () => {
             <div className="flex flex-col md:flex-row justify-center pt-8">
               <div className="w-full">
                 <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    for="name"
-                  >
-                    Name
-                  </label>
-                  <input
+                  <CustomInput 
+                  className=" border-gray-400 rounded-lg"
+                  id="title"
+                  icon={<FaDrumstickBite/>}
+                  name="title"
+                  type="text"
+                  onChange={handleChange}
+                  placeholder="title"
+                  />
+                  
+                </div>
+                <div className="mb-4">
+                  <textarea
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="name"
-                    name="name"
+                    id="short_description"
+                    name="short_description"
                     type="text"
                     onChange={handleChange}
-                    placeholder="name"
-                  />
+                    placeholder="short_description"
+                  ></textarea>
+                </div>
+                <div className="mb-4">
+                  
+                    <textarea
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="description"
+                    name="description"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="description"
+                  ></textarea>
+                </div>
+                <div className="mb-4 flex items-center gap-2 ">
+                  <div className=" w-[50%]">
+                    <CustomInput 
+                    className=" border-gray-400 rounded-lg"
+                    id="r_price"
+                    icon={<FaDrumstickBite/>}
+                    name="r_price"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="r_price"
+                    />
+                  </div>
+                  <div className=" w-[50%]">
+                    <CustomInput 
+                    className=" border-gray-400 rounded-lg"
+                    id="s_price"
+                    icon={<FaDrumstickBite/>}
+                    name="s_price"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="s_price"
+                    />
+                    
+                  </div>
+                </div>
+                <div className="mb-4">
+                <FormControl fullWidth>
+                  <InputLabel id="">Brand</InputLabel>
+                  <Select
+                    
+                    labelId="demo-simple-select-label"
+                    id="brand"
+                    name="brand"
+                    
+                    
+                    
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    {brands &&
+                      
+                      brands.content.map((brand, index) => (
+
+                        <MenuItem key={index} value={brand._id}>
+                          {brand.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+                </div>
+                <div className="mb-4">
+                <FormControl fullWidth>
+                  <InputLabel id="">Category</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="category"
+                    name="category"
+                    
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    {isLoading && (
+                      <div className="w-10 h-10 border-4 border-red-500 rounded-full animate-spin"></div>
+                    )}
+                    {categories &&
+                      categories.content.map((category, index) => (
+                        <MenuItem key={index} value={category._id}>
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+                </div>
+                <div className="mb-4">
                 </div>
               </div>
             </div>

@@ -57,6 +57,8 @@ const repository = () => {
     },
     getAll: async () => {
       const brands = await Brand.find().populate("user");
+      console.log('fucking brands')
+      console.log(brands)
       if (!brands) {
         throw new Error(`brands does not exist or has been deleted.`);
       }

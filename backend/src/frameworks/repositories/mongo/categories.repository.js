@@ -52,6 +52,8 @@ module.exports = {
   },
   getAll: async () => {
     const categories = await Category.find().populate("user");
+    console.log('category')
+    console.log(categories)
     if (!categories) {
       throw new Error(`categories does not exist or has been deleted.`);
     }
