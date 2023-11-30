@@ -2,7 +2,7 @@ import { ApiSlice } from "../../api/apiSlice";
 
 export const brandsApi = ApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getBrand: builder.query({
+    getbrand: builder.query({
       query: () => ({
         url: "brands",
         method: "GET",
@@ -22,23 +22,18 @@ export const brandsApi = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
-    updateBrand: builder.mutation(
-      {
-        query: (body) => ({
-          url: `brands`,
-          method: "PATCH",
-          body: body,
-        }),
-      }
-      // {
-      //   dispatchConditionRejection: false,
-      // }
-    ),
+    updateBrand: builder.mutation({
+      query: (body) => ({
+        url: "brands",
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
 export const {
-  useGetBrandQuery,
+  useGetbrandQuery,
   useAddBrandMutation,
   useDeleteBrandMutation,
   useUpdateBrandMutation,

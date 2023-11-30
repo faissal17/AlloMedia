@@ -49,6 +49,8 @@ import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
 function App() {
   const [socket, setSocket] = useState(null);
   const { isLoading, isAuthenticated } = useAuth();
+
+
   useEffect(() => {
     setSocket(io("http://localhost:4000"));
   }, []);
@@ -143,7 +145,6 @@ function App() {
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
               />
-
             </Route>
           </Routes>
         </Suspense>

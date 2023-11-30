@@ -1,6 +1,8 @@
 class Menu {
-  constructor({ name }) {
+  constructor({ name, restaurant, user }) {
     this.name = name;
+    this.restaurant = restaurant;
+    this.user = user;
   }
 }
 

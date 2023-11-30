@@ -9,6 +9,7 @@ class Restaurant {
     brands,
     categories,
     localisation,
+    menu,
   }) {
     this.user = user;
     this.name = name;
@@ -19,6 +20,7 @@ class Restaurant {
     this.brands = brands;
     this.categories = categories;
     this.localisation = localisation;
+    this.menu = menu;
   }
 }
 
