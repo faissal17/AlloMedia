@@ -14,6 +14,7 @@ module.exports = () => {
     categories,
     description,
     localisation,
+    menu,
   }) => {
     const restaurant = {
       name,
@@ -23,6 +24,7 @@ module.exports = () => {
       categories,
       description,
       localisation,
+      menu,
     };
 
     return restaurantRepository.add(restaurant);

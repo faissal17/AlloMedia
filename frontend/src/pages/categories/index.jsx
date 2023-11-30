@@ -160,7 +160,10 @@ const CategoryDashboard = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {category.user.first_name + " " + category.user.last_name}
+
+                  
+                  {category?.user?.first_name + " " + category?.user?.last_name}
+
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {new Date(category.createdAt).toLocaleDateString("en-US", {
@@ -209,7 +212,7 @@ const CategoryDashboard = () => {
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="name"
+                    htmlFor="name"
                   >
                     Name
                   </label>
