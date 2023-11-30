@@ -10,7 +10,8 @@ module.exports = async (req,res) => {
       console.log('-------------------------------------------------------------------')
       const useCaseInstance = addItemUseCase();
       const addItem = await useCaseInstance.execute({
-        ...item
+        ...item,
+        user:req.user
       })
       res.json(
         new Response({

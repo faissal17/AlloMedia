@@ -31,7 +31,7 @@ const repository = () => {
       const { id } = brand;
       console.log("repository :", id);
       delete brand.id;
-      return Brand.findByIdAndUpdate(
+      return Brand.findByIdAndDelete(
         id,
         {
           deletedAt: new Date(),
@@ -56,7 +56,7 @@ const repository = () => {
       return brand;
     },
     getAll: async () => {
-      const brands = await Brand.find();
+      const brands = await Brand.find().populate("user");
       if (!brands) {
         throw new Error(`brands does not exist or has been deleted.`);
       }

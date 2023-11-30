@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import { useCreateRestaurantMutation } from "../../redux/service/restaurant/restaurantApi.js";
 import { useGetCategoryQuery } from "../../redux/service/categories/categoryApi.js";
 import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
-import { useGetAllBrandsQuery } from "../../redux/service/brands/brandApi.js";
+import { useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
 
 const AddRestaurant = () => {
   const mapState = useSelector((state) => state.map);
@@ -31,7 +31,7 @@ const AddRestaurant = () => {
     data: brands,
     error: errorBrands,
     isLoading: loadingBrands,
-  } = useGetAllBrandsQuery();
+  } = useGetBrandQuery();
 
   const top100Films = [{ title: "The Shawshank Redemption", year: 1994 }];
 

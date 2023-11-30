@@ -1,6 +1,4 @@
-
-import React,{ useEffect, useState } from "react"
-import pizza from "../assets/pizza.jpg";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -18,10 +16,11 @@ import {
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const Brands = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
-  const [valueCategory, setCateory] = useState({
+  const [valueBrand, setBrand] = useState({
     id: "",
     name: "",
   });
@@ -32,9 +31,9 @@ const Brands = () => {
     refetch,
   } = useGetBrandQuery();
 
-  const [addCategory, { data, error, isLoading }] = useAddBrandMutation();
-  const [deleteCategory, { data: dataDelete }] = useDeleteBrandMutation();
-  const [updateCategory, { data: dataUpdate }] = useUpdateBrandMutation();
+  const [addBrand, { data, error, isLoading }] = useAddBrandMutation();
+  const [deleteBrand, { data: dataDelete }] = useDeleteBrandMutation();
+  const [updateBrand, { data: dataUpdate }] = useUpdateBrandMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,8 +43,9 @@ const Brands = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleEdit = async (e) => {
-    await setCateory({
+    await setBrand({
       id: e.target.id,
     });
     setOpen(true);
@@ -53,27 +53,28 @@ const Brands = () => {
   };
 
   const handleChange = (e) => {
-    setCateory({ ...valueCategory, [e.target.id]: e.target.value });
+    setBrand({ ...valueBrand, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async () => {
-    await addCategory(valueCategory);
+    await addBrand(valueBrand);
     setOpen(false);
     refetch();
   };
 
   const handleDelete = async (e) => {
-    await deleteCategory({
+    await deleteBrand({
       id: e.target.id,
     });
     refetch();
   };
 
   const handleSubmitEdit = async (e) => {
-    await updateCategory({ ...valueCategory });
+    await updateBrand({ ...valueBrand });
     setOpen(false);
     refetch();
   };
+
   return (
     <React.Fragment>
       <div className="flex justify-end p-8">
@@ -137,9 +138,7 @@ const Brands = () => {
                       <div className="text-sm font-medium text-gray-900">
                         {brand.name}
                       </div>
-                      <div className="text-sm text-gray-500">
-                        {brand.description}
-                      </div>
+                      
                     </div>
                   </div>
                 </td>
@@ -158,7 +157,7 @@ const Brands = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {brand.user.first_name + " " + brand.user.last_name}
+                  {brand?.user?.first_name + " " + brand?.user?.last_name}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {new Date(brand.createdAt).toLocaleDateString("en-US", {
@@ -214,6 +213,7 @@ const Brands = () => {
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
+                    name="name"
                     type="text"
                     onChange={handleChange}
                     placeholder="name"
@@ -249,7 +249,7 @@ const Brands = () => {
         </DialogActions>
       </Dialog>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Brands
+export default Brands;
