@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Brands = () => {
+const Brand = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
   const [valueBrand, setBrand] = useState({
@@ -53,15 +53,14 @@ const Brands = () => {
   };
 
   const handleChange = (e) => {
-
     setBrand({ ...brand, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async () => {
-    await addBrand(brand);
+  // const handleSubmit = async () => {
+  //   await addBrand(brand);
 
-    setBrand({ ...valueBrand, [e.target.id]: e.target.value });
-  };
+  //   setBrand({ ...valueBrand, [e.target.id]: e.target.value });
+  // };
 
   const handleSubmit = async () => {
     await addBrand(valueBrand);
@@ -78,7 +77,6 @@ const Brands = () => {
   };
 
   const handleSubmitEdit = async (e) => {
-
     await updateBrand({ ...brand });
 
     await updateBrand({ ...valueBrand });
@@ -151,7 +149,6 @@ const Brands = () => {
                       <div className="text-sm font-medium text-gray-900">
                         {brand.name}
                       </div>
-
                     </div>
                   </div>
                 </td>
@@ -263,4 +260,3 @@ const Brands = () => {
 };
 
 export default Brand;
-
