@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+
+const entityNameRantaurant = "Restaurant";
+const restaurantSchema = require("../schemas/restaurants.schema");
+const Restaurant = mongoose.model(entityNameRantaurant, restaurantSchema);
+
 const menuSchema = new mongoose.Schema({
   // Other tag-related fields
   name: {
@@ -27,7 +32,7 @@ const menuSchema = new mongoose.Schema({
   },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "restaurant",
+    ref: entityNameRantaurant,
     default: null,
   },
   cuisine: {

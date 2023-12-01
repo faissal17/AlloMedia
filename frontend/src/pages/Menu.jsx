@@ -197,12 +197,12 @@ const Menu = () => {
                     className="inline-block text-xl"
                   />
                 </button>
-                <button className="ml-2 text-red-600 hover:text-red-900">
-                  <RiDeleteBinLine
-                    id={item._id}
-                    onClick={handleDelete}
-                    className="inline-block text-xl"
-                  />
+                <button
+                  id={item._id}
+                  onClick={handleDelete}
+                  className="ml-2 text-red-600 hover:text-red-900"
+                >
+                  delete
                 </button>
               </td>
             </tr>

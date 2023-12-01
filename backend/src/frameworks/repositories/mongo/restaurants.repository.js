@@ -55,7 +55,8 @@ module.exports = {
     const restaurant = await Restaurant.find()
       .populate("tags")
       .populate("categories")
-      .populate("brands");
+      .populate("brands")
+      .populate("menu");
     if (!restaurant) {
       throw new Error(`restaurant does not exist or has been deleted.`);
     }
