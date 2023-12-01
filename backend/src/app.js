@@ -83,6 +83,7 @@ module.exports = {
       },
     });
     let d = 0;
+    
     io.on("connection", (socket) => {
       console.log(` this is the fucking id :${socket.id}`);
 
@@ -106,10 +107,7 @@ module.exports = {
         
         
 
-        socket.emit("recevied_notification", count);
-        console.log(
-          `User with his this mae is: ${socket.id} is create account with this name ${data} `
-        );
+        
       });
       socket.on("sendNotificationJob", (data) => {
         console.log("its comming");
