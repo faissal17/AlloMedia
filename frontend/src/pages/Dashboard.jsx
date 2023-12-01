@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import "../../public/css/Dashboard.css";
 import { IoIosNotifications } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
-import { Outlet,Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/features/auth/authSlice";
 
 function Dashboard({ socket }) {
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [query, setQuery] = useState("");
   const links = [
     "Brand Name",
@@ -32,7 +38,7 @@ function Dashboard({ socket }) {
     {
       name: "Restaurant",
       path: "/dashboard/restaurant",
-      icon: "restaurant-outline",  // Updated icon name
+      icon: "restaurant-outline",
     },
     {
       name: "Product",
@@ -52,30 +58,52 @@ function Dashboard({ socket }) {
     {
       name: "Order",
       path: "/dashboard/orders",
-      icon: "cart-outline",  // Updated icon name
+      icon: "cart-outline",
     },
     {
       name: "Delivery",
       path: "/dashboard/deliveryPersone",
-      icon: "car-outline",  // Updated icon name
+      icon: "car-outline",
     },
     {
       name: "Menus",
       path: "/dashboard/menus",
-      icon: "person-outline",  // Updated icon name
+      icon: "person-outline",
     },
     {
       name: "Cuisines",
       path: "/dashboard/cuisine",
-      icon: "star-outline",  // Updated icon name
+      icon: "star-outline",
     },
     {
       name: "Payment",
       path: "/dashboard/payment",
-      icon: "credit-card-outline",  // Updated icon name
+      icon: "credit-card-outline",
     },
   ];
-  
+
+  const listLinksUser = [
+    {
+      name: "Brand Name",
+      path: "/dashboard",
+      icon: "grid-outline",
+    },
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: "home-outline",
+    },
+    {
+      name: "Tracking",
+      path: "/dashboard/orders",
+      icon: "cart-outline",
+    },
+    {
+      name: "Order",
+      path: "/dashboard/orders",
+      icon: "cart-outline",
+    },
+  ];
 
   const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -96,7 +124,6 @@ function Dashboard({ socket }) {
   const handleClick = (index) => {
     setActiveLink(index);
     console.log(`Link ${index} clicked`);
-    // Add your click handling logic here
   };
 
   const toggleMenu = () => {
@@ -119,7 +146,7 @@ function Dashboard({ socket }) {
 
     // Subscribe to the socket event
     socket.on("getNotification", handleNotification);
-    socket.on("getNotificationJob",handleNotification)
+    socket.on("getNotificationJob", handleNotification);
 
     console.log("fuck");
     console.log(notification);
@@ -127,30 +154,54 @@ function Dashboard({ socket }) {
     // Clean up the subscription when the component unmounts
     return () => {
       socket.off("getNotification", handleNotification);
-      socket.off("getNotificationJob",handleNotification)
+      socket.off("getNotificationJob", handleNotification);
     };
   }, [socket, setNotification]);
+
+  const handleLogout = async () => {
+    await dispatch(logout);
+    navigate("/");
+  };
 
   return (
     <div>
       <div className={`navigation ${menuActive ? "active" : ""}`}>
         <ul>
-          {listLinks.map((link, index) => (
-            <li
-              key={index}
-              className={index === activeLink ? "hovered" : ""}
-              onClick={() => handleClick(index)}
-              onKeyDown={() => handleClick(index)}
-              tabIndex="0"
-            >
-              <Link to={link.path}>
-                <span className="icon">
-                  <ion-icon name={link.icon}></ion-icon>
-                </span>
-                <span className="title">{link.name}</span>
-              </Link>
-            </li>
-          ))}
+          {auth?.role?.role === "MANAGER" &&
+            listLinks.map((link, index) => (
+              <li
+                key={index}
+                className={index === activeLink ? "hovered" : ""}
+                onClick={() => handleClick(index)}
+                onKeyDown={() => handleClick(index)}
+                tabIndex="0"
+              >
+                <Link to={link.path}>
+                  <span className="icon">
+                    <ion-icon name={link.icon}></ion-icon>
+                  </span>
+                  <span className="title">{link.name}</span>
+                </Link>
+              </li>
+            ))}
+
+          {auth?.role?.role === "USER" &&
+            listLinksUser.map((link, index) => (
+              <li
+                key={index}
+                className={index === activeLink ? "hovered" : ""}
+                onClick={() => handleClick(index)}
+                onKeyDown={() => handleClick(index)}
+                tabIndex="0"
+              >
+                <Link to={link.path}>
+                  <span className="icon">
+                    <ion-icon name={link.icon}></ion-icon>
+                  </span>
+                  <span className="title">{link.name}</span>
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
       <div className={`main ${menuActive ? "active" : ""}`}>
@@ -194,7 +245,7 @@ function Dashboard({ socket }) {
               onKeyDown={toggleDropdown}
               tabIndex="0"
             >
-              <div className="flex items-center cursor-pointer" >
+              <div className="flex items-center cursor-pointer">
                 <img
                   className="rounded-full h-10 w-10"
                   src="../../public/imgs/customer01.jpg"
@@ -225,14 +276,14 @@ function Dashboard({ socket }) {
                       <ion-icon name="settings-outline" class="mr-2"></ion-icon>
                       Settings
                     </a>
-                    <a
-                      href="#"
+                    <button
+                      onClick={handleLogout}
                       className="flex items-center px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem"
                     >
                       <ion-icon name="log-out-outline" class="mr-2"></ion-icon>
                       Logout
-                    </a>
+                    </button>
                   </div>
                 </div>
               )}

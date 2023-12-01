@@ -29,6 +29,7 @@ const authSlice = createSlice({
   initialState: AuthState,
   reducers: {
     setlogin: (state, action) => {
+      console.log(action.payload);
       state.address = action.payload.content.address;
       state.createdAt = action.payload.content.createdAt;
       state.deletedAt = action.payload.content.deletedAt;
@@ -51,7 +52,7 @@ const authSlice = createSlice({
       localStorage.setItem(
         "USER",
         JSON.stringify({
-          data: {
+          content: {
             address: action.payload.content.address,
             createdAt: action.payload.content.createdAt,
             deletedAt: action.payload.content.deletedAt,
@@ -74,12 +75,11 @@ const authSlice = createSlice({
         })
       );
     },
-    logout: (state) => {
+    logout: async (state) => {
       state.user = null;
       state.isAuth = false;
-      Cookies.remove("_cks_ui");
-      localStorage.removeItem("USER");
-      state.token = null;
+      await Cookies.remove("_cks_ui");
+      await localStorage.removeItem("USER");
     },
     register: (state, action) => {
       state.user = action.payload;
