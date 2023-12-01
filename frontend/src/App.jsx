@@ -52,6 +52,8 @@ import CuisinDashboard from "./pages/cuisines/index.jsx";
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
 import { setlogin } from "./redux/features/auth/authSlice.js";
 import { useDispatch } from "react-redux";
+import TrackingUser from "./components/Maps/tracking/user.jsx";
+import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -69,7 +71,6 @@ function App() {
     dispatch(setlogin(objUser));
   } else {
     dispatch(setlogin(null));
-
   }
 
   useEffect(() => {
@@ -165,6 +166,15 @@ function App() {
               <Route
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
+              />
+              <Route
+                path="/dashboard/trackinguser"
+                element={<TrackingUser />}
+              />
+
+              <Route
+                path="/dashboard/trackinglivreur"
+                element={<TrackingLivreur />}
               />
             </Route>
           </Routes>

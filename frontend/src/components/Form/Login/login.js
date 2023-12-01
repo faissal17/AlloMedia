@@ -87,10 +87,10 @@ export const LoginService = () => {
   useEffect(() => {
     if (isLoginSuccess) {
       dispatch(setlogin(loginData));
-      if (loginData.content.role.role === "MANAGER") {
-        
-        navigate("/dashboard");
-      }
+      // if (loginData.content.role.role === "MANAGER") {
+
+      navigate("/dashboard");
+      // }
     }
   }, [isLoginSuccess]);
   const loginUserMutation = useMutateHook(LoginAPI());
