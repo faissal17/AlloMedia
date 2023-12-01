@@ -26,7 +26,7 @@ function Dashboard({ socket }) {
 
   const listLinks = [
     {
-      name: "Brand Name",
+      name: "Marhaba Restaurant",
       path: "/dashboard",
       icon: "grid-outline",
     },
@@ -43,7 +43,7 @@ function Dashboard({ socket }) {
     {
       name: "Product",
       path: "/dashboard/items",
-      icon: "box-outline",
+      icon: "bag-outline",
     },
     {
       name: "Category",
@@ -78,32 +78,10 @@ function Dashboard({ socket }) {
     {
       name: "Payment",
       path: "/dashboard/payment",
-      icon: "credit-card-outline",
+      icon: "card-outline",  // Updated icon name
     },
   ];
 
-  const listLinksUser = [
-    {
-      name: "Brand Name",
-      path: "/dashboard",
-      icon: "grid-outline",
-    },
-    {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: "home-outline",
-    },
-    {
-      name: "Tracking",
-      path: "/dashboard/orders",
-      icon: "cart-outline",
-    },
-    {
-      name: "Order",
-      path: "/dashboard/orders",
-      icon: "cart-outline",
-    },
-  ];
 
   const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -146,7 +124,7 @@ function Dashboard({ socket }) {
 
     // Subscribe to the socket event
     socket.on("getNotification", handleNotification);
-    socket.on("getNotificationJob", handleNotification);
+    socket.on("getNotificationJob", handleNotification)
 
     console.log("fuck");
     console.log(notification);
@@ -154,7 +132,7 @@ function Dashboard({ socket }) {
     // Clean up the subscription when the component unmounts
     return () => {
       socket.off("getNotification", handleNotification);
-      socket.off("getNotificationJob", handleNotification);
+      socket.off("getNotificationJob", handleNotification)
     };
   }, [socket, setNotification]);
 
@@ -206,7 +184,7 @@ function Dashboard({ socket }) {
       </div>
       <div className={`main ${menuActive ? "active" : ""}`}>
         {/* Main content here */}
-        <div className="topbar shadow-sm">
+        <div className="topbar shadow-sm bg-gray-200">
           <div
             className="toggle"
             onClick={toggleMenu}
@@ -233,11 +211,11 @@ function Dashboard({ socket }) {
                 {notification}
               </span>
               <span>
-                <IoIosNotifications className=" w-9 h-9 text-gray-300" />
+                <IoIosNotifications className=" w-9 h-9 text-gray-400" />
               </span>
             </div>
             <span className="w-8 h-8">
-              <FaSun className="  w-7 h-7 text-gray-300" />
+              <FaSun className="  w-7 h-7 text-gray-400" />
             </span>
             <div
               className="relative inline-block text-left"

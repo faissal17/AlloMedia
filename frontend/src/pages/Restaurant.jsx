@@ -89,7 +89,7 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Tag
+              Localisation
             </th>
             <th
               scope="col"
@@ -129,74 +129,37 @@ const Restaurant = () => {
                       </div>
                     </div>
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {restaurant.description.length > 50
-                      ? restaurant.description.substring(0, 30) + "..."
-                      : restaurant.description}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {restaurant.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {tag.name}
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.brands.map((brand) => (
-                    <span
-                      key={brand.id}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {brand.name}
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {category.name}
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                    <AiOutlineEdit className="inline-block text-xl" />
-                  </a>
-                  <button
-                    onClick={handleDelete}
-                    className="ml-2 text-red-600 hover:text-red-900"
-                  >
-                    <RiDeleteBinLine
-                      id={restaurant._id}
-                      className="inline-block text-xl"
-                    />
-                  </button>
-                  <button className="ml-2 text-green-600 hover:text-green-900">
-                    <RiMapPin2Line
-                      onClick={handleMap}
-                      id={restaurant.localisation.lat
-                        .toString()
-                        .concat(" ", restaurant.localisation.lng.toString())}
-                      className="inline-block text-xl"
-                    />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                </div>
+              </div>
+            </td>
+          </tr>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <div className="text-sm text-gray-900">
+              Regional Paradigm Technician
+            </div>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap">
+            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+              Excellent
+            </span>
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            Life
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            new 200
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            italiane
+          </td>
+          <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+            <a href="#" className="text-indigo-600 hover:text-indigo-900">
+              Edit
+            </a>
+            <a href="#" className="ml-2 text-red-600 hover:text-red-900">
+              Delete
+            </a>
+          </td>
         </tbody>
       </table>
       <Dialog
@@ -239,4 +202,5 @@ const Restaurant = () => {
     </React.Fragment>
   );
 };
+
 export default Restaurant;
