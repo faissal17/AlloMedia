@@ -83,6 +83,53 @@ function Dashboard({ socket }) {
   ];
 
 
+  const listLinksUser = [
+    {
+      name: "Brand Name",
+      path: "/dashboard",
+      icon: "grid-outline",
+    },
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: "home-outline",
+    },
+    {
+      name: "Tracking",
+      path: "/dashboard/trackinguser",
+      icon: "cart-outline",
+    },
+    {
+      name: "Order",
+      path: "/dashboard/orders",
+      icon: "cart-outline",
+    },
+  ];
+
+  const listLinksLivreur = [
+    {
+      name: "Brand Name",
+      path: "/dashboard",
+      icon: "grid-outline",
+    },
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: "home-outline",
+    },
+    {
+      name: "Tracking",
+      path: "/dashboard/trackinglivreur",
+      icon: "cart-outline",
+    },
+    {
+      name: "Order",
+      path: "/dashboard/orders",
+      icon: "cart-outline",
+    },
+  ];
+
+
   const [activeLink, setActiveLink] = useState(links.indexOf("Dashboard"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
@@ -165,6 +212,23 @@ function Dashboard({ socket }) {
 
           {auth?.role?.role === "USER" &&
             listLinksUser.map((link, index) => (
+              <li
+                key={index}
+                className={index === activeLink ? "hovered" : ""}
+                onClick={() => handleClick(index)}
+                onKeyDown={() => handleClick(index)}
+                tabIndex="0"
+              >
+                <Link to={link.path}>
+                  <span className="icon">
+                    <ion-icon name={link.icon}></ion-icon>
+                  </span>
+                  <span className="title">{link.name}</span>
+                </Link>
+              </li>
+            ))}
+          {auth?.role?.role === "LIVREUR" &&
+            listLinksLivreur.map((link, index) => (
               <li
                 key={index}
                 className={index === activeLink ? "hovered" : ""}
