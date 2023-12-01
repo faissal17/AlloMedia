@@ -13,6 +13,7 @@ const restaurant = require("./restaurants.schema");
 const deliveryPerson = require("./delivery-person.schema");
 const orderDetails = require("./orders-details.schema");
 const role = require("./roles.schema");
+const contact = require("./contact.schema");
 
 module.exports = {
   user,
@@ -29,4 +30,5 @@ module.exports = {
   deliveryPerson,
   orderDetails,
   role,
+  contact,
 };

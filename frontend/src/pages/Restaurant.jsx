@@ -35,7 +35,7 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-             Localisation
+              Localisation
             </th>
             <th
               scope="col"
@@ -64,8 +64,8 @@ const Restaurant = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
+            </td>
+          </tr>
           <td className="px-6 py-4 whitespace-nowrap">
             <div className="text-sm text-gray-900">
               Regional Paradigm Technician
@@ -93,9 +93,10 @@ const Restaurant = () => {
               Delete
             </a>
           </td>
-        </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </React.Fragment>
   );
 };
+
 export default Restaurant;

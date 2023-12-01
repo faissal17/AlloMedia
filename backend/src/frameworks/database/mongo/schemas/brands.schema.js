@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require("validator");
 
 const brandSchema = new mongoose.Schema({
-  // Other tag-related fields
+    // Other tag-related fields
     name: {
         type: String,
         required: [true, "brand  of product name is required"],
@@ -32,7 +32,7 @@ const brandSchema = new mongoose.Schema({
         validator: (value) => {
             return validator.isURL(value.replace(/\s/g, ""));
         },
-        default:"https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png"
+        default: "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png"
     },
     status: {
         type: Number,
@@ -40,9 +40,9 @@ const brandSchema = new mongoose.Schema({
         default: 1,
         Comment: "1 for active and 0 for inactive",
         enum: [0, 1],
-        validator: function(value) {
+        validator: function (value) {
             // Require at least one uppercase le tter, one lowercase letter, one special character and one number
-            return validator.isIn(value, [0,1]);
+            return validator.isIn(value, [0, 1]);
         }
     },
     status_deleted: {
@@ -51,31 +51,31 @@ const brandSchema = new mongoose.Schema({
         default: 0,
         Comment: "1 for activen deleted and 0 for inactive",
         enum: [0, 1],
-        validator: function(value) {
+        validator: function (value) {
             // Require at least one uppercase le tter, one lowercase letter, one special character and one number
-            return validator.isIn(value, [0,1]);
+            return validator.isIn(value, [0, 1]);
         }
     },
-    restaurants:[
+    restaurants: [
         {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Restaurant' 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Restaurant'
         }
     ],
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        default:null,
+        default: null,
     },
     user_updated: {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-            default:null 
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        default: null
     },
     user_deleted: {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-            default:null
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        default: null
     },
     updatedAt: {
         type: Date,
@@ -85,8 +85,8 @@ const brandSchema = new mongoose.Schema({
         type: Date,
         default: null,
     },
-   
-    },{timestamps:true});
+
+}, { timestamps: true });
 
 
 

@@ -14,6 +14,7 @@ const imgRouter = require("./testImg");
 const deliveryPersonRoute = require("./deliverypersone");
 const orderDetailsRoute = require("./orderDetails");
 const roleRouter = require("./roles");
+const contactRouter = require("./contact");
 
 module.exports = (dependencies) => {
   const routes = express.Router();
@@ -38,6 +39,8 @@ module.exports = (dependencies) => {
 
   const role = roleRouter(dependencies);
 
+  const contact = contactRouter(dependencies);
+
   routes.use("/restaurant", restaurant);
   routes.use("/users", users);
   routes.use("/products", products);
@@ -47,11 +50,13 @@ module.exports = (dependencies) => {
   routes.use("/order", order);
   routes.use("/brands", brand);
   routes.use("/tags", tag);
-  routes.use("/cities",city);
+  routes.use("/cities", city);
   routes.use("/items", item);
   routes.use("/testimg", img);
   routes.use("/deliveryperson", deliveryperson);
   routes.use("/orderdetails", orderDetails);
   routes.use("/roles", role);
+  routes.use("/contact", contact);
+
   return routes;
 };

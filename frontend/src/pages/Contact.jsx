@@ -1,7 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/common/Navbar";
 import Input from "../components/common/Input";
+import Swal from 'sweetalert2';
+import axios from "axios";
+
 const Contact = () => {
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitClicked, setSubmitClicked] = useState(false);
+
+  useEffect(() => {
+    if (submitClicked) {
+      const data = {
+        email,
+        subject,
+        message
+      };
+
+      const fetchData = async () => {
+        try {
+          const response = await axios.post('http://localhost:5000/api/v1/', data);
+          console.log(response.data);
+          Swal.fire(
+            'Success!',
+            'Your message has been sent.',
+            'success'
+          );
+        } catch (error) {
+          console.error(error);
+          Swal.fire(
+            'Error!',
+            'An error occurred while sending your message.',
+            'error'
+          );
+        }
+      };
+
+      fetchData();
+      setSubmitClicked(false);
+    }
+  }, [submitClicked]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmitClicked(true);
+  };
+
+
   return (
     <React.Fragment>
       <Navbar />
@@ -16,7 +62,7 @@ const Contact = () => {
             free to Tell us anything you want,ask or leave a review and thank
             you
           </p>
-          <form action="" className="space-y-8">
+          <form action="" className="space-y-8" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -28,6 +74,8 @@ const Contact = () => {
                 className={
                   "block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 }
+                // value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -41,6 +89,8 @@ const Contact = () => {
                 className={
                   "block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                 }
+                // value={subject}
+                onChange={(e) => setSubject(e.target.value)}
               />
             </div>
             <div className="sm:col-span-2">
@@ -55,11 +105,12 @@ const Contact = () => {
                 rows="6"
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="Leave a comment..."
+                onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </div>
             <button
               type="submit"
-              className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="py-3 px-5 text-sm font-medium text-center bg-black text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
               Send message
             </button>
