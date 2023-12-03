@@ -1,5 +1,5 @@
 const { Response} =require('../../frameworks/common')
-const { updateOrderUseCase } = require('../../useCases/orders')
+const { updateOrderDeliveryUseCase } = require('../../useCases/orders')
 module.exports=async (req,res)=>{
     try {
         const { body = {} } = req;
@@ -9,7 +9,7 @@ module.exports=async (req,res)=>{
             id,
             ...updates
         } = req.body;
-        const useCaseInstance=updateOrderUseCase()
+        const useCaseInstance=updateOrderDeliveryUseCase ()
         const response = await useCaseInstance.execute({
           order: {
             id,

@@ -11,7 +11,7 @@ module.exports=()=>{
     })=>{
         console.log('useCases')
         console.log(order)
-        return orderRepository.update(order)
+        return orderRepository.updateDeliveryOrder(order)
     }
 
     return {

@@ -33,10 +33,10 @@ const repository = () => {
       
       console.log("repository :", id);
       
-      return DeliveryPerson.findByIdAndUpdate(
+      return DeliveryPerson.findByIdAndDelete(
         id,
         {
-          deleteAt: new Date(),
+          deletedAt: new Date(),
         },
         {
           new: true,
@@ -57,6 +57,15 @@ const repository = () => {
         );
       }
       return user;
+    },
+    getAll: async () => {
+      const users = await DeliveryPerson.find().populate("user");
+      console.log('users levireur')
+      console.log(users)
+      if (!users) {
+        throw new Error(`users do not exist or have been deleted.`);
+      }
+      return users;
     },
   };
 };

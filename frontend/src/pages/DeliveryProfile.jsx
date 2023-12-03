@@ -7,30 +7,33 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import {
-  useGetDeliveryQuery,
-  useDeleteDeliveryMutation,
-  useUpdateDeliveryMutation,
-} from "../redux/service/delivery/delivery";
+  useGetOrderQuery,
+  useUpdateOrderDelivryMutation,
+  useDeleteOrderMutation,
+  useUpdateOrderMutation,
+  useGetOrderConfirmQuery,
+  useGetOrderDelivryTakeQuery
+} from "../redux/service/orders/orderApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const PersonDelivery = () => {
+const DeliveryProfile = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
   
   const {
-    data: deliveries,
-    error: errorDeliveries,
-    isLoading: isLoadingDeliveries,
+    data: orders,
+    error: errorOrders,
+    isLoading: isLoadingOrders,
     refetch,
-  } = useGetDeliveryQuery();
-  console.log('deliveries')
-  console.log(deliveries)
+  } = useGetOrderDelivryTakeQuery();
+  console.log('orders')
+  console.log(orders)
 
-  const [deleteDelivery, { data: dataDelete }] = useDeleteDeliveryMutation();
-  const [updateDelivery, { data: dataUpdate }] = useUpdateDeliveryMutation();
+  const [deleteOrder, { data: dataDelete }] = useDeleteOrderMutation();
+  const [updateOrder, { data: dataUpdate }] = useUpdateOrderDelivryMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,7 +57,7 @@ const PersonDelivery = () => {
   
 
   const handleDelete = async (e) => {
-    await deleteDelivery({
+    await deleteOrder({
       id: e.target.id,
     });
     refetch();
@@ -62,8 +65,8 @@ const PersonDelivery = () => {
 
   const handleSubmitEdit = async (e) => {
     //await updateOrder({ ...valueOrder });
-    await updateDelivery({
-      status:'CONFIRM',
+    await updateOrder({
+      status:'TAKE',
       id:e.target.id
     })
     setOpen(false);
@@ -89,37 +92,31 @@ const PersonDelivery = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
+              SubTotal
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Discount
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Tax
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              total 
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               FullName
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              phoneNumber
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              City
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Vycle
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              User
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Cart National
             </th>
             <th
               scope="col"
@@ -136,14 +133,14 @@ const PersonDelivery = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
-          {deliveries &&
-            deliveries.content?.map((delivery) => (
-              <tr key={delivery._id}>
+          {orders &&
+            orders.content?.map((order) => (
+              <tr key={order.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {delivery.fullName}
+                        {order.order.subTotal}
                       </div>
                     </div>
                   </div>
@@ -151,55 +148,50 @@ const PersonDelivery = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex-shrink-0 w-10 h-10">
                         <div className="text-sm font-medium text-gray-900">
-                          {delivery.phoneNumber}
+                          {order.order.discount}
                         </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex-shrink-0 w-10 h-10">
                     <div className="text-sm font-medium text-gray-900">
-                      {delivery?.city}
+                      {order?.order?.tax}
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex-shrink-0 w-10 h-10">
                     <div className="text-sm font-medium text-gray-900">
-                      {delivery?.vycle}
+                      {order.order?.total}
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
 
                   
-                  {delivery?.user.first_name}
+                  {order.order?.firstName + " " + order.order?.lastName}
 
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex-shrink-0 w-10 h-10">
                     <div className="text-sm font-medium text-gray-900">
-                      <span id={delivery._id} onClick={handleSubmitEdit}
-                      className=" p-2 cursor-pointer px-5 rounded-md "> 
-                         {
-                          delivery.cartNational ?  delivery.cartNational : 'No Cart'
-                         }
-                      </span>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex-shrink-0 w-10 h-10">
-                    <div className="text-sm font-medium text-gray-900">
-                      <span id={delivery._id} onClick={handleSubmitEdit}
+                      <span id={order._id} onClick={handleSubmitEdit}
                       className=" p-2 cursor-pointer px-5 rounded-md text-yellow-500 bg-yellow-200"> 
-                         {delivery?.status}
+                         {order?.status}
                       </span>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
-                    id={delivery._id}
+                    id={order._id}
+                    onClick={handleEdit}
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    id={order._id}
                     onClick={handleDelete}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
@@ -275,4 +267,4 @@ const PersonDelivery = () => {
   );
 };
 
-export default PersonDelivery;
+export default DeliveryProfile ;
