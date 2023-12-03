@@ -60,13 +60,12 @@ const CustomInput = ({
                         transition duration-200 ease-in-out 
                         outline-none 
                     ${className}
-                    ${
-                      submit && validate
-                        ? "border-red-500 border-[2px]"
-                        : validate === false && submit
-                        ? "border-green-500 border-[2px]"
-                        : "border-gray-100 border "
-                    }
+                    ${submit && validate
+                ? "border-red-500 border-[2px]"
+                : validate === false && submit
+                  ? "border-green-500 border-[2px]"
+                  : "border-gray-100 border "
+              }
                     `}
           />
           {localisation && (

@@ -14,7 +14,7 @@ module.exports = (dependencies) => {
 
   router
     .route("/")
-    .get(auth.isManager, getAllBrandController)
+    .get(getAllBrandController)
     .post(auth.isManager, addBrandController)
     .delete(auth.isManager, deleteBrandController)
     .patch(auth.isManager, updateBrandController);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -7,11 +7,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import {
-  useGetOrderQuery,
   useUpdateOrderDelivryMutation,
   useDeleteOrderMutation,
-  useUpdateOrderMutation,
-  useGetOrderConfirmQuery,
   useGetOrderDelivryTakeQuery
 } from "../redux/service/orders/orderApi";
 

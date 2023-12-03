@@ -1,1 +1,1 @@
-module.exports=require('./Response')
+module.exports = require('./Response')

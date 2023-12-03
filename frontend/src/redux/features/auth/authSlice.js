@@ -29,57 +29,58 @@ const authSlice = createSlice({
   initialState: AuthState,
   reducers: {
     setlogin: (state, action) => {
-      state.address = action.payload.content.address;
-      state.createdAt = action.payload.content.createdAt;
-      state.deletedAt = action.payload.content.deletedAt;
-      state.email = action.payload.content.email;
-      state.first_name = action.payload.content.first_name;
-      state.isBlocked = action.payload.content.isBlocked;
-      state.last_name = action.payload.content.last_name;
-      state.loginCount = action.payload.content.loginCount;
-      state.mobile = action.payload.content.mobile;
-      state.picture = action.payload.content.picture;
-      state.role = action.payload.content.role;
-      state.search = action.payload.content.search;
-      state.updatedAt = action.payload.content.updatedAt;
-      state.username = action.payload.content.username;
-      state.verified = action.payload.content.verified;
-      state.wishlist = action.payload.content.wishlist;
-      state.__v = action.payload.content.__v;
-      state._id = action.payload.content._id;
+      console.log(action.payload);
+      state.address = action.payload?.content.address;
+      state.createdAt = action.payload?.content.createdAt;
+      state.deletedAt = action.payload?.content.deletedAt;
+      state.email = action.payload?.content.email;
+      state.first_name = action.payload?.content.first_name;
+      state.isBlocked = action.payload?.content.isBlocked;
+      state.last_name = action.payload?.content.last_name;
+      state.loginCount = action.payload?.content.loginCount;
+      state.mobile = action.payload?.content.mobile;
+      state.picture = action.payload?.content.picture;
+      state.role = action.payload?.content.role;
+      state.search = action.payload?.content.search;
+      state.updatedAt = action.payload?.content.updatedAt;
+      state.username = action.payload?.content.username;
+      state.verified = action.payload?.content.verified;
+      state.wishlist = action.payload?.content.wishlist;
+      state.__v = action.payload?.content.__v;
+      state._id = action.payload?.content._id;
 
       localStorage.setItem(
         "USER",
         JSON.stringify({
-          data: {
-            address: action.payload.content.address,
-            createdAt: action.payload.content.createdAt,
-            deletedAt: action.payload.content.deletedAt,
-            email: action.payload.content.email,
-            first_name: action.payload.content.first_name,
-            isBlocked: action.payload.content.isBlocked,
-            last_name: action.payload.content.last_name,
-            loginCount: action.payload.content.loginCount,
-            mobile: action.payload.content.mobile,
-            picture: action.payload.content.picture,
-            role: action.payload.content.role,
-            search: action.payload.content.search,
-            updatedAt: action.payload.content.updatedAt,
-            username: action.payload.content.username,
-            verified: action.payload.content.verified,
-            wishlist: action.payload.content.wishlist,
-            __v: action.payload.content.__v,
-            _id: action.payload.content._id,
+          content: {
+            address: action.payload?.content.address,
+            createdAt: action.payload?.content.createdAt,
+            deletedAt: action.payload?.content.deletedAt,
+            email: action.payload?.content.email,
+            first_name: action.payload?.content.first_name,
+            isBlocked: action.payload?.content.isBlocked,
+            last_name: action.payload?.content.last_name,
+            loginCount: action.payload?.content.loginCount,
+            mobile: action.payload?.content.mobile,
+            picture: action.payload?.content.picture,
+            role: action.payload?.content.role,
+            search: action.payload?.content.search,
+            updatedAt: action.payload?.content.updatedAt,
+            username: action.payload?.content.username,
+            verified: action.payload?.content.verified,
+            wishlist: action.payload?.content.wishlist,
+            __v: action.payload?.content.__v,
+            _id: action.payload?.content._id,
           },
         })
       );
     },
-    logout: (state) => {
+    logout: async (state) => {
       state.user = null;
       state.isAuth = false;
-      Cookies.remove("_cks_ui");
+      console.log("logout");
       localStorage.removeItem("USER");
-      state.token = null;
+      await Cookies.remove("_cks_ui");
     },
     register: (state, action) => {
       state.user = action.payload;

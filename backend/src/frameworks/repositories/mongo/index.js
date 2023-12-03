@@ -12,6 +12,7 @@ const orderRepository = require("./orders.repository");
 const menuRepository = require("./menu.repository");
 const orderDetailsRepository = require("./orderDetails.repository");
 const roleRepository = require("./roles.repository");
+const contactRepository = require("./contact.repository");
 
 module.exports = {
   usersRepository,
@@ -28,4 +29,5 @@ module.exports = {
   menuRepository,
   orderDetailsRepository,
   roleRepository,
+  contactRepository,
 };

@@ -89,12 +89,6 @@ const Restaurant = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Tag
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
               Brand
             </th>
             <th
@@ -113,86 +107,60 @@ const Restaurant = () => {
         </thead>
         <tbody className="bg-gray-100 divide-y divide-gray-200">
           {restaurants &&
-            restaurants.content.map((restaurant, index) => (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10">
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={restaurant.picture}
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
-                        {restaurant.name}
-                      </div>
-                    </div>
-                  </div>
-                </td>
+            restaurants.content.map((restaurant) => (
+              <tr key={restaurant?._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">
-                    {restaurant.description.length > 50
-                      ? restaurant.description.substring(0, 30) + "..."
-                      : restaurant.description}
+                    {restaurant?.name}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {restaurant.status}
+                  <div className="text-sm text-gray-900">lkjgldkf</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      restaurant?.status === 1
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {
+                      restaurant?.status === 1
+                        ? "Active"
+                        : "Inactive"
+                    }
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {tag.name}
-                    </span>
-                  ))}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">{
+                    restaurant?.brands.map((brand)=>(
+
+                      <div>{brand?.name}</div>
+                    ))
+                  }</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.brands.map((brand) => (
-                    <span
-                      key={brand.id}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {brand.name}
-                    </span>
-                  ))}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">{
+                    restaurant?.categories.map((category)=>(
+
+                      <div>{category?.name}</div>
+                    ))
+                  }</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {restaurant.categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                    >
-                      {category.name}
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                    <AiOutlineEdit className="inline-block text-xl" />
-                  </a>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <Link to={`/dashboard/editRestaurant/${restaurant._id}`}>
+                    <button className="text-indigo-600 hover:text-indigo-900">
+                      <AiOutlineEdit />
+                    </button>
+                  </Link>
                   <button
+                    id={restaurant._id}
                     onClick={handleDelete}
-                    className="ml-2 text-red-600 hover:text-red-900"
+                    className="text-red-600 hover:text-red-900"
                   >
-                    <RiDeleteBinLine
-                      id={restaurant._id}
-                      className="inline-block text-xl"
-                    />
-                  </button>
-                  <button className="ml-2 text-green-600 hover:text-green-900">
-                    <RiMapPin2Line
-                      onClick={handleMap}
-                      id={restaurant.localisation.lat
-                        .toString()
-                        .concat(" ", restaurant.localisation.lng.toString())}
-                      className="inline-block text-xl"
-                    />
+                    <RiDeleteBinLine id={restaurant._id}
+                    onClick={handleDelete} />
                   </button>
                 </td>
               </tr>
@@ -239,4 +207,5 @@ const Restaurant = () => {
     </React.Fragment>
   );
 };
+
 export default Restaurant;
