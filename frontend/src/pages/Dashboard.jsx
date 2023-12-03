@@ -184,7 +184,7 @@ function Dashboard({ socket }) {
   }, [socket, setNotification]);
 
   const handleLogout = async () => {
-    await dispatch(logout);
+    await dispatch(logout());
     navigate("/");
   };
 

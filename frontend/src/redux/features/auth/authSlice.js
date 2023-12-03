@@ -78,8 +78,10 @@ const authSlice = createSlice({
     logout: async (state) => {
       state.user = null;
       state.isAuth = false;
+      console.log("logout");
+      localStorage.removeItem("USER");
       await Cookies.remove("_cks_ui");
-      await localStorage.removeItem("USER");
+      
     },
     register: (state, action) => {
       state.user = action.payload;

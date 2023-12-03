@@ -14,7 +14,7 @@ module.exports = (dependencies) => {
 
   router
     .route("/")
-    .get(auth.isManager, getAllTagsController)
+    .get(getAllTagsController)
     .post(auth.isManager, addTagController)
     .delete(auth.isManager, deleteTagController)
     .patch(auth.isManager, updateTagController);
