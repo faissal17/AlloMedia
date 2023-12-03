@@ -277,6 +277,7 @@ function Dashboard({ socket }) {
               <span>
                 <IoIosNotifications className=" w-9 h-9 text-gray-400" />
               </span>
+              <div></div>
             </div>
             <span className="w-8 h-8">
               <FaSun className="  w-7 h-7 text-gray-400" />

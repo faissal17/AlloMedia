@@ -25,7 +25,7 @@ export const itemsApi = ApiSlice.injectEndpoints({
     updateItem: builder.mutation(
       {
         query: (body) => ({
-          url: `item`,
+          url: `items`,
           method: "PATCH",
           body: body,
         }),

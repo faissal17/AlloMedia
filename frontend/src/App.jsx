@@ -69,6 +69,7 @@ function App() {
     objUser !== "" ||
     objUser !== "null"
   ) {
+    console.log(123);
     dispatch(setlogin(objUser));
   }
 
