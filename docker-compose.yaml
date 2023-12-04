@@ -10,6 +10,8 @@ services:
       - ./backend/.env
     ports:
       - 4000:4000
+    depends_on:
+      - mongo
   allomedia-frontend: 
     build:
       context: ./frontend
@@ -21,6 +23,8 @@ services:
       - ./frontend/.env
     ports:
       - 5173:5173
+    depends_on:
+      - mongo
   mongo:
     image: mongo
     
