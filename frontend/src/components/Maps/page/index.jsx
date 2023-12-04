@@ -81,7 +81,7 @@ const PageRes = () => {
           )}
           <div>
             <h3 className="text-4xl font-medium text-default-800 mb-1">
-              {data && data.content.name}
+              {data && data?.content?.name}
             </h3>
             <h5 className="text-lg font-medium text-default-600 mb-2">
               <span className="text-base font-normal text-default-500">by</span>{" "}
@@ -111,7 +111,7 @@ const PageRes = () => {
             </div>
 
             <p className="text-sm text-default-500 mb-4">
-              {data && data.content.description}
+              {data && data?.content?.description}
             </p>
 
             <div className="flex gap-2 mb-5">
@@ -120,12 +120,12 @@ const PageRes = () => {
                 <span className="text-xs text-default-500">
                   {restaurant &&
                     restaurant.brands &&
-                    restaurant.brands.map((brand, index) => (
+                    restaurant?.brands.map((brand, index) => (
                       <span
                         className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                         key={index}
                       >
-                        {brand.name}
+                        {brand?.name}
                       </span>
                     ))}
                 </span>
@@ -135,12 +135,12 @@ const PageRes = () => {
                 <span className="text-xs">Categories :</span>
                 {restaurant &&
                   restaurant.categories &&
-                  restaurant.categories.map((category, index) => (
+                  restaurant?.categories.map((category, index) => (
                     <span
                       className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                       key={index}
                     >
-                      {category.name}
+                      {category?.name}
                     </span>
                   ))}
               </div>
@@ -149,12 +149,12 @@ const PageRes = () => {
                 <span className="text-xs">Tags :</span>
                 {restaurant &&
                   restaurant.tags &&
-                  restaurant.tags.map((tag, index) => (
+                  restaurant?.tags.map((tag, index) => (
                     <span
                       className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                       key={index}
                     >
-                      {tag.name}
+                      {tag?.name}
                     </span>
                   ))}
               </div>
@@ -210,8 +210,8 @@ const PageRes = () => {
 
                     <Marker
                       position={[
-                        restaurant?.localisation.lat,
-                        restaurant?.localisation.lng,
+                        restaurant?.localisation?.lat,
+                        restaurant?.localisation?.lng,
                       ]}
                     >
                       <Popup>
