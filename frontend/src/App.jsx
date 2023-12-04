@@ -3,12 +3,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ForgotPassword from "./pages/ForgotPassword";
 import Delivery from "./pages/Delivery";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import NotFound from "./pages/NotFound";
@@ -50,6 +45,11 @@ import Orders from "./pages/Orders.jsx";
 import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
+import { setlogin } from "./redux/features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
+import TrackingUser from "./components/Maps/tracking/user.jsx";
+import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
+
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import DeliveryProfile from "./pages/DeliveryProfile.jsx";
 
@@ -58,17 +58,22 @@ function App() {
   const { isLoading, isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const user = localStorage.getItem("USER");
+
+  // if(!user){
+  // navigate("/inscription")
+  // }
+
   const objUser = JSON.parse(user);
 
   if (
     objUser !== null ||
     objUser !== undefined ||
     objUser !== "undefined" ||
-    objUser !== ""
+    objUser !== "" ||
+    objUser !== "null"
   ) {
+    console.log(123);
     dispatch(setlogin(objUser));
-  } else {
-    dispatch(setlogin(null));
   }
 
   useEffect(() => {
