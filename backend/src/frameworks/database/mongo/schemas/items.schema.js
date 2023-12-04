@@ -26,7 +26,7 @@ const itemSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       maxlength: 100,
-      minlength: 10,
+      minlength: 1,
       validator: (value) => {
         return validator.isAlphanumeric(value.replace(/\s/g, ""));
       },

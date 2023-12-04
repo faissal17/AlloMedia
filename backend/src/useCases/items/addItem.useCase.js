@@ -22,6 +22,7 @@ module.exports=() =>{
         
         const items={
             ...item,
+            
             slug:slugify(item.title)
         }
         console.log('vefore repository',items)

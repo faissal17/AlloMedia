@@ -25,17 +25,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Items = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
+  
+  
+  
+  
   const [valueItem, setItem] = useState({
     title:"",
     short_description:"",
     description:"",
-    r_price:0,
-    s_price:0,
-    brand:'',
-    category:'',
-    menu:'',
-    tags:[]
+    r_price:'',
+    s_price:'',
+    brand:'65686df92b194abd88cf7e7f',
+    category:'6564d9b30a02cf61e2ff1e63',
+    // menu:'',
+    tags:["6564bbe65a2330d43ecc11b1","6564bbe65a2330d43ecc11b2","6564bbe65a2330d43ecc11b3"]
   });
+  const [itemOnce,setItemOnce]=useState({
+    id:'',
+    ...valueItem
+  })
+  console.log('items once')
+  console.log(itemOnce)
+
+
 
   const {
     data: categories,
@@ -43,6 +55,8 @@ const Items = () => {
     isLoading: isLoadingCategories,
     refetch: refetchCategories,
   } = useGetCategoryQuery();
+  //console.log('all category')
+  //console.log(categories)
   const {
     data: items,
     error: errorItems,
@@ -57,7 +71,7 @@ const Items = () => {
     refetch: refetchBrands,
   } = useGetBrandQuery();
 
-  console.log("brands",brands);
+  //console.log("brands",brands);
   
 
   const [addItem, { data, error, isLoading }] = useAddItemMutation();
@@ -75,19 +89,27 @@ const Items = () => {
   };
 
   const handleEdit = async (e) => {
-    await setItem({
-      id: e.target.id,
-    });
+    setItemOnce((prevItemOnce) => ({ ...prevItemOnce, ['id']: e.target.id }));
     setOpen(true);
     setModel(true);
   };
 
   const handleChange = (e) => {
-    console.log('fou tooo')
-    setItem({ ...valueItem, [e.target.id]: e.target.value });
+    // console.log('fou tooo')
+    // console.log(valueItem)
+    if(e.target.name==='s_price' || e.target.name==='r_price'){
+      setItem({ ...valueItem, [e.target.name]: parseInt(e.target.value) });
+      setItemOnce((prevItemOnce) => ({ ...prevItemOnce, [e.target.name]: parseInt(e.target.value) }));
+    } else{
+      setItem({ ...valueItem, [e.target.name]: e.target.value });
+      setItemOnce((prevItemOnce) => ({ ...prevItemOnce, [e.target.name]: e.target.value }));
+    }
+    
   };
 
   const handleSubmit = async () => {
+    // console.log('fucking handleSubmit')
+    // console.log(valueItem)
     await addItem(valueItem);
     setOpen(false);
     refetchItems();
@@ -101,7 +123,8 @@ const Items = () => {
   };
 
   const handleSubmitEdit = async (e) => {
-    await updateItem({ ...valueItem });
+    console.log(itemOnce)
+    await updateItem({ ...itemOnce });
     setOpen(false);
     refetchItems();
   };
@@ -263,10 +286,9 @@ const Items = () => {
             <div className="flex flex-col md:flex-row justify-center pt-8">
               <div className="w-full">
                 <div className="mb-4">
-                  <CustomInput 
-                  className=" border-gray-400 rounded-lg"
+                  <input
+                  className=" border border-gray-400 rounded-lg w-full p-3"
                   id="title"
-                  icon={<FaDrumstickBite/>}
                   name="title"
                   type="text"
                   onChange={handleChange}
@@ -297,10 +319,9 @@ const Items = () => {
                 </div>
                 <div className="mb-4 flex items-center gap-2 ">
                   <div className=" w-[50%]">
-                    <CustomInput 
-                    className=" border-gray-400 rounded-lg"
+                    <input
+                    className=" border border-gray-400 rounded-lg w-full p-3"
                     id="r_price"
-                    icon={<FaDrumstickBite/>}
                     name="r_price"
                     type="text"
                     onChange={handleChange}
@@ -308,14 +329,13 @@ const Items = () => {
                     />
                   </div>
                   <div className=" w-[50%]">
-                    <CustomInput 
-                    className=" border-gray-400 rounded-lg"
-                    id="s_price"
-                    icon={<FaDrumstickBite/>}
-                    name="s_price"
-                    type="text"
-                    onChange={handleChange}
-                    placeholder="s_price"
+                    <input
+                      className=" border border-gray-400 rounded-lg w-full p-3"
+                      id="s_price"
+                      name="s_price"
+                      type="text"
+                      onChange={handleChange}
+                      placeholder="s_price"
                     />
                     
                   </div>
@@ -325,20 +345,21 @@ const Items = () => {
                   <InputLabel id="">Brand</InputLabel>
                   <Select
                     
-                    labelId="demo-simple-select-label"
+                    
                     id="brand"
                     name="brand"
+                    value={valueItem.brand}
                     
                     
                     
-                    label="Age"
+                  
                     onChange={handleChange}
                   >
                     {brands &&
                       
                       brands.content.map((brand, index) => (
 
-                        <MenuItem key={index} value={brand._id}>
+                        <MenuItem key={brand._id} value={brand._id}>
                           {brand.name}
                         </MenuItem>
                       ))}
@@ -349,11 +370,12 @@ const Items = () => {
                 <FormControl fullWidth>
                   <InputLabel id="">Category</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
+                    
+                    
                     id="category"
                     name="category"
+                    value={valueItem.category}
                     
-                    label="Age"
                     onChange={handleChange}
                   >
                     {isLoading && (
@@ -361,7 +383,7 @@ const Items = () => {
                     )}
                     {categories &&
                       categories.content.map((category, index) => (
-                        <MenuItem key={index} value={category._id}>
+                        <MenuItem key={category._id} value={category._id}>
                           {category.name}
                         </MenuItem>
                       ))}

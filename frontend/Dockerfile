@@ -13,8 +13,6 @@ RUN npm install --silent
 # Copy the rest of the application files
 COPY . .
 
-# Expose port 3000 for the application
-EXPOSE 5000
 
 
 # Command to start the application development server

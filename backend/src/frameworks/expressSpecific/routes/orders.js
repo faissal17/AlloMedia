@@ -10,15 +10,26 @@ module.exports = (dependencies) => {
     deleteOrderController,
     updateOrderController,
     getOrderByIdController,
+    getAllOrderController,
+    getAllOrderConfirmController,
+    updateOrderDeliveryController,
+    getAllOrderTakeController,
   } = orderController(dependencies);
 
   router
+    
     .route("/")
+    .get(getAllOrderController)
     .post(addOrderController)
     .delete(deleteOrderController)
-    // .patch(updateOrderController);
-
+    .patch(updateOrderController);
+  router.route("/confirm")
+    .get(getAllOrderConfirmController)
+    .patch(updateOrderDeliveryController)
+  router.route("/delivery")
+    .get(getAllOrderTakeController)
   router.route("/:id").get(getOrderByIdController);
+  
 
   return router;
 };
