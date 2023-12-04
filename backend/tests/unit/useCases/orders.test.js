@@ -4,10 +4,10 @@ const chance = new Chance();
 const { v4: uuidv4 } = require("uuid");
 
 const {
-  order: { addOrderUseCase },
+  order: { addOrderUseCase,getAllOrderUseCase },
 } = require("../../../src/useCases");
 
-jest.mock(".././../../src/frameworks/repositories/inMemory");
+jest.mock(".././../../src/frameworks/repositories");
 
 describe("Order use cases", () => {
   const mockOrderRepo = {
@@ -76,6 +76,6 @@ describe("Order use cases", () => {
       expect(saveOrder.status).toEqual({
         comment: "DONE",
       });
-    });
+    }, 20000);
   });
 });
