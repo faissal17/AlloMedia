@@ -3,12 +3,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ForgotPassword from "./pages/ForgotPassword";
 import Delivery from "./pages/Delivery";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import NotFound from "./pages/NotFound";
@@ -58,17 +53,22 @@ function App() {
   const { isLoading, isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const user = localStorage.getItem("USER");
+
+  // if(!user){
+  // navigate("/inscription")
+  // }
+
   const objUser = JSON.parse(user);
 
   if (
     objUser !== null ||
     objUser !== undefined ||
     objUser !== "undefined" ||
-    objUser !== ""
+    objUser !== "" ||
+    objUser !== "null"
   ) {
+    console.log(123);
     dispatch(setlogin(objUser));
-  } else {
-    dispatch(setlogin(null));
   }
 
   useEffect(() => {
