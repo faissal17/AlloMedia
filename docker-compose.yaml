@@ -6,14 +6,11 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
       target: development
-    image: backend
     image: allomedia-backend
     command: npm run dev
     env_file:
       - ./backend/.env
     ports:
-      - 5000:5000
-  frontend: 
       - 4000:4000
     depends_on:
       - mongo
@@ -22,7 +19,6 @@ services:
       context: ./frontend
       dockerfile: ./Dockerfile
       target: development
-    image: frontend
     image: allomedia-frontend
     command: npm run dev
     env_file:
