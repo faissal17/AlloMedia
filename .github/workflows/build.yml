@@ -18,17 +18,12 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Install dependencies
-
-        directory_path: backend
-        run: npm install
-
-        working-directory: backend
-      - name: Run tests
-        run: npm test
-
-      - name: Change directory back to backend
-        run: cd backend
+      - name: Install dependencies and run tests
+        run: |
+          cd backend
+          npm install
+          npm test
 
       - name: Deploy images Docker
+      
         run: docker compose up
