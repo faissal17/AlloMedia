@@ -13,8 +13,8 @@ import {
   useDeleteItemMutation,
   useUpdateItemMutation,
 } from "../redux/service/items/itemApi";
-import {useGetCategoryQuery,} from "../redux/service/categories/categoryApi";
-import {useGetBrandQuery} from "../redux/service/brands/brandApi";
+import { useGetCategoryQuery } from "../redux/service/categories/categoryApi";
+import { useGetBrandQuery } from "../redux/service/brands/brandApi";
 import CustomInput from "../components/common/Input";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
@@ -25,29 +25,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Items = () => {
   const [open, setOpen] = React.useState(false);
   const [valueModel, setModel] = useState(false);
-  
-  
-  
-  
+
   const [valueItem, setItem] = useState({
-    title:"",
-    short_description:"",
-    description:"",
-    r_price:'',
-    s_price:'',
-    brand:'65686df92b194abd88cf7e7f',
-    category:'6564d9b30a02cf61e2ff1e63',
+    title: "",
+    short_description: "",
+    description: "",
+    r_price: "",
+    s_price: "",
+    brand: "65686df92b194abd88cf7e7f",
+    category: "6564d9b30a02cf61e2ff1e63",
     // menu:'',
-    tags:["6564bbe65a2330d43ecc11b1","6564bbe65a2330d43ecc11b2","6564bbe65a2330d43ecc11b3"]
+    tags: [
+      "6564bbe65a2330d43ecc11b1",
+      "6564bbe65a2330d43ecc11b2",
+      "6564bbe65a2330d43ecc11b3",
+    ],
   });
-  const [itemOnce,setItemOnce]=useState({
-    id:'',
-    ...valueItem
-  })
-  console.log('items once')
-  console.log(itemOnce)
-
-
+  const [itemOnce, setItemOnce] = useState({
+    id: "",
+    ...valueItem,
+  });
+  console.log("items once");
+  console.log(itemOnce);
 
   const {
     data: categories,
@@ -72,7 +71,6 @@ const Items = () => {
   } = useGetBrandQuery();
 
   //console.log("brands",brands);
-  
 
   const [addItem, { data, error, isLoading }] = useAddItemMutation();
   const [deleteItem, { data: dataDelete }] = useDeleteItemMutation();
@@ -81,7 +79,6 @@ const Items = () => {
   const handleClickOpen = () => {
     setOpen(true);
     setModel(false);
-
   };
 
   const handleClose = () => {
@@ -89,7 +86,7 @@ const Items = () => {
   };
 
   const handleEdit = async (e) => {
-    setItemOnce((prevItemOnce) => ({ ...prevItemOnce, ['id']: e.target.id }));
+    setItemOnce((prevItemOnce) => ({ ...prevItemOnce, ["id"]: e.target.id }));
     setOpen(true);
     setModel(true);
   };
@@ -97,16 +94,21 @@ const Items = () => {
   const handleChange = (e) => {
     // console.log('fou tooo')
     // console.log(valueItem)
-    if(e.target.name==='s_price' || e.target.name==='r_price'){
+    if (e.target.name === "s_price" || e.target.name === "r_price") {
       setItem({ ...valueItem, [e.target.name]: parseInt(e.target.value) });
-      setItemOnce((prevItemOnce) => ({ ...prevItemOnce, [e.target.name]: parseInt(e.target.value) }));
-    } else{
+      setItemOnce((prevItemOnce) => ({
+        ...prevItemOnce,
+        [e.target.name]: parseInt(e.target.value),
+      }));
+    } else {
       setItem({ ...valueItem, [e.target.name]: e.target.value });
-      setItemOnce((prevItemOnce) => ({ ...prevItemOnce, [e.target.name]: e.target.value }));
+      setItemOnce((prevItemOnce) => ({
+        ...prevItemOnce,
+        [e.target.name]: e.target.value,
+      }));
     }
-    
   };
-
+  console.log("items", items);
   const handleSubmit = async () => {
     // console.log('fucking handleSubmit')
     // console.log(valueItem)
@@ -123,15 +125,15 @@ const Items = () => {
   };
 
   const handleSubmitEdit = async (e) => {
-    console.log(itemOnce)
+    console.log(itemOnce);
     await updateItem({ ...itemOnce });
     setOpen(false);
     refetchItems();
   };
 
-  const handleClick=async (e)=>{
-    console.log('ohh fuck')
-  }
+  const handleClick = async (e) => {
+    console.log("ohh fuck");
+  };
 
   return (
     <React.Fragment>
@@ -172,7 +174,7 @@ const Items = () => {
             >
               category
             </th>
-            
+
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -203,7 +205,6 @@ const Items = () => {
                       <div className="text-sm font-medium text-gray-900">
                         {item.title}
                       </div>
-                      
                     </div>
                   </div>
                 </td>
@@ -213,7 +214,6 @@ const Items = () => {
                       <div className="text-sm font-medium text-gray-900">
                         {item.short_description}
                       </div>
-                      
                     </div>
                   </div>
                 </td>
@@ -235,9 +235,7 @@ const Items = () => {
                     />
                   </div>
                 </td>
-                
-                
-                
+
                 <td className="px-6 py-4 whitespace-nowrap">
                   {item?.user?.first_name + " " + item?.user?.last_name}
                 </td>
@@ -287,14 +285,13 @@ const Items = () => {
               <div className="w-full">
                 <div className="mb-4">
                   <input
-                  className=" border border-gray-400 rounded-lg w-full p-3"
-                  id="title"
-                  name="title"
-                  type="text"
-                  onChange={handleChange}
-                  placeholder="title"
+                    className=" border border-gray-400 rounded-lg w-full p-3"
+                    id="title"
+                    name="title"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="title"
                   />
-                  
                 </div>
                 <div className="mb-4">
                   <textarea
@@ -307,8 +304,7 @@ const Items = () => {
                   ></textarea>
                 </div>
                 <div className="mb-4">
-                  
-                    <textarea
+                  <textarea
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="description"
                     name="description"
@@ -320,12 +316,12 @@ const Items = () => {
                 <div className="mb-4 flex items-center gap-2 ">
                   <div className=" w-[50%]">
                     <input
-                    className=" border border-gray-400 rounded-lg w-full p-3"
-                    id="r_price"
-                    name="r_price"
-                    type="text"
-                    onChange={handleChange}
-                    placeholder="r_price"
+                      className=" border border-gray-400 rounded-lg w-full p-3"
+                      id="r_price"
+                      name="r_price"
+                      type="text"
+                      onChange={handleChange}
+                      placeholder="r_price"
                     />
                   </div>
                   <div className=" w-[50%]">
@@ -337,61 +333,48 @@ const Items = () => {
                       onChange={handleChange}
                       placeholder="s_price"
                     />
-                    
                   </div>
                 </div>
                 <div className="mb-4">
-                <FormControl fullWidth>
-                  <InputLabel id="">Brand</InputLabel>
-                  <Select
-                    
-                    
-                    id="brand"
-                    name="brand"
-                    value={valueItem.brand}
-                    
-                    
-                    
-                  
-                    onChange={handleChange}
-                  >
-                    {brands &&
-                      
-                      brands.content.map((brand, index) => (
-
-                        <MenuItem key={brand._id} value={brand._id}>
-                          {brand.name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
+                  <FormControl fullWidth>
+                    <InputLabel id="">Brand</InputLabel>
+                    <Select
+                      id="brand"
+                      name="brand"
+                      value={valueItem.brand}
+                      onChange={handleChange}
+                    >
+                      {brands &&
+                        brands.content.map((brand, index) => (
+                          <MenuItem key={brand._id} value={brand._id}>
+                            {brand.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
                 </div>
                 <div className="mb-4">
-                <FormControl fullWidth>
-                  <InputLabel id="">Category</InputLabel>
-                  <Select
-                    
-                    
-                    id="category"
-                    name="category"
-                    value={valueItem.category}
-                    
-                    onChange={handleChange}
-                  >
-                    {isLoading && (
-                      <div className="w-10 h-10 border-4 border-red-500 rounded-full animate-spin"></div>
-                    )}
-                    {categories &&
-                      categories.content.map((category, index) => (
-                        <MenuItem key={category._id} value={category._id}>
-                          {category.name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
+                  <FormControl fullWidth>
+                    <InputLabel id="">Category</InputLabel>
+                    <Select
+                      id="category"
+                      name="category"
+                      value={valueItem.category}
+                      onChange={handleChange}
+                    >
+                      {isLoading && (
+                        <div className="w-10 h-10 border-4 border-red-500 rounded-full animate-spin"></div>
+                      )}
+                      {categories &&
+                        categories.content.map((category, index) => (
+                          <MenuItem key={category._id} value={category._id}>
+                            {category.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
                 </div>
-                <div className="mb-4">
-                </div>
+                <div className="mb-4"></div>
               </div>
             </div>
           </DialogContentText>

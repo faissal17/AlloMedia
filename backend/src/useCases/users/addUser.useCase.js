@@ -21,7 +21,6 @@ module.exports = () => {
       password: await bcrypt.hashPassword(password),
       mobile,
     });
-    console.log("vefore repository", user);
     return usersRepository.add(user);
   };
   return { execute };

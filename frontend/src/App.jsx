@@ -45,13 +45,36 @@ import Orders from "./pages/Orders.jsx";
 import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
+import { setlogin } from "./redux/features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
+import TrackingUser from "./components/Maps/tracking/user.jsx";
+import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
+
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import DeliveryProfile from "./pages/DeliveryProfile.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
   const { isLoading, isAuthenticated } = useAuth();
+  const dispatch = useDispatch();
+  const user = localStorage.getItem("USER");
 
+  // if(!user){
+  // navigate("/inscription")
+  // }
+
+  const objUser = JSON.parse(user);
+
+  if (
+    objUser !== null ||
+    objUser !== undefined ||
+    objUser !== "undefined" ||
+    objUser !== "" ||
+    objUser !== "null"
+  ) {
+    console.log(123);
+    dispatch(setlogin(objUser));
+  }
 
   useEffect(() => {
     setSocket(io("http://localhost:4000"));
@@ -154,6 +177,15 @@ function App() {
               <Route
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
+              />
+              <Route
+                path="/dashboard/trackinguser"
+                element={<TrackingUser />}
+              />
+
+              <Route
+                path="/dashboard/trackinglivreur"
+                element={<TrackingLivreur />}
               />
             </Route>
           </Routes>

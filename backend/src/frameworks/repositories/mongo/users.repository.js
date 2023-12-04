@@ -29,7 +29,6 @@ const repository = () => {
     },
     delete: async (user) => {
       const { id } = user;
-      console.log("repository :", id);
       delete user.id;
       return User.findByIdAndUpdate(
         id,

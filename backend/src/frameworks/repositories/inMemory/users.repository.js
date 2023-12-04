@@ -5,8 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 
 module.exports={
     add:async user=>{  
-        console.log('fucking user')
-        console.log(user)
         if(!user.id){
             user.id=uuidv4()
         }

@@ -1,6 +1,6 @@
 const express = require("express");
 const { itemController } = require("../../../controllers");
-const { Response } = require("../../../frameworks/common");
+const { Response } = require("../../common");
 const auth = require("../middlewares/Auth");
 
 

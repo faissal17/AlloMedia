@@ -1,12 +1,12 @@
 const mongoose=require('mongoose')
 const redis = require('redis');
 const { createClient} =require('redis')
-const entityName="Items"
-const redisClient = redis.createClient({
-    legacyMode: true,
-    PORT: 6379
-  })
-  redisClient.connect().catch(console.error)
+const entityName="Item"
+// const redisClient = redis.createClient({
+//     legacyMode: true,
+//     PORT: 6379
+//   })
+//   redisClient.connect().catch(console.error)
 
 const {
     schemas:{
@@ -132,7 +132,7 @@ const repository=()=>{
             //console.log(items)
             globalItems=items
             //console.log(globalItems)
-            //redisClient.setEx('items', 3600, JSON.stringify(globalItems));
+            // redisClient.setEx('items', 3600, JSON.stringify(globalItems));
             if (!items) {
             throw new Error(`categories does not exist or has been deleted.`);
             }
