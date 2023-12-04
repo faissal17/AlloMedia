@@ -1,139 +1,89 @@
-const {
-    user:{
-        addUserUseCase,
-        getUserByIdUseCase,
-        updateUserUseCase
-    }
-}=require('../../../src/useCases')
+const usersRepository = require("../../../src/frameworks/repositories/mongo");
+
+const { User } = require("../../../src/entities");
 
 const {
-    User,
-    constants:{
-        userConstants:{
-            genders
-        }
-    }
-}=require('../../../src/entities')
-const Chance=require('chance')
-const {v4:uuidv4}=require('uuid')
-const { deleteUserUseCase } = require('../../../src/useCases/users')
+  getUserByEmailUseCase,
+  addUserUseCase,
+} = require("../../../src/useCases/users");
 
-const chance=new Chance()
+jest.mock("../../../src/frameworks/repositories/mongo", () => ({
+  usersRepository: {
+    getByEmail: jest.fn(async (user) => ({
+      email: "rachid@gmail.com",
+      password: "Rachid__@",
+    })),
 
+    add: jest.fn(async (user) => ({
+      first_name: "test",
+      last_name: "test",
+      username: "test",
+      email: "test@gmail.com",
+      password: "Test__@",
+      mobile: "0000000000",
+    })),
+  },
+}));
 
-describe('User useCases',()=>{
-    const mockUserRepo={
-        add:jest.fn(async user =>({
-            ...user,
-            id:uuidv4()
-        })),
-        getById:jest.fn(async id=>({
-            id,
-            name:chance.name(),
-            lastName:chance.last(),
-            gender:genders.NOT_SPECIFIED,
-            meta:{}
-        })),
-        update:jest.fn(async (user)=>user),
-        delete:jest.fn(async (user)=>user)
-    }
-    const dependancies={
-        usersRepository:mockUserRepo
-    }
-    test('add user use case',async ()=>{
-        //create the user data
-        const testUserData={
-            name:chance.name(),
-            lastName:chance.last(),
-            gender:genders.MALE,
-            meta:{
-                hair:{
-                    color:'red'
-                }
-            }
-        }
-        //add a user using useCases
-        const addedUser=await addUserUseCase(dependancies).execute(testUserData)
+jest.mock("bcryptjs", () => ({
+  compare: jest.fn(async (password, hashedPassword) => {
+    return true;
+  }),
 
-        //check the recieved data
-        expect(addedUser).toBeDefined()
-        expect(addedUser.id).toBeDefined()
-        expect(addedUser.name).toBe(testUserData.name)
-        expect(addedUser.lastName).toBe(testUserData.lastName)
-        expect(addedUser.gender).toBe(testUserData.gender)
-        expect(addedUser.meta).toEqual(testUserData.meta)
+  hash: jest.fn(async (password) => {
+    return "Rachid__@";
+  }),
 
-        //check that the dependencies called as expected
-        const call=mockUserRepo.add.mock.calls[0][0]
-        expect(call.id).toBeUndefined()
-        expect(call.name).toBe(testUserData.name)
-        expect(call.lastName).toBe(testUserData.lastName)
-        expect(call.gender).toBe(testUserData.gender)
-        expect(call.meta).toEqual(testUserData.meta)
+  genSalt: jest.fn(async (salt) => {
+    return 10;
+  }),
+}));
 
-        //
-    })
-    test('get user usecase by id',async ()=>{
-        //generate a fake id 
-        const fakeId=uuidv4()
-        //call get user by id 
-        const userById=await getUserByIdUseCase(dependancies).execute({id:fakeId})
-        //check the data
-        expect(userById).toBeDefined()
-        expect(userById.id).toBe(fakeId)
-        expect(userById.name).toBeDefined()
-        expect(userById.lastName).toBeDefined()
-        expect(userById.gender).toBeDefined()
-        expect(userById.meta).toBeDefined()
-        //check the mock
+jest.mock("../../../src/config/jsonWebToken", () => ({
+  sign: jest.fn(async (payload) => {}),
+  verify: jest.fn(async (token) => {}),
+}));
 
-        const expectedID=mockUserRepo.getById.mock.calls[0][0]
-        expect(expectedID).toBe(fakeId)
-    })
-    test('update user use case',async ()=>{
-        //create user fake data
-        const testData={
-            id:uuidv4(),
-            name:chance.name(),
-            lastName:chance.last(),
-            gender:genders.FEMALE,
-            meta:{
-                education:{
-                    school:'full'
-                }
-            }
-        }
-        //call update a user 
-        const updateUser=await updateUserUseCase(dependancies).execute({user:testData})
+describe("User useCases", () => {
+  test("login user with correct password", async () => {
+    const testUser = new User({
+      email: "rachid@gmail.com",
+      password: "Rachid__@",
+    });
 
-        //check the result 
-        expect(updateUser).toEqual(testData)
-        //check the call
-        const expectedUser=mockUserRepo.update.mock.calls[0][0]
-        expect(expectedUser).toEqual(testData)
-    })
-    test('delete user use case',async ()=>{
-        //create user fake data
-        const testData={
-            id:uuidv4(),
-            name:chance.name(),
-            lastName:chance.last(),
-            gender:genders.FEMALE,
-            meta:{
-                education:{
-                    school:'full'
-                }
-            }
-        }
-        //call delete
-        const deletedUser=await deleteUserUseCase(dependancies).execute({
-            user:testData
-        })
-        //check the returned data 
-        expect(deletedUser).toEqual(testData)
-        //check the call
-        const expectedUser=mockUserRepo.delete.mock.calls[0][0]
-        expect(expectedUser).toEqual(testData)
+    const useCaseInstance = getUserByEmailUseCase();
+    const getUser = await useCaseInstance.execute(testUser);
 
-    })
-})
+    const { password, _id, first_name, last_name, role } = getUser;
+
+    expect(getUser).toEqual({
+      getUser: {
+        email: "rachid@gmail.com",
+        password: "Rachid__@",
+      },
+      token: undefined,
+    });
+  });
+  test("register user", async () => {
+    const user = new User({
+      first_name: "test",
+      last_name: "test",
+      username: "test",
+      email: "test@gmail.com",
+      password: "Test__@",
+      mobile: "0000000000",
+    });
+
+    const useCaseInstance = addUserUseCase();
+    const addUser = await useCaseInstance.execute(user);
+
+    expect(addUser).toEqual({
+      first_name: "test",
+      last_name: "test",
+      username: "test",
+      email: "test@gmail.com",
+      password: "Test__@",
+      mobile: "0000000000",
+    });
+  });
+});
