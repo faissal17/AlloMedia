@@ -19,7 +19,7 @@ jobs:
           node-version: "18.12.1"
 
       - name: Install dependencies and run tests
-        run: |
+        run: 
           cd backend
           npm install
           npm test
