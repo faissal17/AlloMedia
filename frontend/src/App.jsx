@@ -45,7 +45,6 @@ import Orders from "./pages/Orders.jsx";
 import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
-
 import { setlogin } from "./redux/features/auth/authSlice.js";
 import { useDispatch } from "react-redux";
 import TrackingUser from "./components/Maps/tracking/user.jsx";
@@ -161,6 +160,14 @@ function App() {
               <Route
                 path={"/dashboard/deliveryPersone"}
                 element={<PersonDelivery />}
+              />
+              <Route
+                path={"/dashboard/deliveryOrders"}
+                element={<DeliveryOrders />}
+              />
+              <Route
+                path={"/dashboard/deliveryProfile"}
+                element={<DeliveryProfile />}
               />
               <Route path={"/dashboard/menus"} element={<Menu />} />
               <Route
