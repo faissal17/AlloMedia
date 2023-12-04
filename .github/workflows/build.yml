@@ -19,6 +19,8 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
+
+        directory_path: backend
         run: npm install
 
         working-directory: backend
