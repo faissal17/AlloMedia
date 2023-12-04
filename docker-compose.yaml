@@ -1,10 +1,10 @@
 services:
-  allomedia-backend:
+  backend:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
       target: development
-    image: allomedia-backend
+    image: backend
     command: npm run dev
     env_file:
       - ./backend/.env
@@ -12,12 +12,12 @@ services:
       - 4000:4000
     depends_on:
       - mongo
-  allomedia-frontend: 
+  frontend: 
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
       target: development
-    image: allomedia-frontend
+    image: frontend
     command: npm run dev
     env_file:
       - ./frontend/.env

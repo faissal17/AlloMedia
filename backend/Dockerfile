@@ -1,4 +1,4 @@
-FROM node:alpine as development
+FROM node:alpine AS development
 
 
 # Create app directory
@@ -10,6 +10,5 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
 
 CMD ["node", "server.js"]
