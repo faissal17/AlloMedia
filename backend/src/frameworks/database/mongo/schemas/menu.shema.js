@@ -3,6 +3,9 @@ const validator = require("validator");
 
 const entityNameRantaurant = "Restaurant";
 const restaurantSchema = require("../schemas/restaurants.schema");
+const entityNameitem = "Items";
+const itemSchema = require("../schemas/items.schema");
+const item = mongoose.model(entityNameitem, itemSchema);
 const Restaurant = mongoose.model(entityNameRantaurant, restaurantSchema);
 
 const menuSchema = new mongoose.Schema({
@@ -40,6 +43,13 @@ const menuSchema = new mongoose.Schema({
     ref: "cuisine",
     default: null,
   },
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: entityNameitem,
+      default: null,
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
