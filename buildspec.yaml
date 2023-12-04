@@ -7,11 +7,11 @@ phases:
   build:
     commands:
       - docker-compose build allomedia-backend
-      - docker tag allomedia-backend 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend
+      - docker tag allomedia-backend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
       
       - docker-compose build allomedia-frontend
-      - docker tag allomedia-frontend 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend
+      - docker tag allomedia-frontend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
   post_build:
     commands:
-      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend
-      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend
+      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
+      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
