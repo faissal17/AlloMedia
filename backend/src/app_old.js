@@ -11,7 +11,7 @@ const { Server } = require("socket.io");
 
 const axios = require("axios");
 const cors = require("cors");
-
+const redis = require("redis");
 
 
 // added Fake API
@@ -28,10 +28,13 @@ const { connect: connectMongo } = require("./frameworks/database/mongo");
 
 
 
+const redisClient = redis.createClient({
+  legacyMode: true,
+  PORT: 6379,
+});
 
 
-
-
+redisClient.connect().catch(console.error);
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -123,7 +126,41 @@ module.exports = {
       });
     });
 
-    
+    //testing fake data
+    //API Call
+    app.get("/user/:email", async (req, res) => {
+      const email = req.params.email;
+
+      try {
+        const response = await axios.get(`${MOCK_API}?email=${email}`);
+        const user = response.data;
+        console.log("User successfully retrieved from the API");
+        res.status(200).send(user);
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    });
+    app.get("/cache/user/:email", async (req, res) => {
+      const email = req.params.email;
+
+      try {
+        redisClient.get(email, async (err, response) => {
+          console.log(response);
+          if (response) {
+            console.log("User successfully retrieved from cache");
+            res.status(200).send(JSON.parse(response));
+          } else {
+            const response = await axios.get(`${MOCK_API}?email=${email}`);
+            const user = response.data;
+            redisClient.setex(email, 600, JSON.stringify(user));
+            console.log("User successfully retrieved from the API");
+            res.status(200).send(user);
+          }
+        });
+      } catch (err) {
+        res.status(500).send({ error: err.message });
+      }
+    });
     // socket.on("disconnect", () => {
     //   console.log("User Disconnected", socket.id);
     // });
