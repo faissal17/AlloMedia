@@ -6,10 +6,10 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 219315770087.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - docker build -t allomedia-backend ./backend/Dockerfile .
+      - docker-compose build backend
       - docker tag allomedia-backend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
       
-      - docker build -t allomedia-frontend ./frontend/Dockerfile .
+      - docker-compose build frontend
       - docker tag allomedia-frontend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
   post_build:
     commands:
