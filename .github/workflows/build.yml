@@ -23,7 +23,7 @@ jobs:
         working-directory: backend
 
       - name: Run tests
-        run: npm run test
+        run: npm test
 
       - name: Change directory back to backend
         run: cd ..
