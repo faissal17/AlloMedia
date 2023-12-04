@@ -9,7 +9,7 @@ module.exports = {
       .connect(process.env.CONNECTION_MONGO, {
         useNewUrlParser: true,
         //useUnifiedTopology:true is meaning that the connection is open and ready to communicate with the database and false is meaning that the connection is not open
-        useUnifiedTopology: true,
+        //useUnifiedTopology: true,
       })
       .then(() => console.log("DB Connected Successfully✅"))
       .catch((err) => {
