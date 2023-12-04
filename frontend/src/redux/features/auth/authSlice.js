@@ -29,6 +29,7 @@ const authSlice = createSlice({
   initialState: AuthState,
   reducers: {
     setlogin: (state, action) => {
+      console.log(action.payload);
       state.address = action.payload?.content?.address;
       state.createdAt = action.payload?.content?.createdAt;
       state.deletedAt = action.payload?.content?.deletedAt;

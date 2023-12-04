@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
+const entityNameMenu = "Menu";
+const menuSchema = require("../schemas/menu.shema");
+const menu = mongoose.model(entityNameMenu, menuSchema);
+
 const itemSchema = new mongoose.Schema(
   {
     // Other tag-related fields
@@ -107,7 +111,7 @@ const itemSchema = new mongoose.Schema(
     },
     menu: {
       type: mongoose.Schema.ObjectId,
-      ref: "Menu",
+      ref: entityNameMenu,
       default: null,
     },
 

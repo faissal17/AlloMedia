@@ -9,6 +9,7 @@ import { logout } from "../redux/features/auth/authSlice";
 
 function Dashboard({ socket }) {
   const auth = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

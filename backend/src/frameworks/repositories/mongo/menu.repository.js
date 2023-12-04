@@ -46,7 +46,7 @@ module.exports = {
     return menu;
   },
   getAll: async () => {
-    const menus = await Menu.find().populate("restaurant");
+    const menus = await Menu.find().populate("items");
     if (!menus) {
       throw new Error(`menus does not exist or has been deleted.`);
     }
