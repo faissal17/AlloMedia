@@ -9,7 +9,32 @@ export const delivery = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    getDelivery: builder.query({
+      query: () => ({
+        url: "deliveryperson",
+        method: "GET",
+      }),
+    }),
+    deleteDelivery: builder.mutation({
+      query: (body) => ({
+        url: "deliveryperson",
+        method: "DELETE",
+        body: body,
+      }),
+    }),
+    updateDelivery: builder.mutation({
+      query: (body) => ({
+        url: "deliveryperson",
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useAddDeliveryMutation } = delivery;
+export const {
+  useAddDeliveryMutation,
+  useGetDeliveryQuery,
+  useDeleteDeliveryMutation,
+  useUpdateDeliveryMutation
+} = delivery;

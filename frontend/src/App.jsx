@@ -50,10 +50,8 @@ import Orders from "./pages/Orders.jsx";
 import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
-import { setlogin } from "./redux/features/auth/authSlice.js";
-import { useDispatch } from "react-redux";
-import TrackingUser from "./components/Maps/tracking/user.jsx";
-import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
+import DeliveryOrders from "./pages/DeliveryOrders.jsx";
+import DeliveryProfile from "./pages/DeliveryProfile.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -157,6 +155,14 @@ function App() {
               <Route
                 path={"/dashboard/deliveryPersone"}
                 element={<PersonDelivery />}
+              />
+              <Route
+                path={"/dashboard/deliveryOrders"}
+                element={<DeliveryOrders />}
+              />
+              <Route
+                path={"/dashboard/deliveryProfile"}
+                element={<DeliveryProfile />}
               />
               <Route path={"/dashboard/menus"} element={<Menu />} />
               <Route

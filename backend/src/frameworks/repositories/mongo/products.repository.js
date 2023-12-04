@@ -20,9 +20,15 @@ const repository=()=>{
     
     return {
         add:async item=>{
+            console.log('I am here')
             const mongoObject = new Item(item);
             let itemss=await mongoObject.save();
-            const itemAll = await Item.find();
+            const itemAll = await Item.find()
+            .populate('user','first_name last_name username email mobile picture role')
+            .populate('brand','name picture')
+            .populate('category','name picture')
+            .populate('menu','name')
+            .populate('tags','name');
             globalItems=itemAll
             // Save to Redis
             redisClient.get('items', (err, cachedItems) => {
@@ -32,9 +38,11 @@ const repository=()=>{
                 }
                 let items = [];
                 if (cachedItems) {
-                    items = JSON.parse(cachedItems);
-                    items.push(itemss);
-                    globalItems=items
+                    // items = JSON.parse(cachedItems);
+                    // items.push(itemss);
+                    // globalItems=items
+                    redisClient.setEx('items', 3600, JSON.stringify(globalItems));
+                    console.log('cache exist')
                     redisClient.setEx('items', 3600, JSON.stringify(globalItems));
                 }else{
                     redisClient.setEx('items', 3600, JSON.stringify(globalItems));
@@ -56,23 +64,27 @@ const repository=()=>{
                 new:true 
             })
             // Update Redis cache
+            const itemAll = await Item.find()
+            .populate('user','first_name last_name username email mobile picture role')
+            .populate('brand','name picture')
+            .populate('category','name picture')
+            .populate('menu','name')
+            .populate('tags','name');
             redisClient.get('items', (err, cachedItems) => {
                 if (err) {
                     console.error('Error getting items from Redis:', err);
                     return;
                 }
-
                 let items = [];
                 if (cachedItems) {
-                    items = JSON.parse(cachedItems);
-                    console.log('from update')
-                    console.log(items)
-                    console.log(id)
-                    const index = items.findIndex(i => i._id === id);
-                    if (index !== -1) {
-                        items[index] = updatedItem;
-                        redisClient.setEx('items', 3600, JSON.stringify(items));
-                    }
+                    // items = JSON.parse(cachedItems);
+                    // items.push(itemss);
+                    // globalItems=items
+                    redisClient.setEx('items', 3600, JSON.stringify(itemAll));
+                    console.log('cache exist')
+                    redisClient.setEx('items', 3600, JSON.stringify(itemAll));
+                }else{
+                    redisClient.setEx('items', 3600, JSON.stringify(itemAll));
                 }
             });
             return updatedItem
@@ -122,7 +134,7 @@ const repository=()=>{
             //console.log(items)
             globalItems=items
             //console.log(globalItems)
-            redisClient.setEx('items', 300, JSON.stringify(globalItems));
+            redisClient.setEx('items', 3600, JSON.stringify(globalItems));
             if (!items) {
             throw new Error(`categories does not exist or has been deleted.`);
             }
