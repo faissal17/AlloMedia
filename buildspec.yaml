@@ -13,5 +13,5 @@ phases:
       - docker tag allomedia-frontend 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend
   post_build:
     commands:
-      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
-      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
+      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend
+      - docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend
