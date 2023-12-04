@@ -1,16 +1,21 @@
-FROM node:alpine as development
-
+# Use an official Node.js runtime as the base image
+FROM node:alpine
 
 # Create app directory
-WORKDIR /app/frontend
+WORKDIR /frontend/src/main
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-RUN npm install
+# Install the application dependencies
+RUN npm install --silent
 
+# Copy the rest of the application files
 COPY . .
 
-RUN cd frontend && npm run dev
+# Expose port 3000 for the application
+EXPOSE 5000
 
+
+# Command to start the application development server
 CMD ["npm", "run", "dev"]
