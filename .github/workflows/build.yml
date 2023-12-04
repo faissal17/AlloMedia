@@ -26,7 +26,7 @@ jobs:
         run: npm test
 
       - name: Change directory back to backend
-        run: cd ..
+        run: cd backend
 
       - name: Deploy images Docker
         run: docker compose up
