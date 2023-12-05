@@ -25,6 +25,5 @@ jobs:
       - name: run tests
         run: cd backend && npm test
 
-      # - name: run decker compose
-      #   run: docker compose up
-      
+      - name: Run Docker Compose for local development
+        run: docker compose up
