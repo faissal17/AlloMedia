@@ -5,6 +5,7 @@ const schemas = require("./schemas");
 require("dotenv").config();
 module.exports = {
   connect: () => {
+    console.log(process.env.CONNECTION_MONGO);
     mongoose
       .connect(process.env.CONNECTION_MONGO, {
         useNewUrlParser: true,
