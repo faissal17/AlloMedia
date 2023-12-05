@@ -46,24 +46,23 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         with:
           aws-region: us-east-1
-          registry: 219315770087.dkr.ecr.us-east-1.amazonaws.com
-
+          registry: 930296019807.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Tag and push backend image to AWS ECR
 
-        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/backend-image-allomedia:latest
+        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-image-allomedia:latest
 
-      - name: Tag and push frontend image to AWS ECR 
+      - name: Tag and push frontend image to AWS ECR
 
-        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/frontend-image-allomedia:latest
+        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-image-allomedia:latest
 
       - name: Push backend image to AWS ECR
 
-        run: docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/backend-image-allomedia:latest
+        run: docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-image-allomedia:latest
 
       - name: Push frontend image to AWS ECR
 
-        run: docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/frontend-image-allomedia:latest
+        run: docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-image-allomedia:latest
 
         env:
           DOCKER_BUILDKIT: 1
