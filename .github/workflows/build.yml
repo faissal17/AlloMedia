@@ -1,4 +1,4 @@
-name: AlloMedia CI
+name: AlloMedia CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -25,5 +25,21 @@ jobs:
       - name: run tests
         run: cd backend && npm test
 
-      - name: run decker compose
-        run: ls && docker compose up
+      # - name: run decker compose
+      #   run: docker compose up
+
+      - name: Login to AWS ECR
+      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 219315770087.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Build and tag Docker images
+        run: |
+          docker-compose build allomedia-frontend
+          docker tag allomedia-frontend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
+
+          docker-compose build allomedia-backend
+          docker tag allomedia-backend:latest 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
+
+      - name: Push Docker images to AWS ECR
+        run: |
+          docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-backend:latest
+          docker push 219315770087.dkr.ecr.us-east-1.amazonaws.com/allomedia-frontend:latest
