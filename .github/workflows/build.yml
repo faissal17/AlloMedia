@@ -54,7 +54,8 @@ jobs:
 
       - name: Tag and push backend image to AWS ECR
         run: |
-          docker build -t backend-allomedia .
+          ls
+          docker build -t backend-allomedia -f /backend.
           docker tag backend-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
           docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
 
