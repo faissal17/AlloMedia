@@ -30,7 +30,7 @@ const { connect: connectMongo } = require("./frameworks/database/mongo");
 
 
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["http://54.234.96.95"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
