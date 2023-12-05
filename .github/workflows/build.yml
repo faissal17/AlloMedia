@@ -42,5 +42,23 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
 
+      - name: Login to AWS ECR
+        uses: aws-actions/amazon-ecr-login@v1
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 219315770087.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Tag and push backend image to AWS ECR
+        uses: docker/build-push-action@v4
+        with:
+          context: backend
+          push: true
+          tags: 219315770087.dkr.ecr.us-east-1.amazonaws.com/backend-image-allomedia:latest
+
+      - name: Tag and push frontend image to AWS ECR
+        uses: docker/build-push-action@v4
+        with:
+          context: frontend
+          push: true
+          tags: 219315770087.dkr.ecr.us-east-1.amazonaws.com/frontend-image-allomedia:latest
+
         env:
           DOCKER_BUILDKIT: 1
