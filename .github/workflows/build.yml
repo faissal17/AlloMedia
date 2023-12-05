@@ -56,15 +56,15 @@ jobs:
         run: |
           cd backend
           docker build -t backend-allomedia .
-          docker tag backend-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
-          docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
+          docker tag backend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/backend-allomedia:latest
+          docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/backend-allomedia:latest
 
       - name: Tag and push frontend image to AWS ECR
         run: |
           cd frontend
           docker build -t frontend-allomedia .
-          docker tag frontend-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-allomedia:latest
-          docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-allomedia:latest
+          docker tag frontend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
+          docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
 
         env:
           DOCKER_BUILDKIT: 1
