@@ -1,19 +1,19 @@
 module.exports.User = class User {
   constructor({
     id,
-    first_name=null,
-    last_name=null,
-    username=null,
-    email=null,
-    password=null, 
-    mobile=null,
+    first_name = null,
+    last_name = null,
+    username = null,
+    email = null,
+    _password = null,
+    mobile = null,
   }) {
     this.id = id;
-    this.username=username
+    this.username = username;
     this.first_name = first_name;
-    this.last_name= last_name;
+    this.last_name = last_name;
     this.email = email;
-    this.password = password;
+    this._password = _password;
     this.mobile = mobile;
   }
 };

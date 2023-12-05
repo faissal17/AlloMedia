@@ -9,7 +9,6 @@ module.exports = () => {
   }
 
   const execute = async ({ email, _password }) => {
-    console.log(email, password);
     const user = new User({
       email,
       _password,
