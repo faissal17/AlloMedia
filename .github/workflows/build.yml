@@ -42,6 +42,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
 
+      - name: Configure AWS credentials
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set default.region us-east-1  # Replace with your desired AWS region
+        aws configure set default.output json
+
       - name: Login to AWS ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
