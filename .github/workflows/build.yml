@@ -29,13 +29,18 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Tag and push backend image
-        run: |
-          docker tag backend-image-allomedia ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
+        user: docker/build-push-action@v4
+        with:
+          context: backend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
 
       - name: Tag and push frontend image
-        run: |
-          docker tag frontend-image-allomedia ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
+        user: docker/build-push-action@v4
+        with:
+          context: frontend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
+
         env:
           DOCKER_BUILDKIT: 1
