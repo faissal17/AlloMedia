@@ -23,4 +23,4 @@ jobs:
         working-directory: backend
 
       - name: run tests
-        run: npm test
+        run: cd backend && npm test
