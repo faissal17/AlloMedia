@@ -25,5 +25,12 @@ jobs:
       - name: run tests
         run: cd backend && npm test
 
-      - name: Run Docker Compose for local development
-        run: docker compose up
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t rachiddaoudi/allomediav2:latest .
+          docker push rachiddaoudi/allomediav2:latest
+        env:
+          DOCKER_BUILDKIT: 1
