@@ -50,7 +50,6 @@ jobs:
           aws configure set default.output json
 
       - name: Login to AWS ECR
-        uses: aws-actions/amazon-ecr-login@v1
         run: aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 930296019807.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Tag and push backend image to AWS ECR
