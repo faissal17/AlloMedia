@@ -30,12 +30,12 @@ jobs:
 
       - name: Tag and push backend image
         run: |
-          docker tag backend-image ${{ secrets.DOCKERHUB_USERNAME }}/backend-image:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend-image:latest
+          docker tag backend-image-allomedia ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
 
       - name: Tag and push frontend image
         run: |
-          docker tag frontend-image ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image:latest
+          docker tag frontend-image-allomedia ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
         env:
           DOCKER_BUILDKIT: 1
