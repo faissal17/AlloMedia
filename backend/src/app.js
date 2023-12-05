@@ -70,7 +70,7 @@ module.exports = {
     const server = http.createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: "http://localhost:5173",
+        origin: "http://54.234.96.95",
         methods: ["GET", "POST"],
       },
     });
