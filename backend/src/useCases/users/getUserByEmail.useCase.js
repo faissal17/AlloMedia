@@ -18,7 +18,10 @@ module.exports = () => {
 
     const { password, _id, first_name, last_name, role } = getUser;
 
+    console.log("user", getUser);
+
     const isPasswordCorrect = await bcrypt.comparePassword(_password, password);
+    console.log(isPasswordCorrect);
     if (isPasswordCorrect) {
       const token = await jsonWebToken.sign({
         _id,
