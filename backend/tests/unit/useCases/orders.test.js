@@ -4,14 +4,21 @@ const chance = new Chance();
 const { v4: uuidv4 } = require("uuid");
 
 const {
-  order: { addOrderUseCase, getAllOrderUseCase, deleteOrderUseCase },
+  order: { addOrderUseCase, getOrderByIdUseCase },
 } = require("../../../src/useCases");
 
-jest.mock(".././../../src/frameworks/repositories");
+const mockOrderRepo = require("../../../src/frameworks/repositories/mongo");
 
+
+jest.mock("../../../src/frameworks/repositories/mongo", () => ({
+  orderRepository: {
+    add: jest.fn(),
+    getById: jest.fn(),
+  },
+}));
 describe("Order use cases", () => {
-  const mockOrderRepo = {
-    addOrder: jest.fn(async (order) => ({
+  const mockOrderRepos = {
+    add: jest.fn(async (order) => ({
       subTotal: chance.subTotal(),
       discount: chance.discount(),
       tax: chance.tax(),
@@ -29,7 +36,7 @@ describe("Order use cases", () => {
       },
       id: uuidv4(),
     })),
-    getAll: jest.fn(async (order) => ({
+    getById: jest.fn(async (order) => ({
       subTotal: chance.subTotal(),
       discount: chance.discount(),
       tax: chance.tax(),
@@ -48,7 +55,7 @@ describe("Order use cases", () => {
     })),
   };
 
-  const dependencies = { ordersRepository: mockOrderRepo };
+  const dependencies = { orderRepository: mockOrderRepos };
 
   describe("order use case", () => {
     test("new order should be added", async () => {
@@ -72,9 +79,9 @@ describe("Order use cases", () => {
         },
       };
 
-      mockOrderRepo.addOrder.mockResolvedValue(mockOrderData);
+      mockOrderRepo.orderRepository.add.mockResolvedValue(mockOrderData);
 
-      const useCaseInstance = addOrderUseCase(dependencies);
+      const useCaseInstance = addOrderUseCase();
       const saveOrder = await useCaseInstance.execute(mockOrderData);
 
       expect(saveOrder.id).toBeDefined();
@@ -93,7 +100,7 @@ describe("Order use cases", () => {
       expect(saveOrder.status).toEqual({
         comment: "DONE",
       });
-    }, 20000);
+    });
 
     // test get All orders from database
 
@@ -118,9 +125,9 @@ describe("Order use cases", () => {
         },
       };
 
-      mockOrderRepo.addOrder.mockResolvedValue(mockOrderData);
+      mockOrderRepo.orderRepository.getById.mockResolvedValue(mockOrderData);
 
-      const useCaseInstance = getAllOrderUseCase(dependencies);
+      const useCaseInstance = getOrderByIdUseCase(dependencies);
       const getOrder = await useCaseInstance.execute(mockOrderData);
 
       expect(getOrder.id).toBeDefined();
@@ -139,7 +146,7 @@ describe("Order use cases", () => {
       expect(getOrder.status).toEqual({
         comment: "DONE",
       });
-    }, 20000);
+    });
 
     // test the Delete function
 
