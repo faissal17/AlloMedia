@@ -26,4 +26,4 @@ jobs:
         run: cd backend && npm test
 
       - name: run decker compose
-        run: cd .. && ls && docker compose up
+        run: ls && docker compose up
