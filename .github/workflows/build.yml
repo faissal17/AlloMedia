@@ -54,22 +54,16 @@ jobs:
         with:
           aws-region: us-east-1
           registry: 930296019807.dkr.ecr.eu-north-1.amazonaws.com
+          
+      - name: Build and push Docker images to AWS ECR
+        run: |
+          docker build -t backend-allomedia .
+          docker tag backend-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
+          docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-allomedia:latest
 
-      - name: Tag and push backend image to AWS ECR
-
-        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-image-allomedia:latest
-
-      - name: Tag and push frontend image to AWS ECR
-
-        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-image-allomedia:latest
-
-      - name: Push backend image to AWS ECR
-
-        run: docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/backend-image-allomedia:latest
-
-      - name: Push frontend image to AWS ECR
-
-        run: docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-image-allomedia:latest
+          docker build -t frontend-allomedia .
+          docker tag frontend-allomedia:latest 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-allomedia:latest
+          docker push 930296019807.dkr.ecr.eu-north-1.amazonaws.com/frontend-allomedia:latest
 
         env:
           DOCKER_BUILDKIT: 1
