@@ -9,6 +9,7 @@ module.exports = () => {
   }
 
   const execute = async ({ email, _password }) => {
+    console.log(email, password);
     const user = new User({
       email,
       _password,
@@ -18,10 +19,7 @@ module.exports = () => {
 
     const { password, _id, first_name, last_name, role } = getUser;
 
-    console.log("user", getUser);
-
     const isPasswordCorrect = await bcrypt.comparePassword(_password, password);
-    console.log(isPasswordCorrect);
     if (isPasswordCorrect) {
       const token = await jsonWebToken.sign({
         _id,
