@@ -19,9 +19,7 @@ jobs:
           node-version: "18.12.1"
 
       - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+        run: npm install
         working-directory: backend
 
       - name: run tests
