@@ -24,3 +24,6 @@ jobs:
 
       - name: run tests
         run: cd backend && npm test
+
+      - name: build image docker
+        run: cd .. && docker compose up
