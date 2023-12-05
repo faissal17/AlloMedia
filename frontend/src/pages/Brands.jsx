@@ -31,6 +31,7 @@ const Brands = () => {
     refetch,
   } = useGetBrandQuery();
 
+
   const [addBrand, { data, error, isLoading }] = useAddBrandMutation();
   const [deleteBrand, { data: dataDelete }] = useDeleteBrandMutation();
   const [updateBrand, { data: dataUpdate }] = useUpdateBrandMutation();
@@ -206,7 +207,7 @@ const Brands = () => {
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="name"
+                    htmlFor="name"
                   >
                     Name
                   </label>
