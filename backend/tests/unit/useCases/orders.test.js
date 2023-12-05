@@ -4,7 +4,7 @@ const chance = new Chance();
 const { v4: uuidv4 } = require("uuid");
 
 const {
-  order: { addOrderUseCase,getAllOrderUseCase },
+  order: { addOrderUseCase, getAllOrderUseCase },
 } = require("../../../src/useCases");
 
 jest.mock(".././../../src/frameworks/repositories");
@@ -29,6 +29,23 @@ describe("Order use cases", () => {
       },
       id: uuidv4(),
     })),
+    getAll: jest.fn(async (order) => ({
+      subTotal: chance.subTotal(),
+      discount: chance.discount(),
+      tax: chance.tax(),
+      total: chance.total(),
+      firstName: chance.firstName(),
+      lastName: chance.lastName(),
+      email: chance.email(),
+      phone: chance.phone(),
+      lineOne: chance.lineOne(),
+      lineTwo: chance.lineTwo(),
+      city: chance.city(),
+      zipCode: chance.zipCode(),
+      status: {
+        comment: "DONE",
+      },
+    })),
   };
 
   const dependencies = { ordersRepository: mockOrderRepo };
@@ -38,7 +55,7 @@ describe("Order use cases", () => {
       const fakeId = uuidv4();
       const mockOrderData = {
         id: fakeId,
-        subTotal: chance.integer({ min: 50, max: 200 }), // Adjust min and max values as needed
+        subTotal: chance.integer({ min: 50, max: 200 }),
         discount: chance.integer(),
         tax: chance.integer(),
         total: chance.integer(),
@@ -78,4 +95,50 @@ describe("Order use cases", () => {
       });
     }, 20000);
   });
+
+  // test get All orders from database
+
+  test("get all orders", async () => {
+    const fakeId = uuidv4();
+    const mockOrderData = {
+      id: fakeId,
+      subTotal: chance.integer({ min: 50, max: 200 }),
+      discount: chance.integer(),
+      tax: chance.integer(),
+      total: chance.integer(),
+      firstName: chance.first(),
+      lastName: chance.last(),
+      email: chance.email(),
+      phone: chance.phone(),
+      lineOne: chance.address(),
+      lineTwo: chance.address(),
+      city: chance.city(),
+      zipCode: chance.zip(),
+      status: {
+        comment: "DONE",
+      },
+    };
+
+    mockOrderRepo.addOrder.mockResolvedValue(mockOrderData);
+
+    const useCaseInstance = getAllOrderUseCase(dependencies);
+    const getOrder = await useCaseInstance.execute(mockOrderData);
+
+    expect(getOrder.id).toBeDefined();
+    expect(getOrder.subTotal).toEqual(mockOrderData.subTotal);
+    expect(getOrder.discount).toEqual(mockOrderData.discount);
+    expect(getOrder.tax).toEqual(mockOrderData.tax);
+    expect(getOrder.total).toEqual(mockOrderData.total);
+    expect(getOrder.firstName).toEqual(mockOrderData.firstName);
+    expect(getOrder.lastName).toEqual(mockOrderData.lastName);
+    expect(getOrder.email).toEqual(mockOrderData.email);
+    expect(getOrder.phone).toEqual(mockOrderData.phone);
+    expect(getOrder.lineOne).toEqual(mockOrderData.lineOne);
+    expect(getOrder.lineTwo).toEqual(mockOrderData.lineTwo);
+    expect(getOrder.city).toEqual(mockOrderData.city);
+    expect(getOrder.zipCode).toEqual(mockOrderData.zipCode);
+    expect(getOrder.status).toEqual({
+      comment: "DONE",
+    });
+  }, 20000);
 });
