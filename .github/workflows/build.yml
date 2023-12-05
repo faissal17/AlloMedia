@@ -20,10 +20,8 @@ jobs:
 
       - name: Install dependencies and run tests
         run: |
-        cd backend
-        npm install
-        npm test
-
-      - name: Deploy images Docker
-
-        run: docker compose up
+          cd backend
+          npm install
+          npm test
+          
+          docker compose up
