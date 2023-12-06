@@ -28,7 +28,7 @@ const restaurantSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: [true, "description  of product name is required"],
+    // required: [true, "description of product name is required"],
     lowercase: true,
     validator: (value) => {
       return validator.isAlpha(value.replace(/\s/g, ""));

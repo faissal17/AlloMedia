@@ -9,7 +9,6 @@ const {
 
 const mockOrderRepo = require("../../../src/frameworks/repositories/mongo");
 
-
 jest.mock("../../../src/frameworks/repositories/mongo", () => ({
   orderRepository: {
     add: jest.fn(),
@@ -36,7 +35,8 @@ describe("Order use cases", () => {
       },
       id: uuidv4(),
     })),
-    getById: jest.fn(async (order) => ({
+    getById: jest.fn(async (id) => ({
+      id,
       subTotal: chance.subTotal(),
       discount: chance.discount(),
       tax: chance.tax(),
@@ -80,7 +80,6 @@ describe("Order use cases", () => {
       };
 
       mockOrderRepo.orderRepository.add.mockResolvedValue(mockOrderData);
-
       const useCaseInstance = addOrderUseCase();
       const saveOrder = await useCaseInstance.execute(mockOrderData);
 
@@ -126,7 +125,6 @@ describe("Order use cases", () => {
       };
 
       mockOrderRepo.orderRepository.getById.mockResolvedValue(mockOrderData);
-
       const useCaseInstance = getOrderByIdUseCase(dependencies);
       const getOrder = await useCaseInstance.execute(mockOrderData);
 
