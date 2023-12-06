@@ -135,6 +135,17 @@ function Dashboard({ socket }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [notification, setNotification] = useState(0);
+  const [dataNotif,setDataNotif]=useState([{
+    name:'',
+    job:'',
+    date:''
+  }])
+  
+  const [open,setOpen]=useState(false)
+
+  const handleClickNotfi=()=>{
+      setOpen(!open)
+  }
 
   const icons = {
     "Brand Name": "home-outline",
@@ -166,8 +177,24 @@ function Dashboard({ socket }) {
     const handleNotification = (data) => {
       d = data;
       console.log("Received notification:", d);
+      
       // Now you can do something with the notification, e.g., update state
       setNotification((prevNotification) => prevNotification + 1);
+      console.log('tttt')
+      console.log(data.data.data.for)
+
+      setDataNotif((prev)=>[
+        ...prev,
+        {
+          name:data.data.data.name,
+          job:data.data.data.for,
+          date:data.data.data.date
+        }
+      ])
+
+      console.log('data of socket')
+      console.log(dataNotif)
+      
     };
 
     // Subscribe to the socket event
@@ -182,7 +209,7 @@ function Dashboard({ socket }) {
       socket.off("getNotification", handleNotification);
       socket.off("getNotificationJob", handleNotification)
     };
-  }, [socket, setNotification]);
+  }, [socket, setNotification,dataNotif]);
 
   const handleLogout = async () => {
     await dispatch(logout());
@@ -266,8 +293,8 @@ function Dashboard({ socket }) {
             </label>
           </div>
 
-          <div className=" flex  gap-3 items-center pr-4">
-            <div className=" relative w-9 h-9">
+          <div className=" flex  gap-3 items-center pr-4 relative">
+            <div className=" relative w-9 h-9" onClick={handleClickNotfi}>
               <span
                 className="
                                     absolute right-1 z-20 top-0 w-[16px] h-[16px] bg-red-500 rounded-full text-[10px] 
@@ -278,7 +305,19 @@ function Dashboard({ socket }) {
               <span>
                 <IoIosNotifications className=" w-9 h-9 text-gray-400" />
               </span>
-              <div></div>
+              {
+                open && (
+                  <div className=" absolute  right-0 top-9 flex flex-col bg-white shadow-lg w-[200px] min-h-[80px]">
+                     {dataNotif.map((notification, index) => (
+                        <div key={index} className="notification-item">
+                          <p>Name: {notification.name}</p>
+                          <p>Job: {notification.job}</p>
+                          <p>Date: {notification.date}</p>
+                        </div>
+                      ))}
+                  </div>
+                )
+              }
             </div>
             <span className="w-8 h-8">
               <FaSun className="  w-7 h-7 text-gray-400" />

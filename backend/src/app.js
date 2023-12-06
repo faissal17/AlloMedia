@@ -30,7 +30,7 @@ const { connect: connectMongo } = require("./frameworks/database/mongo");
 
 
 
-const allowedOrigins = ["http://54.234.96.95"];
+const allowedOrigins = ["http://localhost"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -70,7 +70,7 @@ module.exports = {
     const server = http.createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: "http://54.234.96.95",
+        origin: "http://localhost",
         methods: ["GET", "POST"],
       },
     });

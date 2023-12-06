@@ -77,7 +77,7 @@ function App() {
   }
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
+    setSocket(io("http://localhost:3000"));
   }, []);
   if (isLoading) {
     return (
