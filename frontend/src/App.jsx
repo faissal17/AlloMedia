@@ -52,6 +52,7 @@ import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
 
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import DeliveryProfile from "./pages/DeliveryProfile.jsx";
+import EditRestaurant from "./pages/restaurantCrud/editRestaurant.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -177,6 +178,10 @@ function App() {
               <Route
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
+              />
+              <Route
+                path="/dashboard/editRestaurant/:id"
+                element={<EditRestaurant />}
               />
               <Route
                 path="/dashboard/trackinguser"

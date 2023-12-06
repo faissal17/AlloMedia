@@ -115,7 +115,14 @@ const Restaurant = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">lkjgldkf</div>
+                  <div className="text-sm text-gray-900">{
+                    (
+                      restaurant?.description.length > 30
+                        ? restaurant?.description.substring(0, 30) + "..."
+                        : restaurant?.description
+                    )
+
+                  }</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
