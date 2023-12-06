@@ -20,9 +20,10 @@ import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
 
 import { useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditRestaurant = () => {
+  const navigate = useNavigate();
   const mapState = useSelector((state) => state.map);
   const { id } = useParams();
 
@@ -77,12 +78,12 @@ const EditRestaurant = () => {
       lng: mapState.location.lng,
     };
     formData.id = id;
-    console.log(formData);
     await updateRestaurant(formData);
   };
 
   useEffect(() => {
     if (isSuccess) {
+      navigate("/dashboard/restaurant");
     }
   }, [isSuccess]);
   return (
