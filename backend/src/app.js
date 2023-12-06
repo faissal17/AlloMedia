@@ -12,8 +12,6 @@ const { Server } = require("socket.io");
 const axios = require("axios");
 const cors = require("cors");
 
-
-
 // added Fake API
 const MOCK_API = "https://jsonplaceholder.typicode.com/users/";
 
@@ -24,13 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const { connect: connectMongo } = require("./frameworks/database/mongo");
 
 
-
-
-
-
-
-
-const allowedOrigins = ["http://localhost"];
+const allowedOrigins = ["http://54.234.96.95", "http://localhost:5173"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -70,7 +62,7 @@ module.exports = {
     const server = http.createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: "http://localhost",
+        origin: "http://localhost:5173",
         methods: ["GET", "POST"],
       },
     });

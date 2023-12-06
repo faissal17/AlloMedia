@@ -19,11 +19,52 @@ jobs:
           node-version: "18.12.1"
 
       - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+        run: npm install
+        working-directory: backend
 
       - name: run tests
-        run: npm test
+        run: cd backend && npm test
 
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+      - name: Tag and push backend image
+        uses: docker/build-push-action@v4
+        with:
+          context: backend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend-image-allomedia:latest
+
+      - name: Tag and push frontend image
+        uses: docker/build-push-action@v4
+        with:
+          context: frontend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-image-allomedia:latest
+
+      - name: Configure AWS credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-1  # Replace with your desired AWS region
+          aws configure set default.output json
+
+      - name: Login to AWS ECR
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 930296019807.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Tag and push backend image to AWS ECR
+        run: |
+          cd backend
+          docker build -t backend-allomedia .
+          docker tag backend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/backend-allomedia:latest
+          docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/backend-allomedia:latest
+
+      - name: Tag and push frontend image to AWS ECR
+        run: |
+          cd frontend
+          docker build -t frontend-allomedia .
+          docker tag frontend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
+          docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
+
+        env:
+          DOCKER_BUILDKIT: 1
