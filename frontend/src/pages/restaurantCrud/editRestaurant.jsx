@@ -9,20 +9,26 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useCreateRestaurantMutation } from "../../redux/service/restaurant/restaurantApi.js";
+import {
+  useCreateRestaurantMutation,
+  useUpdateRestaurantMutation,
+} from "../../redux/service/restaurant/restaurantApi.js";
 import { useGetCategoryQuery } from "../../redux/service/categories/categoryApi.js";
 import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
 
 import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
 
 import { useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
-import { useNavigate } from "react-router-dom";
 
-const AddRestaurant = () => {
+import { useNavigate, useParams } from "react-router-dom";
+
+const EditRestaurant = () => {
   const navigate = useNavigate();
   const mapState = useSelector((state) => state.map);
-  const [createRestaurant, { isLoading, isError, isSuccess }] =
-    useCreateRestaurantMutation();
+  const { id } = useParams();
+
+  const [updateRestaurant, { isLoading, isError, isSuccess }] =
+    useUpdateRestaurantMutation();
 
   const {
     data: categories,
@@ -71,7 +77,8 @@ const AddRestaurant = () => {
       lat: mapState.location.lat,
       lng: mapState.location.lng,
     };
-    await createRestaurant(formData);
+    formData.id = id;
+    await updateRestaurant(formData);
   };
 
   useEffect(() => {
@@ -87,7 +94,7 @@ const AddRestaurant = () => {
           className="max-w-xl m-4 p-10 bg-white rounded shadow-2xl flex-1"
         >
           <p className="text-blue-800 font-bold flex items-center justify-center">
-            Add New Restaurant
+            Edit Restaurant
           </p>
           <div className="mt-3">
             <div className="pr-2">
@@ -121,6 +128,22 @@ const AddRestaurant = () => {
                 onChange={handleInputChange}
               />
             </div>
+          </div>
+
+          <div className="mt-3">
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="status"
+                onChange={handleInputChange}
+              >
+                <MenuItem value="1">Active</MenuItem>
+                <MenuItem value="0">Inactive</MenuItem>
+              </Select>
+            </FormControl>
           </div>
           <div className="flex mt-3">
             <div className="pr-2">
@@ -230,7 +253,7 @@ const AddRestaurant = () => {
             type="submit"
             className="w-full px-6 py-2 text-white font-semibold tracking-wider bg-gray-900 rounded mt-5"
           >
-            Add Restaurant
+            Edit Restaurant
           </button>
         </form>
 
@@ -241,4 +264,4 @@ const AddRestaurant = () => {
     </React.Fragment>
   );
 };
-export default AddRestaurant;
+export default EditRestaurant;

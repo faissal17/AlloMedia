@@ -52,6 +52,7 @@ import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
 
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import DeliveryProfile from "./pages/DeliveryProfile.jsx";
+import EditRestaurant from "./pages/restaurantCrud/editRestaurant.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -77,7 +78,7 @@ function App() {
   }
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
+    setSocket(io("http://localhost:3000"));
   }, []);
   if (isLoading) {
     return (
@@ -177,6 +178,10 @@ function App() {
               <Route
                 path="/dashboard/addRestaurant"
                 element={<AddRestaurant />}
+              />
+              <Route
+                path="/dashboard/editRestaurant/:id"
+                element={<EditRestaurant />}
               />
               <Route
                 path="/dashboard/trackinguser"

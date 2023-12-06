@@ -8,9 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addOrderInCart } from "../../redux/features/shopping/ShoppingCartSlice";
 
-const socket = io.connect("http://localhost:4000");
-
-
+const socket = io.connect("http://localhost:3000");
 
 const Item = ({ className, data }) => {
   const dispatch = useDispatch();
@@ -28,7 +26,7 @@ const Item = ({ className, data }) => {
       data: "cart item",
     });
   };
-  
+
   return (
     <div
       className={` rounded-md overflow-hidden bg-red-500 relative shadow-md ${className} `}
