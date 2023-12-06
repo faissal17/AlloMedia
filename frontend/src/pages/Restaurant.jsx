@@ -55,7 +55,9 @@ const Restaurant = () => {
     await setPosition([lat, lng]);
   };
 
-  console.log(restaurants);
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <React.Fragment>
@@ -115,14 +117,11 @@ const Restaurant = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{
-                    (
-                      restaurant?.description.length > 30
-                        ? restaurant?.description.substring(0, 30) + "..."
-                        : restaurant?.description
-                    )
-
-                  }</div>
+                  <div className="text-sm text-gray-900">
+                    {restaurant?.description.length > 30
+                      ? restaurant?.description.substring(0, 30) + "..."
+                      : restaurant?.description}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
@@ -132,28 +131,22 @@ const Restaurant = () => {
                         : "bg-red-100 text-red-800"
                     }`}
                   >
-                    {
-                      restaurant?.status === 1
-                        ? "Active"
-                        : "Inactive"
-                    }
+                    {restaurant?.status === 1 ? "Active" : "Inactive"}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{
-                    restaurant?.brands.map((brand)=>(
-
+                  <div className="text-sm text-gray-900">
+                    {restaurant?.brands.map((brand) => (
                       <div>{brand?.name}</div>
-                    ))
-                  }</div>
+                    ))}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{
-                    restaurant?.categories.map((category)=>(
-
+                  <div className="text-sm text-gray-900">
+                    {restaurant?.categories.map((category) => (
                       <div>{category?.name}</div>
-                    ))
-                  }</div>
+                    ))}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Link to={`/dashboard/editRestaurant/${restaurant._id}`}>
@@ -166,8 +159,10 @@ const Restaurant = () => {
                     onClick={handleDelete}
                     className="text-red-600 hover:text-red-900"
                   >
-                    <RiDeleteBinLine id={restaurant._id}
-                    onClick={handleDelete} />
+                    <RiDeleteBinLine
+                      id={restaurant._id}
+                      onClick={handleDelete}
+                    />
                   </button>
                 </td>
               </tr>

@@ -29,8 +29,8 @@ export default function Restaurantposition() {
     const distance = calculateDistance(
       position[0],
       position[1],
-      restaurant.localisation.lat,
-      restaurant.localisation.lng
+      restaurant?.localisation?.lat,
+      restaurant?.localisation?.lng
     );
     return distance <= yourRadiusInMeters / 1000;
   });
@@ -78,8 +78,8 @@ export default function Restaurantposition() {
               <Marker
                 key={index}
                 position={[
-                  restaurant.localisation.lat,
-                  restaurant.localisation.lng,
+                  restaurant?.localisation?.lat,
+                  restaurant?.localisation?.lng,
                 ]}
               >
                 <Popup
@@ -157,11 +157,12 @@ export default function Restaurantposition() {
         <ul className="flex flex-col gap-2">
           {restaurantsInCircle.map((restaurant, index) => (
             <li key={index} className="border-b border-gray-300 py-2 px-3">
-              <h3 className="text-lg font-semibold text-gray-800">
-                <Link to={`/restaurant/${restaurant.slug}`}>
+              <Link to={`/restaurant/${restaurant.slug}`}>
+                <h3 className="text-lg font-semibold text-gray-800">
                   {restaurant.name}
-                </Link>
-              </h3>
+                </h3>
+              </Link>
+
               <p>
                 Distance:{" "}
                 {calculateDistance(

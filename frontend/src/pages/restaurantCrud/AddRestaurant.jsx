@@ -13,14 +13,13 @@ import { useCreateRestaurantMutation } from "../../redux/service/restaurant/rest
 import { useGetCategoryQuery } from "../../redux/service/categories/categoryApi.js";
 import { useGetAllTagsQuery } from "../../redux/service/tags/tagApi.js";
 
-
 import { useGetAllMenuQuery } from "../../redux/service/menu/menuApi.js";
 
-import {  useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
-
-
+import { useGetBrandQuery } from "../../redux/service/brands/brandApi.js";
+import { useNavigate } from "react-router-dom";
 
 const AddRestaurant = () => {
+  const navigate = useNavigate();
   const mapState = useSelector((state) => state.map);
   const [createRestaurant, { isLoading, isError, isSuccess }] =
     useCreateRestaurantMutation();
@@ -77,6 +76,7 @@ const AddRestaurant = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      navigate("/dashboard/restaurant");
     }
   }, [isSuccess]);
   return (
