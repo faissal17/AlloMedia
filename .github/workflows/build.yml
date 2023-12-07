@@ -1,4 +1,4 @@
-name: AlloMedia CI
+name: AlloMedia CI/CD
 
 on:
   push:
@@ -66,5 +66,5 @@ jobs:
           docker tag frontend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
           docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
 
-        env:
-          DOCKER_BUILDKIT: 1
+      - name: Create ECS Cluster
+        run: aws ecs create-cluster --cluster-name clusterbackend

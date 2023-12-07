@@ -21,7 +21,6 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 const { connect: connectMongo } = require("./frameworks/database/mongo");
 
-
 const allowedOrigins = ["http://54.234.96.95", "http://localhost:5173"];
 const corsOptions = {
   origin: function (origin, callback) {
