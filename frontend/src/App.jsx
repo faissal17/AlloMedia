@@ -3,7 +3,12 @@ import VerifyEmail from "./pages/VerifyEmail";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ForgotPassword from "./pages/ForgotPassword";
 import Delivery from "./pages/Delivery";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import NotFound from "./pages/NotFound";
@@ -46,13 +51,14 @@ import CuisinDashboard from "./pages/cuisines/index.jsx";
 
 import AddRestaurant from "./pages/restaurantCrud/AddRestaurant.jsx";
 import { setlogin } from "./redux/features/auth/authSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TrackingUser from "./components/Maps/tracking/user.jsx";
 import TrackingLivreur from "./components/Maps/tracking/livreur.jsx";
 
 import DeliveryOrders from "./pages/DeliveryOrders.jsx";
 import DeliveryProfile from "./pages/DeliveryProfile.jsx";
 import EditRestaurant from "./pages/restaurantCrud/editRestaurant.jsx";
+import Overview from "./components/Home/Overview.jsx";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -60,9 +66,6 @@ function App() {
   const dispatch = useDispatch();
   const user = localStorage.getItem("USER");
 
-  // if(!user){
-  // navigate("/inscription")
-  // }
 
   const objUser = JSON.parse(user);
 
@@ -73,7 +76,6 @@ function App() {
     objUser !== "" ||
     objUser !== "null"
   ) {
-    console.log(123);
     dispatch(setlogin(objUser));
   }
 

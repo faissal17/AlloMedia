@@ -1,6 +1,9 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import LeafletRoutingMachine from "./leaflet-routing-machine";
 const TrackingUser = () => {
+  const livreurCoordinates = [57.74, 11.94];
+  const userCoordinates = [57.6792, 11.949];
   return (
     <div>
       <div>
@@ -12,15 +15,14 @@ const TrackingUser = () => {
           className="rounded-md shadow-lg"
         >
           <MapContainer
-            center={[51.505, -0.09]}
+            center={[32.244162, -8.531602]}
             zoom={13}
             scrollWheelZoom={false}
             style={{ height: "70vh", width: "100%" }}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></TileLayer>
-            <Marker position={[51.505, -0.09]}>
-              <Popup>Command</Popup>
-            </Marker>
+         
+            <LeafletRoutingMachine />
           </MapContainer>
         </div>
       </div>

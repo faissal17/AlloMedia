@@ -1,5 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import LeafletRoutingMachine from "./leaflet-routing-machine";
+
 const TrackingLivreur = () => {
   return (
     <div>
@@ -18,11 +20,7 @@ const TrackingLivreur = () => {
             style={{ height: "70vh", width: "100%" }}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></TileLayer>
-            <Marker position={[51.505, -0.09]}>
-              <Popup>
-                Livreur
-              </Popup>
-            </Marker>
+            <LeafletRoutingMachine />
           </MapContainer>
         </div>
       </div>
