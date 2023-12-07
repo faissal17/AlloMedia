@@ -10,9 +10,13 @@ p {
   background-size: cover;
 }
 
-
-@media (min-width: 1280px){
+@media (min-width: 1280px) {
   ._container {
     max-width: 1495px;
+  }
 }
+
+.leaflet-routing-container,
+.leaflet-routing-error {
+  display: none;
 }
