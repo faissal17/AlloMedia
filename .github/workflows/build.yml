@@ -66,14 +66,68 @@ jobs:
           docker tag frontend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
           docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
 
-      - name: Install AWS CLI and ecs-cli
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
-          sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
-          sudo chmod +x /usr/local/bin/ecs-cli
+      - name: Create ECS Cluster
+        run: aws ecs create-cluster --cluster-name default-ecs-cluster
   
-      - name: Deploy to AWS ECS - Backend
+      - name: Register ECS Task Definition
         run: |
-          ecs-cli configure --cluster allomedia-cluster --region us-east-1 --default-launch-type EC2 --config-name allomedia-config
-          ecs-cli compose --project-name allomedia-service service up --create-log-groups --cluster-config allomedia-config --ecs-profile allomedia-profile
+          echo '{
+            "family": "taskallomedia",
+            "containerDefinitions": [
+              {
+                "name": "imagebackend",
+                "image": "930296019807.dkr.ecr.us-east-1.amazonaws.com/backend-allomedia",
+                "cpu": 0,
+                "portMappings": [
+                  {
+                    "name": "imagebackend-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                  },
+                  {
+                    "name": "imagebackend-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                  }
+                ],
+                "essential": true,
+                "environment": [],
+                "environmentFiles": [],
+                "mountPoints": [],
+                "volumesFrom": [],
+                "ulimits": [],
+                "logConfiguration": {
+                  "logDriver": "awslogs",
+                  "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/taskallomedia",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                  },
+                  "secretOptions": []
+                }
+              }
+            ],
+            "executionRoleArn": "arn:aws:iam::930296019807:role/ecsTaskExecutionRole",
+            "networkMode": "awsvpc",
+            "cpu": "1024",
+            "memory": "3072",
+            "requiresCompatibilities": ["EC2"],
+            "compatibilities": ["EC2", "FARGATE"]
+          }' > ecs-task-definition.json
+
+          aws ecs register-task-definition \
+            --cli-input-json "$(cat ecs-task-definition.json)"
+
+      - name: Create ECS Service
+        run: |
+          aws ecs create-service \
+            --cluster default-ecs-cluster \
+            --service-name default-ecs-service \
+            --task-definition taskallomedia \
+            --desired-count 1 \
+            --launch-type EC2
