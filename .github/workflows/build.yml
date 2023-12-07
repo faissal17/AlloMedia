@@ -66,5 +66,16 @@ jobs:
           docker tag frontend-allomedia:latest 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
           docker push 930296019807.dkr.ecr.us-east-1.amazonaws.com/frontend-allomedia:latest
 
-        env:
-          DOCKER_BUILDKIT: 1
+      - name: Deploy to AWS ECS
+        run: |
+          cd backend
+          ecs-cli configure --cluster allomedia-cluster --region us-east-1 --default-launch-type EC2 --config-name allomedia-config
+          ecs-cli compose --project-name allomedia-service service up --create-log-groups --cluster-config allomedia-config --ecs-profile allomedia-profile
+
+      - name: Deploy to AWS ECS
+        run: |
+          cd frontend
+          ecs-cli configure --cluster allomedia-cluster --region us-east-1 --default-launch-type EC2 --config-name allomedia-config
+          ecs-cli compose --project-name allomedia-service service up --create-log-groups --cluster-config allomedia-config --ecs-profile allomedia-profile
+          
+          
