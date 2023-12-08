@@ -1,0 +1,46 @@
+{
+  "name": "clean-architect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "jest"
+  },
+  "author": "mugiwara",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.454.0",
+    "@aws-sdk/s3-request-presigner": "^3.454.0",
+    "axios": "^1.6.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.4",
+    "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.0.0",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.0.1",
+    "redis": "^4.6.11",
+    "slugify": "^1.6.6",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.1",
+    "validator": "^13.11.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "chance": "^1.1.11",
+    "jest": "^29.7.0"
+  }
+}

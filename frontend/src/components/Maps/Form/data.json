@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "name": "Cafe Maroc",
+    "address": "123 Kasbah Street",
+    "description": "Mexican burritos are usually made with a wheat tortilla and contain grilled meat, cheese toppings, and fresh vegetables which are sources of vitamins, proteins, fibers, minerals, and antioxidants. This makes burritos a balanced meal that can be enjoyed in moderation as part of a healthy meal plan.",
+    "image": "https://img.freepik.com/photos-gratuite/burger-explosif-legumes-fromage-fondu-fond-noir-generative-ai_157027-1734.jpg?w=1060&t=st=1700214760~exp=1700215360~hmac=e1c21b20dd0b948b2333165e04741f00b9a897c355556e22902270f4b0ad81bd",
+    "city": "Casablanca",
+    "latitude": 33.5731,
+    "longitude": -7.5898,
+    "cuisine": "Cafe",
+    "rating": 4.2,
+    "reviews": [
+      {
+        "id": 1,
+        "restaurant_id": 1,
+        "reviewer": "John Smith",
+        "date": "2016-01-01",
+        "rating": 4,
+        "comments": "Great food, great service, great atmosphere!"
+      },
+      {
+        "id": 2,
+        "restaurant_id": 1,
+        "reviewer": "Jane Doe",
+        "date": "2016-01-02",
+        "rating": 5,
+        "comments": "I love this place!"
+      },
+      {
+        "id": 3,
+        "restaurant_id": 1,
+        "reviewer": "John Doe",
+        "date": "2016-01-03",
+        "rating": 3,
+        "comments": "It was OK."
+      }
+    ],
+    "menu": [
+      {
+        "id": 1,
+        "restaurant_id": 1,
+        "name": "Couscous",
+        "description": "Steamed couscous with vegetables and meat",
+        "price": 10.99
+      },
+      {
+        "id": 2,
+        "restaurant_id": 1,
+        "name": "Tagine",
+        "description": "Slow-cooked stew with meat and vegetables",
+        "price": 12.99
+      },
+      {
+        "id": 3,
+        "restaurant_id": 1,
+        "name": "Bastilla",
+        "description": "Sweet and savory pie with chicken and almonds",
+        "price": 8.99
+      },
+      {
+        "id": 4,
+        "restaurant_id": 1,
+        "name": "Harira",
+        "description": "Traditional soup with tomatoes, lentils, and chickpeas",
+        "price": 5.99
+      },
+      {
+        "id": 5,
+        "restaurant_id": 1,
+        "name": "Mint Tea",
+        "description": "Traditional Moroccan mint tea",
+        "price": 2.99
+      }
+    ]
+  }
+]

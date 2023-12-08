@@ -1,0 +1,22 @@
+p {
+  color: rgb(252, 173, 173);
+}
+
+.banner,
+.header-banner {
+  background-image: url("../src/assets/bannerbackground.0f3b87c0.png");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+}
+
+@media (min-width: 1280px) {
+  ._container {
+    max-width: 1495px;
+  }
+}
+
+.leaflet-routing-container,
+.leaflet-routing-error {
+  display: none;
+}
