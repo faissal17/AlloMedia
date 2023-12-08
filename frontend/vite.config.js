@@ -15,7 +15,8 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  build: {
-    outDir: "../backend/public",
-  },
+  server: {
+    port: 5173,
+    host: "0.0.0.0"
+  }
 });
